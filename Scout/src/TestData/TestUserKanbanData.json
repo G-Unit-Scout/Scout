@@ -1,0 +1,78 @@
+[
+    {
+      "job_id": 1001,
+      "job_title": "Software Developer",
+      "description": "Responsible for developing and maintaining web applications.",
+      "company": "Tech Solutions Inc.",
+      "location": "New York, NY",
+      "salary_range": "$80,000 - $100,000",
+      "is_admin": true,
+      "post_url": "https://www.techsolutions.com/careers/1001",
+      "job_type": "Full-time",
+      "interview_status": null,
+      "column_id": 1,
+      "row_num": 2,
+      "note_content": "Interview scheduled for next week."
+    },
+    {
+      "job_id": 1002,
+      "job_title": "UX/UI Designer",
+      "description": "Designing user interfaces and user experiences for mobile and web applications.",
+      "company": "Creative Design Studio",
+      "location": "San Francisco, CA",
+      "salary_range": "$70,000 - $90,000",
+      "is_admin": false,
+      "post_url": "https://www.creativedesign.com/jobs/1002",
+      "job_type": "Remote",
+      "interview_status": null,
+      "column_id": 2,
+      "row_num": 1,
+      "note_content": null
+    },
+    {
+      "job_id": 1003,
+      "job_title": "Data Analyst",
+      "description": "Analyzing data sets to identify trends and insights.",
+      "company": "DataCorp",
+      "location": "Chicago, IL",
+      "salary_range": "$65,000 - $85,000",
+      "is_admin": true,
+      "post_url": "https://www.datacorp.com/careers/1003",
+      "job_type": "Part-time",
+      "interview_status": "2nd Interview",
+      "column_id": 3,
+      "row_num": 4,
+      "note_content": "Need to update my resume before applying."
+    },
+    {
+      "job_id": 1004,
+      "job_title": "Project Manager",
+      "description": "Managing software development projects from inception to deployment.",
+      "company": "Project Solutions Ltd.",
+      "location": "Austin, TX",
+      "salary_range": "$90,000 - $110,000",
+      "is_admin": false,
+      "post_url": "https://www.projectsolutions.com/jobs/1004",
+      "job_type": "Full-time",
+      "interview_status": "null",
+      "column_id": 4,
+      "row_num": 3,
+      "note_content": "Contacted the HR for more details."
+    },
+    {
+      "job_id": 1005,
+      "job_title": "Network Engineer",
+      "description": "Responsible for maintaining and troubleshooting network infrastructure.",
+      "company": "Networks Inc.",
+      "location": "Seattle, WA",
+      "salary_range": "$75,000 - $95,000",
+      "is_admin": true,
+      "post_url": "https://www.networksinc.com/careers/1005",
+      "job_type": "Hybrid",
+      "interview_status": "1st Interview",
+      "column_id": 3,
+      "row_num": 2,
+      "note_content": "Heard back from the recruiter. Preparing for technical interview."
+    }
+  ]
+  
