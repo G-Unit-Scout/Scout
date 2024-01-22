@@ -13,10 +13,17 @@ const StudentKanbanBoard = () => {
     return titles[columnId - 1];
   };
 
+  const openEditModal = (jobId) => {
+    setEditJobDetails({ ...jobDetails[jobId] });
+    document.getElementById(`${jobId}`).showModal();
+  };
+  
   // State for the columns and jobs
   const [columns, setColumns] = useState({});
   // State for job item details
   const [jobDetails, setJobDetails] = useState({});
+  const [editJobDetails, setEditJobDetails] = useState({});
+
 
   
   // Initialize jobDetails state from JSON data
@@ -29,15 +36,24 @@ const StudentKanbanBoard = () => {
   }, []);
 
   // Handle changes in job details
-  const handleJobDetailChange = (jobId, key, value) => {
+  // const handleJobDetailChange = (jobId, key, value) => {
+  //   setJobDetails(prev => ({
+  //     ...prev,
+  //     [jobId]: {
+  //       ...prev[jobId],
+  //       [key]: value
+  //     }
+  //   }));
+  // };
+
+  const handleUpdateJobDetails = (jobId) => {
     setJobDetails(prev => ({
       ...prev,
-      [jobId]: {
-        ...prev[jobId],
-        [key]: value
-      }
+      [jobId]: { ...editJobDetails }
     }));
+    document.getElementById(`${jobId}`).close(); // Close modal
   };
+  
 
   // Initialize columns from the JSON data
   useEffect(() => {
@@ -106,7 +122,8 @@ const StudentKanbanBoard = () => {
                                 {jobDetails[item.job_id]?.interview_status !== null && jobDetails[item.job_id]?.interview_status !== "null" && jobDetails[item.job_id]?.interview_status !== "" && (
                                   <p className="badge badge-outline">{jobDetails[item.job_id]?.interview_status || ''}</p>
                                 )}
-                                <button className='btn btn-outline btn-accent btn-sm' onClick={()=>document.getElementById(`${item.job_id}`).showModal()}>Edit</button>
+                                {/* <button className='btn btn-outline btn-accent btn-sm' onClick={()=>document.getElementById(`${item.job_id}`).showModal()}>Edit</button> */}
+                                <button className='btn btn-outline btn-accent btn-sm' onClick={()=>openEditModal(item.job_id)}>Edit</button>
                             </div>
 
                             {/* ===================== Edit Modal Job Details Form ===================== */}
@@ -116,72 +133,74 @@ const StudentKanbanBoard = () => {
                                 <h3 className="font-bold text-lg">Job Title:</h3>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.job_title || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'job_title', e.target.value)} 
+                                  value={editJobDetails.job_title || ''} 
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, job_title: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Company:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.company || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'company', e.target.value)} 
+                                  value={editJobDetails.company || ''} 
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, company: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Job Type:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.job_type || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'job_type', e.target.value)} 
+                                  value={editJobDetails.job_type || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, job_type: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Location:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.location || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'location', e.target.value)} 
+                                  value={editJobDetails.location || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, location: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Salary Range:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.salary_range || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'salary_range', e.target.value)} 
+                                  value={editJobDetails.salary_range || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, salary_range: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Job URL:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.post_url || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'post_url', e.target.value)} 
+                                  value={editJobDetails.post_url || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, post_url: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Interview Status:</p>
                                 <input 
                                   type="text" 
-                                  value={jobDetails[item.job_id]?.interview_status || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'interview_status', e.target.value)} 
+                                  value={editJobDetails.interview_status || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, interview_status: e.target.value }))} 
                                   className="input input-bordered w-full" 
                                 />
 
                                 <p className="">Description:</p>
                                 <textarea 
                                   className="textarea textarea-bordered w-full" 
-                                  value={jobDetails[item.job_id]?.description || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'description', e.target.value)}
+                                  value={editJobDetails.description || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, description: e.target.value }))}
                                 ></textarea>
 
                                 <p className="">Notes</p>
                                 <textarea 
                                   className="textarea textarea-bordered w-full" 
-                                  value={jobDetails[item.job_id]?.note_content || ''} 
-                                  onChange={e => handleJobDetailChange(item.job_id, 'note_content', e.target.value)}
+                                  value={editJobDetails.note_content || ''}  
+                                  onChange={e => setEditJobDetails(prev => ({ ...prev, note_content: e.target.value }))}
                                 ></textarea>
+
+                                <button className='btn btn-outline btn-accent btn-sm' onClick={() => handleUpdateJobDetails(item.job_id)}>Update</button>
 
                               </div>
                               <form method="dialog" className="modal-backdrop">
