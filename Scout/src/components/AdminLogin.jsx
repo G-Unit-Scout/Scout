@@ -18,7 +18,7 @@ return (
                 <span className='text-white'>Email</span>
                 <input
                 id='email'
-                className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px]'
+                className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                 type='text'
                 placeholder='Enter email'
                 />
@@ -28,7 +28,7 @@ return (
                     <span className='text-white'>Password</span>
                     <input
                     id='password'
-                    className='placeholder-gray-500 border border-gray-300 p-2 rounded-xl mt-[3px]'
+                    className='placeholder-gray-500 border border-gray-300 p-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                      type='text'
                     placeholder='Enter password'
                     />
