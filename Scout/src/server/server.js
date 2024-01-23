@@ -2,16 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg';
+
 dotenv.config();
 const app = express();
 const { Pool } = pg;
 app.use(cors());
 
-
 // Set up the Express app and PostgreSQL connection
 const pool = new Pool({
   // Your database connection details
-  connectionString:
+  connectionString: process.env.DATABASE_URL
 });
 
 app.get('/api/test', async (req,res) => {
@@ -21,6 +21,18 @@ app.get('/api/test', async (req,res) => {
   } catch(err) {
     console.error('Error ',err)
     res.status(400).send('Bad Request')
+  }
+})
+
+// test route for users/auth
+app.get('/api/test2', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM users;');
+    console.log(result);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error', error);
+    res.status(400).send('Bad Request');
   }
 })
 
