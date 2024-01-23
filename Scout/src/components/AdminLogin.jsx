@@ -2,7 +2,38 @@ import { useState } from "react"
 
 const AdminLogin = () => {
 
-const [login, setlogin] = useState(false)
+const [login, setLogin] = useState(false);
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+
+const handleLoginSubmit = async (email, password) => {
+    const loginUrl = "http://localhost:3000/login";
+    const body = {
+        email: email,
+        password: password,
+    };
+
+    try {
+        const res = await axios.post(loginUrl, body);
+        console.log(res.data);
+        setUser_id(res.data.id);
+        setLogin(true);
+        setEmail(email);
+    } catch (err) {
+        console.error("Error logging in", err);
+    }
+};
+
+const handleLogin = (e) => {
+    e.preventDefault();
+    
+    //pass the username and password to the handleLoginSubmit function prop
+    handleLoginSubmit(email, password);
+}
+
+
+
+
 
 return (
     <>
@@ -18,6 +49,8 @@ return (
                 <span className='text-white'>Email</span>
                 <input
                 id='email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                 type='text'
                 placeholder='Enter email'
@@ -28,13 +61,15 @@ return (
                     <span className='text-white'>Password</span>
                     <input
                     id='password'
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                     className='placeholder-gray-500 border border-gray-300 p-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                      type='text'
                     placeholder='Enter password'
                     />
                 </div>  
                 <div className='mt-3'>
-                <button className='h-[50px] w-[500px] bg-[rgba(239,110,71,255)] rounded-xl'>
+                <button onClick={handleLogin} className='h-[50px] w-[500px] bg-[rgba(239,110,71,255)] rounded-xl'>
                     <span className='text-white '>Sign In</span>
                 </button>
                 </div>
