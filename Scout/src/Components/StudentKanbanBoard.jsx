@@ -30,6 +30,7 @@ const StudentKanbanBoard = () => {
     setOpenModalId(jobId);
   };
 
+
   const closeModal = () => {
     console.log("close modal")
     setOpenModalId(null);
@@ -51,8 +52,6 @@ const StudentKanbanBoard = () => {
   };
 
 
-
-
   useEffect(() => {
     // This effect runs whenever jobDetails changes
     const updatedColumns = {};
@@ -63,10 +62,6 @@ const StudentKanbanBoard = () => {
   
     setColumns(updatedColumns);
   }, [jobDetails]);
-  
-  
-  
-  
 
 
   const handleJobDetailsChange = (updatedDetails) => {
@@ -76,7 +71,6 @@ const StudentKanbanBoard = () => {
       setEditJobDetails(updatedDetails);
     }
   };
-  
 
   
   // Initialize jobDetails state from JSON data
@@ -128,6 +122,11 @@ const StudentKanbanBoard = () => {
   };
 
 
+
+
+
+
+
   return (
     <div className='flex justify-center mt-40'>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -143,6 +142,13 @@ const StudentKanbanBoard = () => {
         onClose={closeModal}
       />
     </div>
+
+  );
+}
+
+export default StudentKanbanBoard;
+
+
     // <div className='flex justify-center mt-40'>
     //   <DragDropContext onDragEnd={onDragEnd}>
     //     {Object.entries(columns).map(([columnId, column], index) => (
@@ -292,7 +298,3 @@ const StudentKanbanBoard = () => {
     //     ))}
     //   </DragDropContext>
     // </div>
-  );
-}
-
-export default StudentKanbanBoard;
