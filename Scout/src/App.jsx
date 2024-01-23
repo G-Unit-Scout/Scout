@@ -9,7 +9,7 @@ function App() {
   return (
     <>
      <button className='btn btn-primary'>It Worked!</button>
-     <AdminLogin/>
+     {/* <AdminLogin/> */}
     </>
   )
 }
