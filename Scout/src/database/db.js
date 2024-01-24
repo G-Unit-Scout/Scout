@@ -7,7 +7,7 @@ dotenv.config();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    port: process.env.PORT
+    port: process.env.PORT,
 });
 
 

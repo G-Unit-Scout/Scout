@@ -6,6 +6,7 @@ import cors from 'cors';
 //import routes
 import userRoutes from './routes/userRoutes.js';
 
+//server instance
 const app = express();
 
 //middleware
@@ -18,6 +19,7 @@ app.use('/api', userRoutes);
 //test connection in postman
 app.get('/', async (req, res) => {
   try {
+    console.log(req.body);
     const result = await pool.query('SELECT * FROM users;');
     res.status(200).json(result.rows);
   } catch (error) {
@@ -25,6 +27,7 @@ app.get('/', async (req, res) => {
     res.status(400).send('Bad Request');
   }
 });
+
 
 //server error handling
 app.use((err, req, res, next) => {

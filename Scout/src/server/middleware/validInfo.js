@@ -1,5 +1,8 @@
 
+// this middleware is working
+
 export default function ValidInfo(req, res, next) {
+    console.log('madeitToValidInfo');
     const { email, password_hash } = req.body;
 
     function validEmail(userEmail) {

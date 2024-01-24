@@ -4,10 +4,10 @@ import jwtGenerator from "../utils/jwtGenerator.js";
 
 const userControllers = {
 
-    registerUser: async (err, req, res, next) => {
-        
+    registerUser: async (req, res, next) => {
+        console.log(`made it to registerController`);
 		const { user_name, email, password_hash, role, cohort_id } = req.body;
-
+        
 		try {
 			const user = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
@@ -17,11 +17,15 @@ const userControllers = {
 
 			const saltRounds = 10;
 			const salt = await bcrypt.genSalt(saltRounds);
-			const bcryptPassword = await bcrypt.hash(password_hash, salt);
+            const bcryptPassword = await bcrypt.hash(password_hash, salt);
+            
+            const newPassword = {
+                "hash": bcryptPassword
+            }
 
 			const newUser = await db.query(
 				"INSERT INTO users (user_name, email, password_hash, role, cohort_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-                [user_name, email, bcryptPassword, role, cohort_id]
+                [user_name, email, newPassword, role, cohort_id]
             );
 
             const token = jwtGenerator(newUser.rows[0].user_id);
@@ -29,12 +33,12 @@ const userControllers = {
             res.json(token);
             
 		} catch (err) {
-			console.err("Error", err);
+			console.error("Error", err);
 			next(err);
 		}
     },
     
-    loginUser: async (err, req, res, next){
+    loginUser: async (req, res, next) => {
         
         const { email, password_hash } = req.body;
 
