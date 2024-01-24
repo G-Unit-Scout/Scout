@@ -12,7 +12,7 @@ app.use(cors());
 // Set up the Express app and PostgreSQL connection
 const pool = new Pool({
   // Your database connection details
-  connectionString: process.env.DATABASE_URL process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
 });
 
 // test route for users/auth
