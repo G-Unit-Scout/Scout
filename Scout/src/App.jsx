@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
+import StudentKanbanBoard from './Components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
@@ -11,8 +12,9 @@ function App() {
   return (
     <>
     <NavBar />
-     <button className='btn btn-primary'>It Worked!</button>
+     {/* <button className='btn btn-primary'>It Worked!</button> */}
      {/* <AdminLogin/> */}
+    <StudentKanbanBoard />
     <Footer />
     </>
   )
