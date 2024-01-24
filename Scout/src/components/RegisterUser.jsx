@@ -28,6 +28,10 @@ const handleRoleChange = (e) => {
         handleStudentRole()
     }
 }
+
+const handleCreateAccount = () => {
+
+}
     return (
         <>
         <div className='flex flex-col justify-center items-center h-screen w-absolute bg-white'>
@@ -93,7 +97,7 @@ const handleRoleChange = (e) => {
                 </div>
                 </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
-                    <select onChange={handleRoleChange} value={adminRole ? 'Admin' : studentRole ? 'Student' : ''} className="select select-bordered w-full max-w-xs">
+                    <select onChange={handleRoleChange} value={adminRole ? 'Admin' : studentRole ? 'Student' : ''} className="select select-bordered w-full">
                     <option disabled value=''>Select Role</option>
                     <option>Admin</option>
                     <option>Student</option>
