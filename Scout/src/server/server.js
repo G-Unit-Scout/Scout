@@ -12,8 +12,18 @@ app.use(cors());
 // Set up the Express app and PostgreSQL connection
 const pool = new Pool({
   // Your database connection details
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL
 });
+
+app.get('/api/test', async (req,res) => {
+  try {
+    const result = await pool.query(`SELECT * FROM partner_jobs;`)
+    res.status(200).json(result.rows)
+  } catch(err) {
+    console.error('Error ',err)
+    res.status(400).send('Bad Request')
+  }
+})
 
 // test route for users/auth
 app.get('/api/test2', async (req, res) => {
