@@ -1,11 +1,17 @@
+CREATE TABLE IF NOT EXISTS "cohorts" (
+    "cohort_id" SERIAL PRIMARY KEY,
+    "cohort_name" VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS "users" (
     "user_id" SERIAL PRIMARY KEY,
     "email" VARCHAR(255) NOT NULL,
     "user_name" VARCHAR(255) NOT NULL,
     "password_hash" JSON NOT NULL,
     "role" BIGINT NOT NULL,
-    "cohort_id" VARCHAR(255) NULL,
-    "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    "cohort_id" BIGINT NULL,
+    "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY ("cohort_id") REFERENCES "cohorts"("cohort_id")
 );
 
 CREATE TABLE IF NOT EXISTS "partner_jobs" (
@@ -25,6 +31,7 @@ CREATE TABLE IF NOT EXISTS "partner_jobs" (
 CREATE TABLE IF NOT EXISTS "job_status" (
     "status_id" SERIAL PRIMARY KEY,
     "user_id" BIGINT NOT NULL,
+    "cohort_id" BIGINT NOT NULL,
     "job_id" BIGINT NOT NULL,
     "column_id" BIGINT NOT NULL,
     "row_num" BIGINT NOT NULL,
@@ -32,7 +39,8 @@ CREATE TABLE IF NOT EXISTS "job_status" (
     "interview_status" VARCHAR(50) NULL,
     "tags" JSON NULL,
     FOREIGN KEY ("user_id") REFERENCES "users"("user_id"),
-    FOREIGN KEY ("job_id") REFERENCES "partner_jobs"("job_id")
+    FOREIGN KEY ("job_id") REFERENCES "partner_jobs"("job_id"),
+    FOREIGN KEY ("cohort_id") REFERENCES "cohorts"("cohort_id")
 );
 
 CREATE TABLE IF NOT EXISTS "user_notes" (

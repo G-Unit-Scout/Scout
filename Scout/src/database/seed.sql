@@ -1,3 +1,14 @@
+-- Cohort Seed data
+INSERT INTO cohorts (
+  "cohort_name"
+)
+VALUES (
+  'MCSPA-2310'
+),
+(
+  'MSCPB-2310'
+);
+
 -- User seed data
 
 INSERT INTO users (
@@ -9,9 +20,9 @@ INSERT INTO users (
   )
   VALUES
 -- Example 1
-('admin1@example.com', 'JeffAdmin', '{"hash": "password123"}', 1, 'cohortA'),
+('admin1@example.com', 'JeffAdmin', '{"hash": "password123"}', 1, 1),
 -- Example 2
-('user1@example.com', 'CarlStudent', '{"hash": "pass456"}', 0, 'cohortB');
+('user1@example.com', 'CarlStudent', '{"hash": "pass456"}', 0, 2);
 
 -- partner_jobs data
 
@@ -62,6 +73,7 @@ INSERT INTO partner_jobs (
 
 INSERT INTO job_status (
     "user_id",
+    "cohort_id",
     "job_id",
     "column_id",
     "row_num",
@@ -71,33 +83,33 @@ INSERT INTO job_status (
   )
 VALUES
 -- Example 1
-(6, 21, 1, 1, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
+(6, 2, 21, 1, 1, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
 
 -- Example 2
- (6, 22, 2, 2, NULL, 'Offer Extended', '{"negotiation": "in-progress"}'),
+ (6, 2, 22, 2, 2, NULL, 'Offer Extended', '{"negotiation": "in-progress"}'),
 
 -- Example 3
- (6, 23, 3, 3, NULL, 'Application Received', NULL),
+ (6, 2, 23, 3, 3, NULL, 'Application Received', NULL),
 
 -- Example 4
- (6, 24, 4, 4, NULL, 'Interview Completed', '{"feedback": "positive"}'),
+ (6, 2, 24, 4, 4, NULL, 'Interview Completed', '{"feedback": "positive"}'),
 
 -- Example 5
- (6, 25, 5, 5, NULL, 'Application Submitted', NULL),
+ (6, 2, 25, 5, 5, NULL, 'Application Submitted', NULL),
 
 -- Example 6
- (6, 26, 6, 6, NULL, 'Offer Declined', '{"reason": "salary not competitive"}'),
+ (6, 2, 26, 6, 6, NULL, 'Offer Declined', '{"reason": "salary not competitive"}'),
 
 -- Example 7
- (6, 27, 7, 7, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
+ (6, 2, 27, 7, 7, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
 
 -- Example 8
- (6, 28, 8, 8, NULL, 'Offer Accepted', '{"start_date": "2024-02-01"}'),
+ (6, 2, 28, 8, 8, NULL, 'Offer Accepted', '{"start_date": "2024-02-01"}'),
 
 -- Example 9
- (6, 29, 9, 9, NULL, 'Application Received', NULL),
+ (6, 2, 29, 9, 9, NULL, 'Application Received', NULL),
 
 -- Example 10
-(6, 30, 10, 10, NULL, 'Interview Completed', '{"feedback": "neutral"}');
+(6, 2, 30, 10, 10, NULL, 'Interview Completed', '{"feedback": "neutral"}');
 
 -- user_notes seed data
