@@ -15,6 +15,22 @@ const StudentKanbanBoard = () => {
   const [jobDetails, setJobDetails] = useState({});
   const [editJobDetails, setEditJobDetails] = useState({});
   const [openModalId, setOpenModalId] = useState(null);
+  const [newJobDetails, setNewJobDetails] = useState({
+      job_id: null,
+      job_title: "",
+      description: "",
+      company: "",
+      location: "",
+      salary_range: "",
+      is_admin: false,
+      post_url: "",
+      job_type: "",
+      interview_status: null,
+      column_id: 1,
+      row_num: 1,
+      note_content: ""
+    });
+  
 
 
 
@@ -25,10 +41,29 @@ const StudentKanbanBoard = () => {
   };
 
 
-  const openEditModal = (jobId) => {
-    setEditJobDetails({ ...jobDetails[jobId] });
+  const openEditModal = (jobId, columnId = 1) => {
+    if (jobId === 'new') {
+      setNewJobDetails({
+        job_id: null,
+        job_title: "",
+        description: "",
+        company: "",
+        location: "",
+        salary_range: "",
+        is_admin: false,
+        post_url: "",
+        job_type: "",
+        interview_status: null,
+        column_id: columnId,
+        row_num: 1,
+        note_content: ""
+      });
+    } else {
+      setEditJobDetails({ ...jobDetails[jobId] });
+    }
     setOpenModalId(jobId);
   };
+  
 
 
   const closeModal = () => {
@@ -39,8 +74,18 @@ const StudentKanbanBoard = () => {
 
   const handleUpdateJobDetails = (jobId) => {
     if (jobId === 'new') {
-      // Logic for adding a new job
-      // ...
+      const newJobId = `job_${new Date().getTime()}`;
+      
+      setJobDetails(prev => ({
+        ...prev,
+        [newJobId]: { ...newJobDetails, job_id: newJobId }
+      }));
+  
+      const newJobColumn = getColumnTitle(1); // Assuming new jobs go to the first column
+      setColumns(prev => ({
+        ...prev,
+        [newJobColumn]: [...(prev[newJobColumn] || []), { ...newJobDetails, job_id: newJobId }]
+      }));
     } else {
       // Updating an existing job
       setJobDetails(prev => ({
@@ -50,6 +95,30 @@ const StudentKanbanBoard = () => {
     }
     closeModal();
   };
+
+
+
+  const handleDeleteJob = (jobId) => {
+    if (jobId && jobId !== 'new') {
+      // Remove from jobDetails
+      setJobDetails(prev => {
+        const newJobDetails = { ...prev };
+        delete newJobDetails[jobId];
+        return newJobDetails;
+      });
+  
+      // Remove from columns
+      setColumns(prev => {
+        const newColumns = { ...prev };
+        Object.keys(newColumns).forEach(columnId => {
+          newColumns[columnId] = newColumns[columnId].filter(job => job.job_id !== jobId);
+        });
+        return newColumns;
+      });
+    }
+    closeModal();
+  };
+  
 
 
   useEffect(() => {
@@ -72,6 +141,8 @@ const StudentKanbanBoard = () => {
     }
   };
 
+
+  
   
   // Initialize jobDetails state from JSON data
   useEffect(() => {
@@ -135,11 +206,12 @@ const StudentKanbanBoard = () => {
         ))}
       </DragDropContext>
       <JobModal 
-        isOpen={Boolean(openModalId)} 
+        isOpen={openModalId} 
         jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails} 
         onChange={handleJobDetailsChange} 
         onSave={() => handleUpdateJobDetails(openModalId)}
         onClose={closeModal}
+        onDelete={handleDeleteJob}
       />
     </div>
 

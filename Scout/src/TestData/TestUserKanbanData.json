@@ -10,6 +10,13 @@
       "post_url": "https://www.techsolutions.com/careers/1001",
       "job_type": "Full-time",
       "interview_status": null,
+      "competencies": [
+                        "JavaScript",
+                        "React",
+                        "Node.js",
+                        "SQL",
+                        "Agile Methodologies"
+                      ],
       "column_id": 1,
       "row_num": 2,
       "note_content": "Interview scheduled for next week."
@@ -25,6 +32,13 @@
       "post_url": "https://www.creativedesign.com/jobs/1002",
       "job_type": "Part-time",
       "interview_status": null,
+      "competencies": [
+        " JavaScript",
+        " React",
+        " Node.js",
+        " SQL",
+        " Agile Methodologies"
+      ],
       "column_id": 2,
       "row_num": 1,
       "note_content": null
@@ -40,6 +54,13 @@
       "post_url": "https://www.datacorp.com/careers/1003",
       "job_type": "Part-time",
       "interview_status": "2nd Interview",
+      "competencies": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "SQL",
+        "Agile Methodologies"
+      ],
       "column_id": 3,
       "row_num": 4,
       "note_content": "Need to update my resume before applying."
@@ -55,6 +76,13 @@
       "post_url": "https://www.projectsolutions.com/jobs/1004",
       "job_type": "Full-time",
       "interview_status": "null",
+      "competencies": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "SQL",
+        "Agile Methodologies"
+      ],
       "column_id": 4,
       "row_num": 3,
       "note_content": "Contacted the HR for more details."
@@ -70,9 +98,15 @@
       "post_url": "https://www.networksinc.com/careers/1005",
       "job_type": "Full-time",
       "interview_status": "1st Interview",
+      "competencies": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "SQL",
+        "Agile Methodologies"
+      ],
       "column_id": 3,
       "row_num": 2,
       "note_content": "Heard back from the recruiter. Preparing for technical interview."
     }
   ]
-  
