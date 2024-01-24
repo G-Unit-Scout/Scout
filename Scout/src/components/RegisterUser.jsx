@@ -3,8 +3,7 @@ import { useState } from "react"
 
 const RegisterUser = () => {
 
-// const [adminCheck, setAdminCheck] = useState(false);
-// const [studentCheck, setStudentCheck] = useState(false);
+
 const [adminRole, setAdminRole] = useState(false);
 const [studentRole, setStudentRole] = useState(false)
 
@@ -79,23 +78,6 @@ const handleCreateAccount = () => {
                     />
                     
                 </div>
-                {/* <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[50px] w-[500px]'>
-                <div className="form-control">
-                <label className="label cursor-pointer">
-                <span className="label-text">Admin</span> 
-                <input type="checkbox" checked={adminCheck} onChange={handleAdminCheck} className="checkbox" />
-                </label>
-                </div>
-                </div>
-
-                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
-                <div className="form-control">
-                <label className="label cursor-pointer">
-                <span className="label-text">Student</span> 
-                <input type="checkbox" checked={studentCheck} onChange={handleStudentCheck} className="checkbox" />
-                </label>
-                </div>
-                </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
                     <select onChange={handleRoleChange} value={adminRole ? 'Admin' : studentRole ? 'Student' : ''} className="select select-bordered w-full">
                     <option disabled value=''>Select Role</option>
