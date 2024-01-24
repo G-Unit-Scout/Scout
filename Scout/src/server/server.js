@@ -11,7 +11,7 @@ app.use(cors());
 // Set up the Express app and PostgreSQL connection
 const pool = new Pool({
   // Your database connection details
-  connectionString:
+  connectionString: process.env.CONNECTION_STRING
 });
 
 app.get('/api/test', async (req,res) => {
