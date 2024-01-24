@@ -2,17 +2,30 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pg from 'pg';
+
 dotenv.config();
 const app = express();
 const { Pool } = pg;
 app.use(cors());
-app.use(express.json());
+
 
 // Set up the Express app and PostgreSQL connection
 const pool = new Pool({
   // Your database connection details
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL process.env.DATABASE_URL
 });
+
+// test route for users/auth
+app.get('/api/test2', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM users;');
+    console.log(result);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error', error);
+    res.status(400).send('Bad Request');
+  }
+})
 
 // GET routes
 app.get('/partnerJobs', async (req, res) => {
