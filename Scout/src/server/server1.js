@@ -3,7 +3,7 @@ import express from 'express';
 import pool from '../database/db.js';
 import cors from 'cors';
 
-//import routes
+//import routes here, each route will be a separate file inside the routes folder
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
@@ -14,11 +14,15 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//routes
+//routes get invoked here with the app.use middleware function
+//example http://localhost:3000/api (this is the base url)
+//inside of the userRoutes file, the route is defined as /register
+//example http://localhost:3000/api/register (this is the full url)
 app.use('/api', userRoutes);
 app.use('/api', adminRoutes);
 
 //test connection in postman
+//example http://localhost:3000/
 app.get('/', async (req, res) => {
   try {
     console.log(req.body);
