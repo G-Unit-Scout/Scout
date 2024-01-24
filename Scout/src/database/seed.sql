@@ -83,33 +83,33 @@ INSERT INTO job_status (
   )
 VALUES
 -- Example 1
-(6, 2, 21, 1, 1, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
+(2, 2, 1, 1, 1, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
 
 -- Example 2
- (6, 2, 22, 2, 2, NULL, 'Offer Extended', '{"negotiation": "in-progress"}'),
+ (2, 2, 2, 2, 2, NULL, 'Offer Extended', '{"negotiation": "in-progress"}'),
 
 -- Example 3
- (6, 2, 23, 3, 3, NULL, 'Application Received', NULL),
+ (2, 2, 3, 3, 3, NULL, 'Application Received', NULL),
 
 -- Example 4
- (6, 2, 24, 4, 4, NULL, 'Interview Completed', '{"feedback": "positive"}'),
+ (2, 2, 4, 4, 4, NULL, 'Interview Completed', '{"feedback": "positive"}'),
 
 -- Example 5
- (6, 2, 25, 5, 5, NULL, 'Application Submitted', NULL),
+ (2, 2, 5, 5, 5, NULL, 'Application Submitted', NULL),
 
 -- Example 6
- (6, 2, 26, 6, 6, NULL, 'Offer Declined', '{"reason": "salary not competitive"}'),
+ (2, 2, 6, 6, 6, NULL, 'Offer Declined', '{"reason": "salary not competitive"}'),
 
 -- Example 7
- (6, 2, 27, 7, 7, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
+ (2, 2, 7, 7, 7, NULL, 'Interview Scheduled', '{"technical_round": "pending", "hr_round": "pending"}'),
 
 -- Example 8
- (6, 2, 28, 8, 8, NULL, 'Offer Accepted', '{"start_date": "2024-02-01"}'),
+ (2, 2, 8, 8, 8, NULL, 'Offer Accepted', '{"start_date": "2024-02-01"}'),
 
 -- Example 9
- (6, 2, 29, 9, 9, NULL, 'Application Received', NULL),
+ (2, 2, 9, 9, 9, NULL, 'Application Received', NULL),
 
 -- Example 10
-(6, 2, 30, 10, 10, NULL, 'Interview Completed', '{"feedback": "neutral"}');
+(2, 2, 10, 10, 10, NULL, 'Interview Completed', '{"feedback": "neutral"}');
 
 -- user_notes seed data
