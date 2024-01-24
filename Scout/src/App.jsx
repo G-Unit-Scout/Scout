@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './Components/StudentKanbanBoard'
+import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
 
      <button className='btn btn-primary'>It Worked!</button>
      {/* <AdminLogin/> */}
+     <StudentKanbanBoard/>
     </>
   )
 }
