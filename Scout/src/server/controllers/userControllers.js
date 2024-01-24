@@ -5,7 +5,9 @@ import jwtGenerator from "../utils/jwtGenerator.js";
 const userControllers = {
 
     registerUser: async (req, res, next) => {
+
         console.log(`made it to registerController`);
+
 		const { user_name, email, password_hash, role, cohort_id } = req.body;
         
 		try {
@@ -39,6 +41,8 @@ const userControllers = {
     },
     
     loginUser: async (req, res, next) => {
+
+        console.log('Made it to loginController');
         
         const { email, password_hash } = req.body;
 
@@ -49,7 +53,7 @@ const userControllers = {
                 return res.status(404).send("User does not exist");
             };
 
-            const validPassword = await bcrypt.compare(password_hash, user.rows[0].password_hash);
+            const validPassword = await bcrypt.compare(password_hash, user.rows[0].password_hash.hash);
 
             if (!validPassword) {
                 return res.status(401).send("Password or Username incorrect");
@@ -58,7 +62,7 @@ const userControllers = {
             const token = jwtGenerator(user.rows[0].user_id);
 
             res.json({ token });
-
+            console.log('we made it!');
         } catch (err) {
             console.error("Error", err);
             next(err);
