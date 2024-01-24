@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -15,7 +16,7 @@ const authorize = async (req, res, next) => {
 
         if(!token) {
             return res.status(403).send("Not Authorized");
-        };
+        }
 
         const payload = jwt.verify(token, process.env.secret);
 
