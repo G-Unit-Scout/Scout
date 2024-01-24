@@ -20,6 +20,7 @@ app.use('/api', userRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', testRoutes);
 
+
 //test connection in postman
 app.get('/', async (req, res) => {
   try {
