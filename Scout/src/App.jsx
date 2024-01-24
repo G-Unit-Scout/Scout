@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
@@ -20,4 +18,3 @@ function App() {
 }
 
 export default App
->>>>>>> 38fd85be96487852f224a95fa42760347f6beb78
