@@ -10,6 +10,7 @@ const AdminLogin = () => {
 
         try {
             const loginResponse = await axios.post('http://localhost:3000/api/login', { email, password })
+            console.log(loginResponse.data);
         } catch (error) {
             console.log(error)
         }
