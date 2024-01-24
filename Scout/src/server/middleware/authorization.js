@@ -4,9 +4,13 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const authorize = async (req, res, next) => {
-
+    
+    //Tokens must be sent in the headers.
+    //Header name is "token"
+    //Header value is the token itself in a non-stringified format. ( no quotes )
+    
     try {
-
+        
         const { token } = req.headers;
 
         if(!token) {
