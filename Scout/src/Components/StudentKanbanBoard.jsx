@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import jsonData from '../TestData/TestUserKanbanData.json';
+//import jsonData from '../TestData/TestUserKanbanData.json';
+import jsonData from '../TestData/TestUserKanbanData_v2.json';
 import KanbanColumn from './KanbanColumn';
 import JobModal from './JobModal';
 
@@ -36,7 +37,7 @@ const StudentKanbanBoard = () => {
 
    // Helper functions to map column names to and from IDs
   const getColumnTitle = (columnId) => {
-    const titles = ['Wishlist', 'Applied', 'Interview', 'Offer'];
+    const titles = ['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response'];
     return titles[columnId - 1];
   };
 
