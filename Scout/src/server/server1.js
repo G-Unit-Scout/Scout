@@ -4,8 +4,7 @@ import pool from '../database/db.js';
 import cors from 'cors';
 
 //import routes
-// import authRouter from './routes/auth.js';
-import registerRouter from './routes/register.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
@@ -14,8 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 //routes
-app.use('/api', registerRouter);
-// app.use('/api', authRouter);
+app.use('/api', userRoutes);
 
 //test connection in postman
 app.get('/', async (req, res) => {
@@ -26,6 +24,11 @@ app.get('/', async (req, res) => {
     console.error('Error', error);
     res.status(400).send('Bad Request');
   }
+});
+
+//server error handling
+app.use((err, req, res, next) => {
+  res.status(500).send('Something broke!');
 });
 
 //start server
