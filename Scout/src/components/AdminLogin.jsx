@@ -1,8 +1,21 @@
 import { useState } from "react"
 import axios from "axios"
+import axios from "axios"
 
 const AdminLogin = () => {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async () => {
+
+        try {
+            const loginResponse = await axios.post('http://localhost:3000/api/login', { email, password })
+            console.log(loginResponse.data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -37,6 +50,19 @@ const AdminLogin = () => {
                             <span className='text-[40px] font-bold text-white'>Login</span>
                         </div>
 
+                        <div className='flex flex-col justify-center items-center h-[300px] w-[600px] bg-[rgba(13,15,74,255)] mt-[40px]'>
+                
+                            <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
+                                <span className='text-white'>Email</span>
+                                <input
+                                    id='email'
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
+                                    type='text'
+                                    placeholder='Enter email'
+                                />
+                            </div>
                         <div className='flex flex-col justify-center items-center h-[300px] w-[600px] bg-[rgba(13,15,74,255)] mt-[40px]'>
                 
                             <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
