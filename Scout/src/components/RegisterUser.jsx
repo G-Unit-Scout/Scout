@@ -65,7 +65,7 @@ try{
     const bodyData = JSON.stringify(reqbody)
     const res = await fetch('https://scouttestserver.onrender.com/api/register', {
         method: 'POST',
-        body: reqbody,
+        body: bodyData,
         headers: {
             'Content-Type': 'application/json; charset-UTF-8'
         }
@@ -130,7 +130,7 @@ try{
                     type='text'
                     placeholder='Enter Cohort Id'
                     />
-                    
+
                 </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
                     <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full">
@@ -138,7 +138,7 @@ try{
                         {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_id}>{cohort.cohort_name}</option>))}
                     </select>
                 </div>
-                
+
 
 
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
@@ -148,7 +148,7 @@ try{
                         <option>Student</option>
                     </select>
                 </div>
-                
+
 
             </div>
                 <div className='mt-3'>
