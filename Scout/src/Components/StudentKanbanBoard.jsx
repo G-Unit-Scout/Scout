@@ -200,7 +200,7 @@ const StudentKanbanBoard = () => {
 
 
   return (
-    <div className='flex justify-center mt-40'>
+    <div className='flex justify-center mt-10 mb-10'>
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.entries(columns).map(([columnId, columnData]) => (
           <KanbanColumn key={columnId} columnId={columnId} columnData={columnData} openEditModal={openEditModal} />

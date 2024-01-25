@@ -27,7 +27,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         </div>
 
 
-        <div className="divider">Job Title</div>
+        <div className="divider text-white">Job Title</div>
 
         <input 
         type="text" 
@@ -36,7 +36,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         className="input input-bordered w-full" 
         />
 
-        <div className="divider">Company</div>
+        <div className="divider text-white">Company</div>
 
         <input 
             type="text" 
@@ -47,8 +47,8 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
 
         <div className='flex flex-col'>
             <div className='flex flex-row'>
-                <div className="basis-1/2  divider">Job Type</div>
-                <div className="basis-1/2  divider">Salary Range</div>
+                <div className="basis-1/2  divider text-white">Job Type</div>
+                <div className="basis-1/2  divider text-white">Salary Range</div>
             </div>
             <div className='flex flex-row'>
             <input 
@@ -66,7 +66,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             </div>
         </div>
 
-        <div className="divider">Location</div>
+        <div className="divider text-white">Location</div>
 
         <input 
             type="text" 
@@ -84,7 +84,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             className="input input-bordered w-full" 
         />
 
-        <div className="divider">Interview Status</div>
+        <div className="divider text-white">Interview Status</div>
 
         <input 
             type="text" 
@@ -93,7 +93,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             className="input input-bordered w-full" 
         />
 
-        <div className="divider">Competencies</div>
+        <div className="divider text-white">Competencies</div>
 
         <input 
             type="text" 
@@ -102,7 +102,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             className="input input-bordered w-full" 
         />
 
-        <div className="divider">Job Description</div>
+        <div className="divider text-white">Job Description</div>
 
         <textarea 
             className="textarea textarea-bordered w-full" 
@@ -110,7 +110,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             onChange={(e) => handleInputChange('description', e.target.value)}
         ></textarea>
 
-        <div className="divider">Student/Admin Notes</div>
+        <div className="divider text-white">Student/Admin Notes</div>
 
         <textarea 
             className="textarea textarea-bordered w-full" 
