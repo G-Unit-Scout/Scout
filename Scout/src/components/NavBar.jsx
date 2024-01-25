@@ -1,10 +1,18 @@
 import { useState } from "react"
 
-function NavBar() {
+function NavBar({ changeJobPosting }) {
     const [notification, setNotification] = useState(true)
 
     const handleClick = (e) => {
         setNotification(false);
+    }
+
+    const openJobPosting = (e) => {
+        changeJobPosting(true)
+    }
+
+    const openPersonalBoard = (e) => {
+        changeJobPosting(false)
     }
 
     return(
@@ -14,8 +22,8 @@ function NavBar() {
         </div>
         <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal text-white px-1">
-            <li><a className="hover:text-[#eb8c2d]">Job Board</a></li>
-            <li><a className="hover:text-[#eb8c2d]">Personal Board</a></li>
+            <li><a onClick={openJobPosting} className="hover:text-[#eb8c2d]">Job Board</a></li>
+            <li><a onClick={openPersonalBoard} className="hover:text-[#eb8c2d]">Personal Board</a></li>
             </ul>
         </div>
         <div className="navbar-end">
