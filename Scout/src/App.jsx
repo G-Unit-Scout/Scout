@@ -1,24 +1,19 @@
-// import { useState } from 'react'
-// import { useEffect } from 'react'
-// import { useState } from 'react'
-// import { useEffect } from 'react'
-// import { useState } from 'react'
-// import { useEffect } from 'react'
-// import { useState } from 'react'
-// import { useEffect } from 'react'
+
 import './App.css'
 import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 import AdminKanbanBoard from './components/AdminKanbanBoard'
+
+//test
 
 function App() {
 
   return (
     <>
 
-     {/* <AdminLogin/> */}
+     <AdminLogin/>
      {/* <StudentKanbanBoard/> */}
-     <AdminKanbanBoard cohortId={2} />
+     {/* <AdminKanbanBoard cohortId={2} /> */}
     </>
   )
 }

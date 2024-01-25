@@ -62,15 +62,15 @@ const userControllers = {
             const token = jwtGenerator(user.rows[0].user_id);
 
             res.json({ token });
-            console.log('we made it!');
+            
         } catch (err) {
             console.error("Error", err);
             next(err);
         }
     },
 
-    verifyUser: async (err, req, res, next) => {
-        
+    verifyUser: async (req, res, next) => {
+        console.log('made it to verifyUser');
         try {
             res.json(true);
 
