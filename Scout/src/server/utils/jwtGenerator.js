@@ -1,7 +1,10 @@
+/* eslint-disable no-undef */
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+//This function takes in a user_id and returns a token.
 
 const jwtGenerator = (user_id) => {
 	const payload = {
