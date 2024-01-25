@@ -10,8 +10,8 @@ function App() {
   return (
     <>
 
-     {/* <AdminLogin/> */}
-     {/* <StudentKanbanBoard/> */}
+     <AdminLogin/>
+     <StudentKanbanBoard/>
      <AdminKanbanBoard cohortId={2} />
     </>
   )
