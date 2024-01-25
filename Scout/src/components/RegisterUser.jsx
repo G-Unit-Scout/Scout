@@ -5,9 +5,16 @@ const RegisterUser = () => {
 
 
 const [adminRole, setAdminRole] = useState(false);
-const [studentRole, setStudentRole] = useState(false)
+const [studentRole, setStudentRole] = useState(false);
+const [name, setName] = useState('');
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
 
-    
+const [cohortData, setCohortData] = useState([]);
+const [cohort, setCohort] = useState('');
+
+
+//hit route to get all cohort data, set it to state, loop over that state
 const handleAdminRole = () => {
     console.log('admin selected')
     setAdminRole(true)
@@ -39,7 +46,7 @@ const handleCreateAccount = () => {
                 <div className='flex flex-col justify-center items-center bg-[rgba(239,110,71,255)] h-[120px] w-[600px] rounded-t-xl'>
                     <span className='text-[40px] font-bold text-white'>Register</span>
                 </div>
-            <div className='flex flex-col justify-center items-center h-[600px] w-[500px] bg-green-400'>
+            <div className='flex flex-col justify-center items-center h-[550px] w-[500px] bg-green-400'>
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
                     <span>First and Last Name</span>
                     <input
@@ -68,7 +75,7 @@ const handleCreateAccount = () => {
                     placeholder='Enter Password'
                     />
                 </div>
-                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
+                {/* <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
                     <span>Cohort Id</span>
                     <input
                     id='email'
@@ -77,19 +84,29 @@ const handleCreateAccount = () => {
                     placeholder='Enter Cohort Id'
                     />
                     
+                </div> */}
+                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
+                    <select className="select select-bordered w-full">
+                        <option disabled value=''>Select Cohort</option>
+                        <option>Han Solo</option>
+                        <option>Greedo</option>
+                    </select>
                 </div>
-                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
+                
+
+
+                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
                     <select onChange={handleRoleChange} value={adminRole ? 'Admin' : studentRole ? 'Student' : ''} className="select select-bordered w-full">
-                    <option disabled value=''>Select Role</option>
-                    <option>Admin</option>
-                    <option>Student</option>
+                        <option disabled value=''>Select Role</option>
+                        <option>Admin</option>
+                        <option>Student</option>
                     </select>
                 </div>
                 
 
             </div>
                 <div className='mt-3'>
-                <button className='h-[50px] w-[500px] bg-[rgba(239,110,71,255)] rounded-xl'>
+                <button onClick={handleCreateAccount}className='h-[50px] w-[500px] bg-[rgba(239,110,71,255)] rounded-xl'>
                     <span className='text-white '>Create Account</span>
                 </button>
                 </div>
