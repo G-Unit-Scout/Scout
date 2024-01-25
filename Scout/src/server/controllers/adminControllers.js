@@ -1,6 +1,7 @@
 
 const adminControllers = {
 
+    // eslint-disable-next-line no-unused-vars
     testRoute: async (req, res, next) => {
 
         console.log('Made it to testRoute');
