@@ -11,5 +11,6 @@ router.get('/announcements', testControllers.fetchAnnouncements);
 router.get('/notifications/:id', testControllers.fetchNotifications);
 router.get('/studentkanban/:id', testControllers.fetchStudentKanban);
 router.get('/cohortkanban/:id', testControllers.fetchCohortKanban);
+router.get('/cohorts', testControllers.fetchCohorts);
 
 export default router;
