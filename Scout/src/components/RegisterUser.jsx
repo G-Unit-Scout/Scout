@@ -50,7 +50,8 @@ const handleCreateAccount = () => {
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
                     <span>First and Last Name</span>
                     <input
-                    id='email'
+                    id='name'
+                    onChange={e => setName(e.target.value)}
                     className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                     type='text'
                     placeholder='Enter First and Last Name'
@@ -61,6 +62,7 @@ const handleCreateAccount = () => {
                     <span>Email</span>
                     <input
                     id='email'
+                    onChange={e => setEmail(e.target.value)}
                     className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                     type='text'
                     placeholder='Enter email'
@@ -69,7 +71,8 @@ const handleCreateAccount = () => {
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
                     <span>Password</span>
                     <input
-                    id='email'
+                    id='password'
+                    onChange={e => setPassword(e.target.value)}
                     className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
                     type='text'
                     placeholder='Enter Password'

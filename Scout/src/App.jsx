@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import './App.css'
 import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
+import RegisterUser from './components/RegisterUser'
 
 function App() {
 
@@ -11,8 +12,8 @@ function App() {
 
      {/* <AdminLogin/> */}
      {/* {/* <StudentKanbanBoard/> */}
-     <RegisterUser/> */}
-     <AdminKanbanBoard cohortId={2} />
+     <RegisterUser/>
+     {/* <AdminKanbanBoard cohortId={2} /> */}
     </>
   )
 }
