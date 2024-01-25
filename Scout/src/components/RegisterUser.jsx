@@ -54,15 +54,19 @@ const handleRoleChange = (e) => {
 
 const handleCreateAccount = async() => {
 try{
-    const res = await fetch('https://scouttestserver.onrender.com/api/users', {
-        method: 'POST',
-        body: JSON.stringify ({
+
+    const reqbody = {
             email: email,
             user_name: name,
             password_hash: password,
             role: role,
             cohort_id: cohort
-        }), headers: {
+    }
+    const bodyData = JSON.stringify(reqbody)
+    const res = await fetch('https://scouttestserver.onrender.com/api/register', {
+        method: 'POST',
+        body: reqbody,
+        headers: {
             'Content-Type': 'application/json; charset-UTF-8'
         }
     })
@@ -76,7 +80,6 @@ try{
     console.log(error.stack)
 }
 }
-
 
 
     return (
@@ -132,14 +135,14 @@ try{
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
                     <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full">
                         <option disabled value=''>Select Cohort</option>
-                        {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_name}>{cohort.cohort_name}</option>))}
+                        {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_id}>{cohort.cohort_name}</option>))}
                     </select>
                 </div>
                 
 
 
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select onChange={handleRoleChange} value={role ? 'Admin' : role ? 'Student' : ''} className="select select-bordered w-full">
+                    <select onChange={handleRoleChange} value={role === 1 ? 'Admin' : role ? 'Student' : ''} className="select select-bordered w-full">
                         <option disabled value=''>Select Role</option>
                         <option>Admin</option>
                         <option>Student</option>
