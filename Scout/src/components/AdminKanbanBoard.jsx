@@ -7,7 +7,7 @@ import jsonData from '../TestData/TestCohortKanban.json';
 const AdminKanbanBoard = ({ cohortId }) => {
   const [columns, setColumns] = useState({});
   const [openModalId, setOpenModalId] = useState(null);
-
+  const [editJobDetails, setEditJobDetails] = useState({});
   const [jobDetails, setJobDetails] = useState({});
 
   // Other states like jobDetails, editJobDetails, etc.
@@ -46,11 +46,34 @@ const AdminKanbanBoard = ({ cohortId }) => {
         setOpenModalId(jobId);
       };
 
-  // Fetch data based on cohortId and organize it for the Kanban board
-  useEffect(() => {
-    // Fetch data logic
-  }, [cohortId]);
 
+      
+
+  const closeModal = () => {
+    console.log("close modal")
+    setOpenModalId(null);
+  };
+
+  const handleDeleteJob = (jobId) => {
+    if (jobId && jobId !== 'new') {
+      // Remove from jobDetails
+      setJobDetails(prev => {
+        const newJobDetails = { ...prev };
+        delete newJobDetails[jobId];
+        return newJobDetails;
+      });
+  
+      // Remove from columns
+      setColumns(prev => {
+        const newColumns = { ...prev };
+        Object.keys(newColumns).forEach(columnId => {
+          newColumns[columnId] = newColumns[columnId].filter(job => job.job_id !== jobId);
+        });
+        return newColumns;
+      });
+    }
+    closeModal();
+  };
 
 
 
@@ -64,18 +87,48 @@ const AdminKanbanBoard = ({ cohortId }) => {
       }, []);
 
 
-        // Initialize columns from the JSON data
-  useEffect(() => {
-    const columnsFromBackend = jsonData.reduce((acc, job) => {
+
+      const handleJobDetailsChange = (updatedDetails) => {
+        if (openModalId === 'new') {
+          setNewJobDetails(updatedDetails);
+        } else {
+          setEditJobDetails(updatedDetails);
+        }
+      };
+
+
+      // Initialize columns based on titles
+const initializeColumns = (titles) => {
+    const columns = {};
+    titles.forEach((title, index) => {
+      columns[title] = [];
+    });
+    return columns;
+  };
+  
+  // Populate columns with JSON data
+  const populateColumnsWithData = (jsonData, columns) => {
+    jsonData.forEach(job => {
       const columnTitle = getColumnTitle(job.column_id);
-      if (!acc[columnTitle]) {
-        acc[columnTitle] = [];
+      if (columns[columnTitle]) {
+        columns[columnTitle].push(job);
       }
-      acc[columnTitle].push(job);
-      return acc;
-    }, {});
-    setColumns(columnsFromBackend);
-  }, []);
+    });
+    return columns;
+  };
+
+ // Usage
+useEffect(() => {
+    const initialColumns = initializeColumns(['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response']);
+    const populatedColumns = populateColumnsWithData(jsonData, initialColumns);
+    setColumns(populatedColumns);
+  }, [jsonData]);
+
+
+
+
+
+
 
 
 
@@ -117,6 +170,14 @@ const AdminKanbanBoard = ({ cohortId }) => {
         ))}
       </DragDropContext>
       {/* JobModal component for editing and adding new jobs */}
+      <JobModal 
+        isOpen={openModalId} 
+        jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails} 
+        onChange={handleJobDetailsChange} 
+        onSave={() => handleUpdateJobDetails(openModalId)}
+        onClose={closeModal}
+        onDelete={handleDeleteJob}
+      />
     </div>
   );
 };

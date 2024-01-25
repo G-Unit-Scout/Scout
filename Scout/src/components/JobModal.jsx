@@ -101,7 +101,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
 
         <input 
             type="text" 
-            value={jobDetails.competencies || ''}  
+            value={JSON.stringify(jobDetails.competencies) || ''}  
             onChange={(e) => handleInputChange('competencies', e.target.value)} 
             className="input input-bordered w-full" 
         />
