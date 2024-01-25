@@ -9,7 +9,7 @@ const userControllers = {
         console.log(`made it to registerController`);
 
 		const { user_name, email, password_hash, role, cohort_id } = req.body;
-        
+
 		try {
 			const user = await db.query("SELECT * FROM users WHERE email = $1", [email]);
 
@@ -20,7 +20,7 @@ const userControllers = {
 			const saltRounds = 10;
 			const salt = await bcrypt.genSalt(saltRounds);
             const bcryptPassword = await bcrypt.hash(password_hash, salt);
-            
+
             const newPassword = {
                 "hash": bcryptPassword
             }
@@ -33,17 +33,17 @@ const userControllers = {
             const token = jwtGenerator(newUser.rows[0].user_id);
 
             res.json(token);
-            
+
 		} catch (err) {
 			console.error("Error", err);
 			next(err);
 		}
     },
-    
+
     loginUser: async (req, res, next) => {
 
         console.log('Made it to loginController');
-        
+
         const { email, password_hash } = req.body;
 
         try {
@@ -70,7 +70,7 @@ const userControllers = {
     },
 
     verifyUser: async (err, req, res, next) => {
-        
+
         try {
             res.json(true);
 

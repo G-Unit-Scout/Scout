@@ -67,7 +67,7 @@ try{
         method: 'POST',
         body: bodyData,
         headers: {
-            'Content-Type': 'application/json; charset-UTF-8'
+            'Content-Type': 'application/json; charset=UTF-8'
         }
     })
     if(res.ok) {
