@@ -142,7 +142,7 @@ try{
 
 
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select onChange={handleRoleChange} value={role === 1 ? 'Admin' : role ? 'Student' : ''} className="select select-bordered w-full">
+                    <select onChange={handleRoleChange} value={role === 1 ? 'Admin' : role === 0 ? 'Student' : ''} className="select select-bordered w-full">
                         <option disabled value=''>Select Role</option>
                         <option>Admin</option>
                         <option>Student</option>
