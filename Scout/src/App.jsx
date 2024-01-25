@@ -9,6 +9,7 @@ import AdminKanbanBoard from './components/AdminKanbanBoard'
 
 function App() {
 
+  // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
   const [verified, setVerified] = useState(false)
 
   return (
