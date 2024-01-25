@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AdminLogin = () => {
+const AdminLogin = ({ setVerified }) => {
 	const [email, setEmail] = useState("");
 	const [password_hash, setPassword] = useState("");
-	const [verify, setVerify] = useState(false);
+	// const [verify, setVerify] = useState(false);
 
 	const handleLogin = async () => {
 		try {
@@ -27,7 +27,7 @@ const AdminLogin = () => {
 			);
 
 			console.log(verified.data);
-			setVerify(verified.data);
+			setVerified(verified.data);
 		} catch (error) {
 			console.log(error.response);
 		}

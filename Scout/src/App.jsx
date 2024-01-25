@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 
 import './App.css'
 import StudentKanbanBoard from './components/StudentKanbanBoard'
@@ -8,10 +9,12 @@ import AdminKanbanBoard from './components/AdminKanbanBoard'
 
 function App() {
 
+  const [verified, setVerified] = useState(false)
+
   return (
     <>
 
-     <AdminLogin/>
+      <AdminLogin setVerified={setVerified} />
      {/* <StudentKanbanBoard/> */}
      {/* <AdminKanbanBoard cohortId={2} /> */}
     </>
