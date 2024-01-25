@@ -1,30 +1,47 @@
 import { useState } from "react"
-
+import { useEffect } from "react";
 
 const RegisterUser = () => {
 
 
-const [adminRole, setAdminRole] = useState(false);
-const [studentRole, setStudentRole] = useState(false);
-const [name, setName] = useState('');
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+// const [adminRole, setAdminRole] = useState(false);
+// const [studentRole, setStudentRole] = useState(false);
 
+const [email, setEmail] = useState('');
+const [name, setName] = useState('');
+const [password, setPassword] = useState('');
+const [role, setRole] = useState('')
 const [cohortData, setCohortData] = useState([]);
 const [cohort, setCohort] = useState('');
 
 
-//hit route to get all cohort data, set it to state, loop over that state
+//fetch all cohort data
+useEffect(() => {
+    const getCohorts = async() => {
+        try {
+            const res= await fetch('https://scouttestserver.onrender.com/api/cohorts');
+            const data = await res.json();
+            console.log(data)
+            setCohortData(data)
+        }catch(error) {
+            console.log(error)
+        }
+    }
+    getCohorts();
+}, [])
+
 const handleAdminRole = () => {
     console.log('admin selected')
-    setAdminRole(true)
-    setStudentRole(false)
+    // setAdminRole(true)
+    // setStudentRole(false)
+    setRole(1)
 }
 
 const handleStudentRole = () => {
     console.log('student selected')
-    setStudentRole(true)
-    setAdminRole(false)
+    // setStudentRole(true)
+    // setAdminRole(false)
+    setRole(0)
 }
 
 const handleRoleChange = (e) => {
@@ -35,9 +52,33 @@ const handleRoleChange = (e) => {
     }
 }
 
-const handleCreateAccount = () => {
-
+const handleCreateAccount = async() => {
+try{
+    const res = await fetch('https://scouttestserver.onrender.com/api/users', {
+        method: 'POST',
+        body: JSON.stringify ({
+            email: email,
+            user_name: name,
+            password_hash: password,
+            role: role,
+            cohort_id: cohort
+        }), headers: {
+            'Content-Type': 'application/json; charset-UTF-8'
+        }
+    })
+    if(res.ok) {
+        let resData = await res.json();
+        console.log(`user ${name} was added `, resData)
+    } else {
+        console.log('failed to add user')
+    }
+}catch(error) {
+    console.log(error.stack)
 }
+}
+
+
+
     return (
         <>
         <div className='flex flex-col justify-center items-center h-screen w-absolute bg-white'>
@@ -89,17 +130,16 @@ const handleCreateAccount = () => {
                     
                 </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select className="select select-bordered w-full">
+                    <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full">
                         <option disabled value=''>Select Cohort</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                        {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_name}>{cohort.cohort_name}</option>))}
                     </select>
                 </div>
                 
 
 
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select onChange={handleRoleChange} value={adminRole ? 'Admin' : studentRole ? 'Student' : ''} className="select select-bordered w-full">
+                    <select onChange={handleRoleChange} value={role ? 'Admin' : role ? 'Student' : ''} className="select select-bordered w-full">
                         <option disabled value=''>Select Role</option>
                         <option>Admin</option>
                         <option>Student</option>
