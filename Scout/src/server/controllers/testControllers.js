@@ -89,6 +89,17 @@ const testControllers = {
       console.error(`Error fetching cohort kanban ${error}`)
       res.status(500).send(`Error, could not fetch cohort kanban`)
     }
+  },
+
+  fetchCohorts: async (req,res) => {
+    const cohortQuery = `SELECT * FROM cohorts;`
+    try {
+      const results = await db.query(cohortQuery)
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error fetching cohorts ${error}`)
+      res.status(500).send(`Error, could not fetch cohorts`)
+    }
   }
 };
 
