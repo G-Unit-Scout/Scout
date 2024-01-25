@@ -1,44 +1,46 @@
+//import dependencies
 import express from 'express';
+import pool from '../database/db.js';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import pg from 'pg';
-dotenv.config();
+
+//import routes
+import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import testRoutes from './routes/testRoutes.js';
+
+//server instance
 const app = express();
-const { Pool } = pg;
+
+//middleware
+app.use(express.json());
 app.use(cors());
 
+//routes
+app.use('/api', userRoutes);
+app.use('/api', adminRoutes);
+app.use('/api', testRoutes);
 
-// Set up the Express app and PostgreSQL connection
-const pool = new Pool({
-  // Your database connection details
-  connectionString:
-});
 
-app.get('/api/test', async (req,res) => {
+//test connection in postman
+app.get('/', async (req, res) => {
   try {
-    const result = await pool.query(`SELECT * FROM partner_jobs;`)
-    res.status(200).json(result.rows)
-  } catch(err) {
-    console.error('Error ',err)
-    res.status(400).send('Bad Request')
-  }
-})
-
-// Route to get job postings created by admins
-app.get('/admin-job-postings', async (req, res) => {
-  try {
-    const adminJobQuery = 'SELECT * FROM partner_jobs WHERE is_admin = true;';
-    const { adminJobs } = await pool.query(adminJobQuery);
-    res.json(adminJobs);
+    console.log(req.body);
+    const result = await pool.query('SELECT * FROM users;');
+    res.status(200).json(result.rows);
   } catch (error) {
-    console.error('Error fetching admin job postings', error);
-    res.status(500).send('Server error');
+    console.error('Error', error);
+    res.status(400).send('Bad Request');
   }
 });
 
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+//server error handling
+app.use((err, req, res, next) => {
+  res.status(500).send('Something broke!');
+});
+
+//start server
+const port = pool.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

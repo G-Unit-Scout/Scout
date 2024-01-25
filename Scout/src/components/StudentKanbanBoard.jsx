@@ -64,9 +64,9 @@ const StudentKanbanBoard = () => {
     }
     setOpenModalId(jobId);
   };
+
+
   
-
-
   const closeModal = () => {
     console.log("close modal")
     setOpenModalId(null);
@@ -74,7 +74,21 @@ const StudentKanbanBoard = () => {
 
 
   const handleUpdateJobDetails = (jobId) => {
+    const validateJobDetails = (details) => {
+      // Add your validation logic here
+      // Example: Check if job title is empty
+      if (!details.job_title.trim()) {
+        alert('Please fill out the job title.');
+        return false;
+      }
+      // Add other required field checks as needed
+      return true;
+    };
+  
     if (jobId === 'new') {
+      if (!validateJobDetails(newJobDetails)) {
+        return; // Stop if validation fails
+      }
       const newJobId = `job_${new Date().getTime()}`;
       
       setJobDetails(prev => ({
@@ -88,6 +102,9 @@ const StudentKanbanBoard = () => {
         [newJobColumn]: [...(prev[newJobColumn] || []), { ...newJobDetails, job_id: newJobId }]
       }));
     } else {
+      if (!validateJobDetails(editJobDetails)) {
+        return; // Stop if validation fails
+      }
       // Updating an existing job
       setJobDetails(prev => ({
         ...prev,
@@ -96,7 +113,7 @@ const StudentKanbanBoard = () => {
     }
     closeModal();
   };
-
+  
 
 
   const handleDeleteJob = (jobId) => {

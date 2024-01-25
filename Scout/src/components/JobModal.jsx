@@ -34,6 +34,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         value={jobDetails.job_title || ''} 
         onChange={(e) => handleInputChange('job_title', e.target.value)} 
         className="input input-bordered w-full" 
+        required
         />
 
         <div className="divider text-white">Company</div>
@@ -43,6 +44,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             value={jobDetails.company || ''} 
             onChange={(e) => handleInputChange('company', e.target.value)} 
             className="input input-bordered w-full" 
+            required
         />
 
         <div className='flex flex-col'>
@@ -56,12 +58,14 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
                 value={jobDetails.job_type || ''}  
                 onChange={(e) => handleInputChange('job_type', e.target.value)} 
                 className="basis-1/2 input input-bordered mr-2" 
+                required
             />
             <input 
                 type="text" 
                 value={jobDetails.salary_range || ''}  
                 onChange={(e) => handleInputChange('salary_range', e.target.value)} 
                 className="basis-1/2 input input-bordered ml-2" 
+                required
             />
             </div>
         </div>
@@ -117,13 +121,6 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
             value={jobDetails.note_content || ''}  
             onChange={(e) => handleInputChange('note_content', e.target.value)}
         ></textarea>
-
-
-
-
-
-        
-        
 
       </div>
       <form method="dialog" className="modal-backdrop" onClick={onClose}>
