@@ -64,9 +64,9 @@ const StudentKanbanBoard = () => {
     }
     setOpenModalId(jobId);
   };
+
+
   
-
-
   const closeModal = () => {
     console.log("close modal")
     setOpenModalId(null);
