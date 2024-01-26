@@ -51,33 +51,33 @@ const userControllers = {
 
             if (user.rows.length < 1) {
                 return res.status(404).send("User does not exist");
-            };
+            }
 
             const validPassword = await bcrypt.compare(password_hash, user.rows[0].password_hash.hash);
 
             if (!validPassword) {
                 return res.status(401).send("Password or Username incorrect");
-            };
+            }
 
             const token = jwtGenerator(user.rows[0].user_id);
 
             res.json({ token });
-            console.log('we made it!');
+            
         } catch (err) {
             console.error("Error", err);
             next(err);
         }
     },
 
-    verifyUser: async (err, req, res, next) => {
-        
+    verifyUser: async (req, res, next) => {
+        console.log('made it to verifyUser');
         try {
             res.json(true);
 
         } catch (err) {
             console.error("Error", err);
             next(err);
-        };
+        }
     }
 };
 
