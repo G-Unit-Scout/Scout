@@ -34,7 +34,7 @@ function App() {
         </button>
         <p>Current userType: {userType}</p>
     </div>
-     {jobPosting ? <JobPostingsPage /> :
+     {jobPosting ? <JobPostingsPage userType={userType}/> :
      <KanbanBoard userType={userType}/>
      
      }

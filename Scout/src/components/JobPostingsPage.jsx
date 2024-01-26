@@ -1,11 +1,20 @@
 
 
-function JobPostingsPage() {
+function JobPostingsPage({userType}) {
+
+
+
+    const addNewJobButton = userType === 'admin' && (
+        <div className="flex justify-center">
+            <button className='btn btn-outline btn-sm w-40 text-lg'>Add New Job +</button>
+        </div>
+    )
 
 
     return (
         <>
         <div className="h-screen">
+            {addNewJobButton}
             <div className="flex justify-center">
                 <h1 className="text-2xl font-bold m-10">Partnered Job Postings Board</h1>
             </div>
