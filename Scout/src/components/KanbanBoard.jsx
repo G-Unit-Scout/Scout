@@ -403,7 +403,7 @@ const studentSelectionDropdown = userType === 'admin' && (
 
 
   return (
-    <div>
+    <div className='mb-10'>
       <div className='flex flex-row justify-center'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}

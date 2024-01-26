@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import JobPostingsPage from './components/JobPostingsPage'
 import RegisterUser from './components/RegisterUser'
+import KanbanBoard from './components/KanbanBoard'
 
 
 function App() {
@@ -38,8 +38,8 @@ function App() {
      <KanbanBoard userType={userType}/>
      
      }
-    <AdminLogin setVerified={setVerified} />
-     <RegisterUser/>
+    {/* <AdminLogin setVerified={setVerified} />
+    <RegisterUser/> */}
     <Footer />
     </>
   )
