@@ -12,6 +12,8 @@ import JobModal from './JobModal';
 
 const StudentKanbanBoard = ({userType}) => {
 
+  console.log("userType IN StudentKanbanBoard:===", userType)
+
   const initialNewJobDetails = {
     job_id: null,
     job_title: "",
@@ -51,124 +53,87 @@ const StudentKanbanBoard = ({userType}) => {
 
   // Helper functions to map column names to and from IDs
   const getColumnTitle = (columnId) => {
-  const titles = ['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response'];
-  return titles[columnId - 1];
+    const titles = ['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response'];
+    if (columnId >= 1 && columnId <= titles.length) {
+      return titles[columnId - 1];
+    } else {
+      // If columnId is out of range, map it to a default column, e.g., 'No Response'
+      return 'Wishlist';
+    }
   };
+  
 
 
   //===========================useEffect Hooks===========================//
 
-  // In your KanbanBoard component
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            // Fetch cohorts
-            // const responseCohorts = await fetch('https://scouttestserver.onrender.com/api/cohorts');
-            // const apiCohort = await responseCohorts.json();
-            // console.log("apiCohort:", apiCohort)
 
-            // Fetch users
-            // const responseUsers = await fetch('https://scouttestserver.onrender.com/api/users');
-            // const apiUsers = await responseUsers.json();
-            // console.log("apiUsers", apiUsers)
-
-
-            // Fetch cohort kanban by id
-            // const responseCohortsKanbanById = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
-            // const apiCohortsKanbanById = await responseCohortsKanbanById.json();
-            // console.log("apiCohortsKanbanById:", apiCohortsKanbanById)
-            
-            // Fetch student kanban by id
-            const responseStudentKanbanById = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
-            const apiStudentsKanbanById = await responseStudentKanbanById.json();
-            setJsonData(apiStudentsKanbanById)
-            console.log("apiStudentsKanbanById:", apiStudentsKanbanById)
-
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+  // Fetching student kanban data when userType is student
+useEffect(() => {
+  if (userType === 'student') {
+    const fetchStudentData = async () => {
+      try {
+        const response = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
+        const data = await response.json();
+        setJsonData(data);
+        console.log("data In fetch:", data)
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
     };
-    fetchData();
-  }, []);
 
+    fetchStudentData();
+  }
+}, [userType]);
 
+// Setting initial state for admin view and fetching cohorts
+useEffect(() => {
+  if (userType === 'admin') {
+    setJsonData([]); // Initialize with empty array
+    // Fetch cohorts (implement fetchCohorts function to fetch from API)
+    const cohorts = fetchCohorts(cohortjsonData);/* API response data */
+    setAllCohorts(cohorts);
+  }
+}, [userType]);
 
-
-  useEffect(() => {
-    if (userType === 'admin') {
-      // Initialize with empty array for admin until a cohort is selected
-      setJsonData([]);
-      const cohorts = fetchCohorts(cohortjsonData);
-      setAllCohorts(cohorts);
-    } else {
-      // Fetch individual student data
-      setJsonData(studentjsonData);
-    }
-  }, [userType]);
-  
-
-
-
-
-  useEffect(() => {
-    let data;
-    if (userType === 'admin') {
-      if (selectedCohort) {
-        // Fetch data for the selected cohort
-        data = fetchDataForCohort(selectedCohort);
-        const students = fetchStudents(data);
-        setAllStudents(students);
-      } else {
-        data = []; // No data if no cohort is selected
-        setAllStudents([]); // Also reset allStudents when no cohort is selected
-      }
-    } else {
-      // Fetch individual student data
-      data = studentjsonData;
-    }
+// Fetching data for selected cohort and students for admin view
+useEffect(() => {
+  if (userType === 'admin' && selectedCohort) {
+    // Fetch data for the selected cohort
+    const data = fetchDataForCohort(selectedCohort); // Adjust this function to fetch from API
+    const students = fetchStudents(data); // Adjust this function to fetch from API
+    setAllStudents(students);
     setJsonData(data);
-  }, [selectedCohort, userType]);
+  } else if (userType === 'admin') {
+    setJsonData([]); // Reset when no cohort is selected
+    setAllStudents([]);
+  }
+}, [userType, selectedCohort]);
 
-  
-
-  useEffect(() => {
-    let data;
-    if (userType === 'admin') {
-      if (selectedStudent) {
-        //console.log("SELECTED STUDENT IN useEffect:", selectedStudent)
-        // Fetch data for the selected cohort
-        data = fetchStudentDataForCohort(selectedStudent);
-      } else {
-        //console.log("ELSE SELECTED STUDENT IN useEffect:", selectedStudent)
-        //data = []; // No data if no cohort is selected
-        data = fetchDataForCohort(selectedCohort, selectedStudent);
-      }
-    } else {
-      // Fetch individual student data
-      data = studentjsonData;
-    }
+// Fetching data for selected student within a cohort for admin view
+useEffect(() => {
+  if (userType === 'admin' && selectedStudent) {
+    const data = fetchStudentDataForCohort(selectedStudent); // Adjust this function to fetch from API
     setJsonData(data);
-  }, [selectedStudent]);
+  } else if (userType === 'admin') {
+    const data = fetchDataForCohort(selectedCohort);
+    setJsonData(data);
+  }
+}, [userType, selectedStudent, selectedCohort]);
 
-  //console.log("SELECTED STUDENT OUT OF useEffect:", selectedStudent)
-  
-  // Initialize jobDetails state from JSON data
-  useEffect(() => {
-    const initialJobDetails = {};
-    jsonData.forEach(job => {
-      initialJobDetails[job.job_id] = {...job};
-    });
-    setJobDetails(initialJobDetails);
-  }, [jsonData]);
+// Update jobDetails and columns when jsonData changes
+useEffect(() => {
+  console.log("jsonData IN useEffect:", jsonData)
+  const initialJobDetails = {};
+  jsonData.forEach(job => {
+    initialJobDetails[job.job_id] = { ...job };
+  });
+  setJobDetails(initialJobDetails);
 
+  const initialColumns = initializeColumns(['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response']);
+  const populatedColumns = populateColumnsWithData(jsonData, initialColumns);
+  setColumns(populatedColumns);
+}, [jsonData]);
 
-  // Usage
-  useEffect(() => {
-    const initialColumns = initializeColumns(['Wishlist', 'Applied', 'Interview', 'Offer', 'No Response']);
-    const populatedColumns = populateColumnsWithData(jsonData, initialColumns);
-    setColumns(populatedColumns);
-  }, [jsonData]);
 
 
   //===========================Event Handlers===========================//

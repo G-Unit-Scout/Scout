@@ -28,7 +28,7 @@ function App() {
     <>
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
-     <div>
+     <div className='flex justify-center'>
         <button className="btn btn-primary" onClick={toggleOption}>
             Toggle userType
         </button>
