@@ -63,23 +63,28 @@ const StudentKanbanBoard = ({userType}) => {
     const fetchData = async () => {
         try {
             // Fetch cohorts
-            const responseCohorts = await fetch('https://scouttestserver.onrender.com/api/cohorts');
-            const testCohort = await responseCohorts.json();
-            //setAllCohorts(cohorts);
-            console.log("testCohort:", testCohort)
+            // const responseCohorts = await fetch('https://scouttestserver.onrender.com/api/cohorts');
+            // const apiCohort = await responseCohorts.json();
+            // console.log("apiCohort:", apiCohort)
+
+            // Fetch users
+            // const responseUsers = await fetch('https://scouttestserver.onrender.com/api/users');
+            // const apiUsers = await responseUsers.json();
+            // console.log("apiUsers", apiUsers)
 
 
-            const responseCohortsById = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
-            const testCohortsById = await responseCohortsById.json();
-            //setAllCohorts(cohorts);
-            console.log("testCohortsById:", testCohortsById)
-            // Optionally, fetch students for the first cohort
-            // if (testCohort.length > 0) {
-            //     const responseStudents = await fetch(`/api/students/${testCohort[0].id}`);
-            //     const testStudents = await responseStudents.json();
-            //     //setAllStudents(students);
-            //     console.log("testStudents:", testStudents)
-            // }
+            // Fetch cohort kanban by id
+            // const responseCohortsKanbanById = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
+            // const apiCohortsKanbanById = await responseCohortsKanbanById.json();
+            // console.log("apiCohortsKanbanById:", apiCohortsKanbanById)
+            
+            // Fetch student kanban by id
+            const responseStudentKanbanById = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
+            const apiStudentsKanbanById = await responseStudentKanbanById.json();
+            setJsonData(apiStudentsKanbanById)
+            console.log("apiStudentsKanbanById:", apiStudentsKanbanById)
+
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -104,27 +109,7 @@ const StudentKanbanBoard = ({userType}) => {
   
 
 
-  // useEffect(() => {
-  //   let data;
-  //   if (userType === 'admin') {
-  //     if (selectedCohort) {
-  //       // Fetch data for the selected cohort
-  //       data = fetchDataForCohort(selectedCohort);
-  //       //console.log("data", data)
-        // const students = fetchStudents(data);
-        // console.log("students", students);
-        // setAllStudents(students);
-        // console.log("all students", allStudents);
-  //     } else {
-  //       data = []; // No data if no cohort is selected
-  //     }
-  //   } else {
-  //     // Fetch individual student data
-  //     data = studentjsonData;
-  //   }
-  //   //console.log("all students", allStudents);
-  //   setJsonData(data);
-  // }, [selectedCohort]);
+
 
   useEffect(() => {
     let data;
@@ -362,16 +347,7 @@ const StudentKanbanBoard = ({userType}) => {
     </select>
   )
 
-  // // JSX for the cohort selection dropdown (render only for admin)
-  // const studentSelectionDropdown = userType === 'admin' && (
-  //   <select className="select select-bordered mx-4" value={selectedStudent} onChange={(e) => setSelectedStudent(e.target.value)}>
-  //     <option value="">Select Student</option>
-  //     {allStudents.map(student => (
-  //       //console.log(student),
-  //       <option key={student} value={student}>{student}</option>
-  //     ))}
-  //   </select>
-  // )
+
 
   // JSX for the student selection dropdown (render only for admin)
 const studentSelectionDropdown = userType === 'admin' && (
@@ -389,16 +365,7 @@ const studentSelectionDropdown = userType === 'admin' && (
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort);
   };
 
-  // const fetchDataForCohort = (selectedCohort, selectedStudent) => {
-  //   console.log("selectedStudent IN fetchDataForCohort:===", selectedStudent)
-  //   if (selectedStudent && selectedStudent !== "") {
-  //       // Return jobs for the specified student in the selected cohort
-  //       return cohortjsonData.filter(job => job.cohort_id === selectedCohort && job.user_name === selectedStudent);
-  //   } else {
-  //       // Return all jobs for the selected cohort
-  //       return cohortjsonData.filter(job => job.cohort_id === selectedCohort);
-  //   }
-  // };
+
 
   const fetchStudentDataForCohort = (selectedStudent) => {
     //console.log("selectedStudent IN fetchStudentDataForCohort:===", selectedStudent);

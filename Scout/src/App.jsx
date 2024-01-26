@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './components/KanbanBoard'
+import KanbanBoard from './components/KanbanBoard'
 import AdminLogin from './components/AdminLogin'
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     </div>
 
      {/* <AdminLogin/> */}
-     <StudentKanbanBoard userType={userType}/>
+     <KanbanBoard userType={userType}/>
     </>
   )
 }
