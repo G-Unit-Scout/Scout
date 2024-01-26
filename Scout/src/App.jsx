@@ -17,8 +17,8 @@ function App() {
     <>
 
       <AdminLogin setVerified={setVerified} />
-     {/* <StudentKanbanBoard/> */}
-     {/* <AdminKanbanBoard cohortId={2} /> */}
+     <StudentKanbanBoard/>
+     <AdminKanbanBoard cohortId={2} />
     </>
   )
 }
