@@ -1,6 +1,6 @@
 import db from '../../database/db.js';
 
-const testControllers = {
+const fetchControllers = {
   fetchPartnerJobs: async (req, res) => {
     const partnerJobQuery = `SELECT * FROM partner_jobs;`
     try {
@@ -103,4 +103,4 @@ const testControllers = {
   }
 };
 
-export default testControllers
+export default fetchControllers

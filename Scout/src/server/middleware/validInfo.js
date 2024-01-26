@@ -2,7 +2,7 @@
 export default function ValidInfo(req, res, next) {
     console.log('made it To Valid Info');
     const { email, password_hash } = req.body;
-
+    console.log(req.body)
     function validEmail(userEmail) {
         return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
     }

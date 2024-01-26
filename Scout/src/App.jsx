@@ -7,6 +7,7 @@ import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import JobPostingsPage from './components/JobPostingsPage'
 import RegisterUser from './components/RegisterUser'
+import AdminKanbanBoard from './components/AdminKanbanBoard'
 
 
 function App() {
@@ -21,13 +22,15 @@ function App() {
 
   return (
     <>
+
+      <AdminLogin setVerified={setVerified} />
+     <StudentKanbanBoard/>
+     <AdminKanbanBoard cohortId={2} />
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
      {jobPosting ? <JobPostingsPage /> :
      <StudentKanbanBoard />
-     
      }
-    <AdminLogin setVerified={setVerified} />
      <RegisterUser/>
     <Footer />
     </>
