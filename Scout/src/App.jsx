@@ -1,25 +1,36 @@
-import { useState, useEffect } from 'react'
-
+import { useState } from 'react'
+import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './components/StudentKanbanBoard'
+import StudentKanbanBoard from './Components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
-import AdminKanbanBoard from './components/AdminKanbanBoard'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+import JobPostingsPage from './components/JobPostingsPage'
 
-//test
 
 function App() {
-
+  const [count, setCount] = useState(0)
+  const [jobPosting, setJobPosting] = useState(false);
   // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
   const [verified, setVerified] = useState(false)
 
+  const changeJobPosting = (boolean) => {
+    setJobPosting(boolean)
+  }
+
   return (
     <>
-
-      <AdminLogin setVerified={setVerified} />
-     {/* <StudentKanbanBoard/> */}
-     {/* <AdminKanbanBoard cohortId={2} /> */}
+    <NavBar changeJobPosting = {changeJobPosting} />
+     {/* <button className='btn btn-primary'>It Worked!</button> */}
+     <AdminLogin setVerified={setVerified} />
+     {jobPosting ? <JobPostingsPage /> :
+     <StudentKanbanBoard />
+     }
+    
+    <Footer />
     </>
   )
 }
 
 export default App
+
