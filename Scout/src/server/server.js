@@ -7,7 +7,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import testRoutes from './routes/testRoutes.js';
-
+import createUpdateRoutes from './routes/createUpdateRoutes.js';
 //server instance
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(cors());
 app.use('/api', userRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', testRoutes);
+app.use('/api', createUpdateRoutes);
 
 
 //test connection in postman

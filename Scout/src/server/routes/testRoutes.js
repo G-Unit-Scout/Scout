@@ -3,14 +3,14 @@ import express from 'express';
 
 const router = express.Router();
 
-import testControllers from '../controllers/testControllers.js'
+import fetchControllers from '../controllers/fetchControllers.js'
 
-router.get("/jobs", testControllers.fetchPartnerJobs);
-router.get("/users", testControllers.fetchUsers);
-router.get('/announcements', testControllers.fetchAnnouncements);
-router.get('/notifications/:id', testControllers.fetchNotifications);
-router.get('/studentkanban/:id', testControllers.fetchStudentKanban);
-router.get('/cohortkanban/:id', testControllers.fetchCohortKanban);
-router.get('/cohorts', testControllers.fetchCohorts);
+router.get("/jobs", fetchControllers.fetchPartnerJobs);
+router.get("/users", fetchControllers.fetchUsers);
+router.get('/announcements', fetchControllers.fetchAnnouncements);
+router.get('/notifications/:id', fetchControllers.fetchNotifications);
+router.get('/studentkanban/:id', fetchControllers.fetchStudentKanban);
+router.get('/cohortkanban/:id', fetchControllers.fetchCohortKanban);
+router.get('/cohorts', fetchControllers.fetchCohorts);
 
 export default router;

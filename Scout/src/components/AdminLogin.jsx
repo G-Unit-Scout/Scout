@@ -8,7 +8,7 @@ const AdminLogin = ({ setVerified }) => {
 
 	const handleLogin = async () => {
 		try {
-			console.log(typeof email, typeof password_hash);
+			// console.log(typeof email, typeof password_hash);
 
 			const response = await axios.post(
 				"https://scouttestserver.onrender.com/api/login",
@@ -19,7 +19,7 @@ const AdminLogin = ({ setVerified }) => {
 			console.log(token);
 
 			const verified = await axios.post(
-				"http://scouttestserver.onrender.com/api/verify",
+				"https://scouttestserver.onrender.com/api/verify",
 				{},
 				{
 					headers: { token: token },

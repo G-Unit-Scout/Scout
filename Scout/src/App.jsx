@@ -22,22 +22,17 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
 
       <AdminLogin setVerified={setVerified} />
      <StudentKanbanBoard/>
      <AdminKanbanBoard cohortId={2} />
-=======
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
      {jobPosting ? <JobPostingsPage /> :
      <StudentKanbanBoard />
-     
      }
-    <AdminLogin setVerified={setVerified} />
      <RegisterUser/>
     <Footer />
->>>>>>> 6b306e8941e23bf03ed71b1f0f7591fd1e01069d
     </>
   )
 }
