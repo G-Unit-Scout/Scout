@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './Components/StudentKanbanBoard'
+import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
@@ -23,12 +23,12 @@ function App() {
     <>
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
-     <AdminLogin setVerified={setVerified} />
-     <RegisterUser/>
      {jobPosting ? <JobPostingsPage /> :
      <StudentKanbanBoard />
+     
      }
-    
+    <AdminLogin setVerified={setVerified} />
+     <RegisterUser/>
     <Footer />
     </>
   )
