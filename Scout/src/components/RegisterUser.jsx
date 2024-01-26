@@ -86,28 +86,28 @@ try{
         <>
         <div className='flex flex-col justify-center items-center h-screen w-absolute bg-white'>
 
-            <div className='flex flex-col justify-start items-center h-[800px] w-[600px] bg-purple-400 rounded-xl'>
+            <div className='flex flex-col justify-start items-center h-[680px] w-[600px] bg-[rgba(13,15,74,255)] rounded-xl'>
                 <div className='flex flex-col justify-center items-center bg-[rgba(239,110,71,255)] h-[120px] w-[600px] rounded-t-xl'>
                     <span className='text-[40px] font-bold text-white'>Register</span>
                 </div>
-            <div className='flex flex-col justify-center items-center h-[550px] w-[500px] bg-green-400'>
-                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
+            <div className='flex flex-col justify-center items-center h-[440px] w-[500px] bg-green-400 mt-5'>
+                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[90px] w-[500px]'>
                     <span>First and Last Name</span>
                     <input
                     id='name'
                     onChange={e => setName(e.target.value)}
-                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
+                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-lg mt-[3px] bg-[rgba(22,26,40,255)] border-slate-700 h-[50px]'
                     type='text'
                     placeholder='Enter First and Last Name'
                     />
                 </div>
 
-                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[100px] w-[500px]'>
+                <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[90px] w-[500px]'>
                     <span>Email</span>
                     <input
                     id='email'
                     onChange={e => setEmail(e.target.value)}
-                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
+                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-lg mt-[3px] bg-[rgba(22,26,40,255)] border-slate-700 h-[50px]'
                     type='text'
                     placeholder='Enter email'
                     />
@@ -117,7 +117,7 @@ try{
                     <input
                     id='password'
                     onChange={e => setPassword(e.target.value)}
-                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]'
+                    className='placeholder-gray-500 border border-gray-300 p-2 mb-2 rounded-lg mt-[3px] bg-[rgba(22,26,40,255)] border-slate-700 h-[50px]'
                     type='text'
                     placeholder='Enter Password'
                     />
@@ -133,7 +133,7 @@ try{
 
                 </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full">
+                    <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full bg-[rgba(22,26,40,255)]">
                         <option disabled value=''>Select Cohort</option>
                         {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_id}>{cohort.cohort_name}</option>))}
                     </select>
@@ -142,7 +142,7 @@ try{
 
 
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select onChange={handleRoleChange} value={role === 1 ? 'Admin' : role ? 'Student' : ''} className="select select-bordered w-full">
+                    <select onChange={handleRoleChange} value={role === 1 ? 'Admin' : role === 0 ? 'Student' : ''} className="select select-bordered w-full bg-[rgba(22,26,40,255)]">
                         <option disabled value=''>Select Role</option>
                         <option>Admin</option>
                         <option>Student</option>
