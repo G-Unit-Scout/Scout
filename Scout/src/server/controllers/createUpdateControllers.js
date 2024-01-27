@@ -1,6 +1,7 @@
 import db from '../../database/db.js'
 
 const createUpdateControllers = {
+
   addJob: async (req, res) => {
     const { jobDetails } = req.body
     const jobData = Object.values(jobDetails)
@@ -81,8 +82,6 @@ const createUpdateControllers = {
       const statusResults = await db.query(addStatusQuery,statusData);
       const statusID = statusResults.rows[0].status_id;
 
-      // "This is my note that I wrote. I is = gud 4 jaubb"
-
       const noteResults = await db.query(addNoteQuery, [statusID, noteContent]);
       const noteID = noteResults.rows[0].note_id;
 
@@ -94,6 +93,47 @@ const createUpdateControllers = {
       res.status(500).send('Error, could not create job or status')
     }
 
+  },
+
+  updateJobStatus: async (req, res) => {
+    console.log('Made it')
+    const userID = req.params.id;
+    const { noteContent, noteID, jobStatus, statusID, jobDetails, jobID} = req.body;
+
+    let jobQuery = `UPDATE partner_jobs SET`;
+    const jobParams = [];
+
+    Object.keys(jobDetails).forEach((key, index) => {
+      jobQuery += ` ${key} = $${index + 1},`
+      jobParams.push(jobDetails[key])
+    });
+    jobQuery = jobQuery.slice(0, -1);
+    jobQuery += ` WHERE job_id = $${jobParams.length + 1} RETURNING *`;
+    jobParams.push(jobID);
+
+    let statusQuery = `UPDATE job_status SET`;
+    const statusParams = [];
+
+    Object.keys(jobStatus).forEach((key, index) => {
+      statusQuery += ` ${key} = $${index + 1},`
+      statusParams.push(jobStatus[key])
+    });
+    statusQuery = statusQuery.slice(0, -1);
+    statusQuery += ` WHERE status_id = $${statusParams.length + 1} RETURNING *`;
+    statusParams.push(statusID);
+
+    const noteQuery = `UPDATE user_notes SET note_content = $1 WHERE note_id = $2 RETURNING *`
+    const noteParams = [noteContent, noteID]
+
+    try {
+      const jobResults = await db.query(jobQuery, jobParams)
+      const statusResults = await db.query(statusQuery, statusParams)
+      const noteResults = await db.query(noteQuery, noteParams)
+      res.status(200).send([jobResults.rows, statusResults.rows, noteResults.rows])
+    } catch(error) {
+      console.error(`Error updating job, status or notes ${error}`)
+      res.status(500).send(`Error, there was a problem updating job, status or notes`)
+    }
   }
 }
 
