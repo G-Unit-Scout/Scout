@@ -7,8 +7,6 @@ import JobModal from './JobModal';
 
 
 
-
-
 const StudentKanbanBoard = () => {
   
   // State for the columns and jobs

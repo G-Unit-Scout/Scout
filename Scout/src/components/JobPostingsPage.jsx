@@ -13,37 +13,37 @@ function JobPostingsPage() {
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
                 <div className="card w-96 bg-base-100 shadow-xl m-5">
                     <div className="card-body">
                         <h2 className="card-title">Software Engineer</h2>
-                        <p>Must construct more pylons</p>
+                        <p>Must construct additional pylons</p>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,5 @@
+
+
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
@@ -22,17 +24,18 @@ function App() {
 
   return (
     <>
-
-      <AdminLogin setVerified={setVerified} />
-     <StudentKanbanBoard/>
-     <AdminKanbanBoard cohortId={2} />
+    <div className="font-galvanize" >
+    <AdminLogin setVerified={setVerified} />
+    <StudentKanbanBoard/>
+    <AdminKanbanBoard cohortId={2} />
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
      {jobPosting ? <JobPostingsPage /> :
      <StudentKanbanBoard />
      }
-     <RegisterUser/>
+    <RegisterUser/>
     <Footer />
+    </div>
     </>
   )
 }
