@@ -24,7 +24,13 @@ function App() {
 	const fetchUser = async (id) => {
     setUserId(id);
     console.log(userId);
-	};
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setVerified(false);
+    setUserId(0);
+  }
 
 	return (
 		<div className="font-galvanize">
@@ -32,7 +38,7 @@ function App() {
 				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
 			{/* ) : ( */}
 				<>
-					<NavBar changeJobPosting={changeJobPosting} />
+					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} />
 					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
 					<RegisterUser />
 					<Footer />
