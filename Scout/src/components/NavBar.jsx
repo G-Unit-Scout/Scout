@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import Notifications from "./Notifications"
+
 function NavBar({ changeJobPosting }) {
     const [notification, setNotification] = useState(true)
 
@@ -40,8 +42,8 @@ function NavBar({ changeJobPosting }) {
                 <div class="drawer-side z-40">
                     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
                     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                        <li><a>Notification 1</a></li>
-                        <li><a>Notification 2</a></li>
+                        <li className="flex flex-row justify-between items-center"><a className="hover:bg-slate-100">Notification 1</a><input type="checkbox" className="checkbox"/></li>
+                        <li className="flex flex-row justify-between items-center"><a className="hover:bg-slate-100">Notification 2</a><input type="checkbox" className="checkbox"/></li>
                     </ul>
                 </div>
             </div>
