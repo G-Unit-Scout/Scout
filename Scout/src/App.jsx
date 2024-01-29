@@ -18,6 +18,7 @@ function App() {
 
   return (
     <>
+    <div className="font-galvanize" >
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
      {/* <AdminLogin/> */}
@@ -26,6 +27,7 @@ function App() {
      }
     
     <Footer />
+    </div>
     </>
   )
 }
