@@ -4,7 +4,6 @@ import axios from "axios";
 const AdminLogin = ({ setVerified }) => {
 	const [email, setEmail] = useState("");
 	const [password_hash, setPassword] = useState("");
-	const [verify, setVerify] = useState(false);
 
 	const handleLogin = async () => {
 		try {
