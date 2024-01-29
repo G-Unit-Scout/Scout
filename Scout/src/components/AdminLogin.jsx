@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-const AdminLogin = ({ setVerified }) => {
+const AdminLogin = ({ setVerified, fetchUser }) => {
 	const [email, setEmail] = useState("");
 	const [password_hash, setPassword] = useState("");
 
 	const handleLogin = async () => {
 		try {
-			// console.log(typeof email, typeof password_hash);
 
 			const response = await axios.post(
 				"https://scouttestserver.onrender.com/api/login",
@@ -15,7 +15,14 @@ const AdminLogin = ({ setVerified }) => {
 			);
 
 			const token = response.data.token;
-			console.log(token);
+			localStorage.setItem("token", token);
+
+			const decoded = jwtDecode(token);
+			// console.log(decoded);
+
+
+			const userId = decoded['user'].id;
+			// console.log(userId);
 
 			const verified = await axios.post(
 				"https://scouttestserver.onrender.com/api/verify",
@@ -25,8 +32,14 @@ const AdminLogin = ({ setVerified }) => {
 				}
 			);
 
-			console.log(verified.data);
-			setVerified(verified.data);
+
+			if (verified.data === true) {
+				setVerified(verified.data);
+				fetchUser(userId)
+			} else {
+				setVerified(false)
+			}
+
 		} catch (error) {
 			console.log(error.response);
 		}
