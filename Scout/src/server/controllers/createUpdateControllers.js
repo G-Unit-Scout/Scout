@@ -134,6 +134,61 @@ const createUpdateControllers = {
       console.error(`Error updating job, status or notes ${error}`)
       res.status(500).send(`Error, there was a problem updating job, status or notes`)
     }
+  },
+
+  addNotification: async (req, res) => {
+    const userID = req.params.id
+    const { header, message, created_by } = req.body
+    const read = false
+    const notificationQuery = `INSERT INTO notifications (
+      created_by,
+      created_for,
+      message,
+      header,
+      read
+    ) VALUES ( $1, $2, $3, $4, $5) RETURNING *`;
+    const notificationParams = [created_by, userID, message, header, read]
+
+    try {
+      const results = await db.query(notificationQuery, notificationParams)
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error creating notification ${error}`)
+      res.status(500).send(`Error, could not create notification`)
+    }
+  },
+
+  updateNotification: async (req, res) => {
+    const noteID = req.params.id
+    const { read } = req.body
+    const notificationQuery = `UPDATE notifications SET read = $1 where created_for = $2 RETURNING *;`;
+    const notificationParams = [read, noteID]
+    try {
+      const results = await db.query(notificationQuery, notificationParams)
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error updating notification ${error}`)
+      res.status(500).send(`Error, could not update notification`)
+    }
+  },
+
+  addAnnouncement: async (req, res) => {
+    const userID = req.params.id
+    const { header, message } = req.body
+    const announcementQuery = `INSERT INTO announcements (
+      creator_id,
+      message,
+      header
+      ) VALUES ( $1, $2, $3) RETURNING *`
+      const announcementParams = [ userID, message, header ]
+
+      try {
+        const results = await db.query(announcementQuery, announcementParams)
+        res.status(200).send(results.rows)
+      } catch(error) {
+        console.error(`Error creating annoucnement ${error}`)
+        res.status(500).send(`Error, could not create announcement`)
+      }
   }
 }
 

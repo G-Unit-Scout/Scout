@@ -2,7 +2,7 @@ import db from '../../database/db.js';
 
 const fetchControllers = {
   fetchPartnerJobs: async (req, res) => {
-    const partnerJobQuery = `SELECT * FROM partner_jobs;`
+    const partnerJobQuery = `SELECT * FROM partner_jobs WHERE is_admin = true;`
     try {
       const results = await db.query(partnerJobQuery)
       res.status(200).send(results.rows)
