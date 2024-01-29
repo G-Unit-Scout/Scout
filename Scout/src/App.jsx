@@ -1,11 +1,14 @@
+
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import StudentKanbanBoard from './Components/StudentKanbanBoard'
+import StudentKanbanBoard from './components/StudentKanbanBoard'
 import AdminLogin from './components/AdminLogin'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import JobPostingsPage from './components/JobPostingsPage'
+import RegisterUser from './components/RegisterUser'
+import AdminKanbanBoard from './components/AdminKanbanBoard'
 
 
 function App() {
@@ -21,13 +24,15 @@ function App() {
   return (
     <>
     <div className="font-galvanize" >
+    <AdminLogin setVerified={setVerified} />
+    <StudentKanbanBoard/>
+    <AdminKanbanBoard cohortId={2} />
     <NavBar changeJobPosting = {changeJobPosting} />
      {/* <button className='btn btn-primary'>It Worked!</button> */}
-     <AdminLogin setVerified={setVerified} />
      {jobPosting ? <JobPostingsPage /> :
      <StudentKanbanBoard />
      }
-    
+    <RegisterUser/>
     <Footer />
     </div>
     </>
@@ -35,4 +40,3 @@ function App() {
 }
 
 export default App
-

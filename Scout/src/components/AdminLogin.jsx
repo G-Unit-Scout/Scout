@@ -4,14 +4,14 @@ import axios from "axios";
 const AdminLogin = ({ setVerified }) => {
 	const [email, setEmail] = useState("");
 	const [password_hash, setPassword] = useState("");
-	// const [verify, setVerify] = useState(false);
+	const [verify, setVerify] = useState(false);
 
 	const handleLogin = async () => {
 		try {
-			console.log(typeof email, typeof password_hash);
+			// console.log(typeof email, typeof password_hash);
 
 			const response = await axios.post(
-				"http://localhost:3000/api/login",
+				"https://scouttestserver.onrender.com/api/login",
 				{ email, password_hash }
 			);
 
@@ -19,7 +19,7 @@ const AdminLogin = ({ setVerified }) => {
 			console.log(token);
 
 			const verified = await axios.post(
-				"http://localhost:3000/api/verify",
+				"https://scouttestserver.onrender.com/api/verify",
 				{},
 				{
 					headers: { token: token },
