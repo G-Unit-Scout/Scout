@@ -15,6 +15,8 @@ function App() {
   // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
   const [verified, setVerified] = useState(false)
   const [userType, setUserType] = useState('student');
+  const [user_id, setUser_id] = useState(5);
+  const [usersCohortId, setUsersCohortId] = useState(1);
 
   const changeJobPosting = (boolean) => {
     setJobPosting(boolean)
@@ -32,10 +34,11 @@ function App() {
         <button className="btn btn-primary" onClick={toggleOption}>
             Toggle userType
         </button>
-        <p>Current userType: {userType}</p>
+        <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
+        
     </div>
      {jobPosting ? <JobPostingsPage userType={userType}/> :
-     <KanbanBoard userType={userType}/>
+     <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>
      
      }
     {/* <AdminLogin setVerified={setVerified} />

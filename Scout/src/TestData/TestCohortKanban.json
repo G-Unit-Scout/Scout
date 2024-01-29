@@ -387,8 +387,7 @@
         "job_type": "Full-time",
         "is_partner": false,
         "competencies": {
-            "skill19": true,
-            "skill20": true
+            "skills": ["skill19", "skill20"]
         },
         "job_status_id": "10",
         "note_content": "G-Unit products ltd.",

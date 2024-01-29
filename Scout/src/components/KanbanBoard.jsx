@@ -10,9 +10,9 @@ import JobModal from './JobModal';
 
 
 
-const StudentKanbanBoard = ({userType}) => {
+const KanbanBoard = ({userType, user_id, usersCohortId}) => {
 
-  console.log("userType IN StudentKanbanBoard:===", userType)
+  //console.log("userType IN StudentKanbanBoard:===", userType)
 
   const initialNewJobDetails = {
     job_id: null,
@@ -26,7 +26,7 @@ const StudentKanbanBoard = ({userType}) => {
     job_type: "",
     interview_status: null,
     column_id: 1,
-    row_num: 1,
+    row_num: 8,
     note_content: ""
   }
 
@@ -39,7 +39,7 @@ const StudentKanbanBoard = ({userType}) => {
   const [jobDetails, setJobDetails] = useState({});
   const [editJobDetails, setEditJobDetails] = useState({});
   const [openModalId, setOpenModalId] = useState(null);
-  const [newJobDetails, setNewJobDetails] = useState(initialNewJobDetails);
+  const [newJobDetails, setNewJobDetails] = useState(null);
   const [jsonData, setJsonData] = useState([]);
   const [selectedCohort, setSelectedCohort] = useState(undefined); // New state for selected cohort
   const [allCohorts, setAllCohorts] = useState([]); // State to hold all cohorts (for admin)
@@ -72,7 +72,7 @@ useEffect(() => {
   if (userType === 'student') {
     const fetchStudentData = async () => {
       try {
-        const response = await fetch('https://scouttestserver.onrender.com/api/cohortkanban/2');
+        const response = await fetch(`https://scouttestserver.onrender.com/api/studentkanban/${user_id}`);
         const data = await response.json();
         setJsonData(data);
         console.log("data In fetch:", data)
@@ -122,7 +122,7 @@ useEffect(() => {
 
 // Update jobDetails and columns when jsonData changes
 useEffect(() => {
-  console.log("jsonData IN useEffect:", jsonData)
+  //console.log("jsonData IN useEffect:", jsonData)
   const initialJobDetails = {};
   jsonData.forEach(job => {
     initialJobDetails[job.job_id] = { ...job };
@@ -139,10 +139,9 @@ useEffect(() => {
   //===========================Event Handlers===========================//
 
 
-  const openEditModal = (jobId, columnId = 1) => {
+  const openEditModal = (jobId) => {
     if (jobId === 'new') {
       setNewJobDetails({
-        job_id: null,
         job_title: "",
         description: "",
         company: "",
@@ -151,9 +150,14 @@ useEffect(() => {
         is_admin: false,
         post_url: "",
         job_type: "",
-        interview_status: null,
-        column_id: columnId,
+        is_partner: false,
+        competencies: {"skills": ["skill1", "skill2"]},
+        cohort_id: usersCohortId,
+        column_id: 1,
         row_num: 1,
+        note_id: null,
+        interview_status: "",
+        tags: null,
         note_content: ""
       });
     } else {
@@ -169,46 +173,179 @@ useEffect(() => {
   };
 
 
-  const handleUpdateJobDetails = (jobId) => {
-    const validateJobDetails = (details) => {
-      // Add your validation logic here
-      // Example: Check if job title is empty
-      if (!details.job_title.trim()) {
-        alert('Please fill out the job title.');
-        return false;
-      }
-      // Add other required field checks as needed
-      return true;
-    };
+  // const handleUpdateJobDetails = (jobId) => {
+  //   const validateJobDetails = (details) => {
+  //     // Add your validation logic here
+  //     // Example: Check if job title is empty
+  //     if (!details.job_title.trim()) {
+  //       alert('Please fill out the job title.');
+  //       return false;
+  //     }
+  //     // Add other required field checks as needed
+  //     return true;
+  //   };
 
-    if (jobId === 'new') {
-      if (!validateJobDetails(newJobDetails)) {
-        return; // Stop if validation fails
-      }
-      const newJobId = `job_${new Date().getTime()}`;
+  //   if (jobId === 'new') {
+  //     if (!validateJobDetails(newJobDetails)) {
+  //       return; // Stop if validation fails
+  //     }
+  //     const newJobId = `job_${new Date().getTime()}`;
       
+  //     setJobDetails(prev => ({
+  //       ...prev,
+  //       [newJobId]: { ...newJobDetails, job_id: newJobId }
+  //     }));
+  
+  //     const newJobColumn = getColumnTitle(1); // Assuming new jobs go to the first column
+  //     setColumns(prev => ({
+  //       ...prev,
+  //       [newJobColumn]: [...(prev[newJobColumn] || []), { ...newJobDetails, job_id: newJobId }]
+  //     }));
+  //   } else {
+  //     if (!validateJobDetails(editJobDetails)) {
+  //       return; // Stop if validation fails
+  //     }
+  //     // Updating an existing job
+  //     setJobDetails(prev => ({
+  //       ...prev,
+  //       [jobId]: { ...editJobDetails }
+  //     }));
+  //   }
+  //   closeModal();
+  // };
+
+
+
+//   const handleUpdateJobDetails = (jobId) => {
+//     const validateJobDetails = (details) => {
+//         // Add your validation logic here
+//         if (!details.job_title.trim()) {
+//             alert('Please fill out the job title.');
+//             return false;
+//         }
+//         // ... other validations ...
+//         return true;
+//     };
+
+//     const updatedJobDetails = jobId === 'new' ? newJobDetails : editJobDetails;
+//     console.log("newJobDetails:", newJobDetails)
+
+//     if (!validateJobDetails(updatedJobDetails)) {
+//         return; // Stop if validation fails
+//     }
+
+//     // Updating the jobDetails state
+//     setJobDetails(prevJobDetails => ({
+//         ...prevJobDetails,
+//         [jobId]: updatedJobDetails
+//     }));
+
+//     // Updating the columns state
+//     setColumns(prevColumns => {
+//         const newColumns = { ...prevColumns };
+//         Object.keys(newColumns).forEach(columnKey => {
+//             newColumns[columnKey] = newColumns[columnKey].map(job => {
+//                 if (job.job_id === jobId) {
+//                     return updatedJobDetails;
+//                 }
+//                 return job;
+//             });
+//         });
+//         return newColumns;
+//     });
+
+//     closeModal();
+// };
+
+
+
+const handleUpdateJobDetails = async (jobId) => {
+  const validateJobDetails = (details) => {
+    // Add your validation logic here
+    if (!details.job_title.trim()) {
+      alert('Please fill out the job title.');
+      return false;
+    }
+    // ... other validations ...
+    return true;
+  };
+
+  const jobData = jobId === 'new' ? newJobDetails : editJobDetails;
+
+  if (!validateJobDetails(jobData)) {
+    return; // Stop if validation fails
+  }
+
+  console.log("newjobData:", jobData)
+  if (jobId === 'new') {
+    try {
+      // Construct the body for the API request
+      const body = {
+        jobDetails: {
+          // Add necessary jobStatus fields here
+          job_title: jobData.job_title,
+          description: jobData.description,
+          company: jobData.company,
+          location: jobData.location,
+          salary_range: jobData.salary_range,
+          is_admin: jobData.is_admin,
+          post_url: jobData.post_url,
+          job_type: jobData.job_type,
+          is_partner: jobData.is_partner,
+          competencies: jobData.competencies
+        },
+        jobStatus: {
+          cohort_id: jobData.cohort_id,
+          column_id: jobData.column_id,
+          row_num: jobData.row_num,
+          note_id: jobData.note_id,
+          interview_status: jobData.interview_status,
+          tags: null
+        },
+        noteContent: {
+          noteContent : jobData.note_content
+        } // or other note content logic
+      };
+
+      console.log("body:", body)
+      // Make an API call to create a new job
+      const response = await fetch(`https://scouttestserver.onrender.com/api/addjobaddstatus/${user_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create the job');
+      }
+
+      const newJob = await response.json();
+      console.log(newJob)
+      // Update state with the new job data returned from the API
       setJobDetails(prev => ({
         ...prev,
-        [newJobId]: { ...newJobDetails, job_id: newJobId }
+        [newJob.job_id]: newJob
       }));
-  
-      const newJobColumn = getColumnTitle(1); // Assuming new jobs go to the first column
       setColumns(prev => ({
         ...prev,
-        [newJobColumn]: [...(prev[newJobColumn] || []), { ...newJobDetails, job_id: newJobId }]
+        [getColumnTitle(newJob.column_id)]: [...prev[getColumnTitle(newJob.column_id)], newJob]
       }));
-    } else {
-      if (!validateJobDetails(editJobDetails)) {
-        return; // Stop if validation fails
-      }
-      // Updating an existing job
-      setJobDetails(prev => ({
-        ...prev,
-        [jobId]: { ...editJobDetails }
-      }));
+
+    } catch (error) {
+      console.error('Error creating new job:', error);
+      // Handle error (e.g., show error message to user)
     }
-    closeModal();
-  };
+  } else {
+    // Logic for updating an existing job
+    // (You might also want to make an API call here to update the job in the database)
+  }
+
+  closeModal();
+};
+
+
 
 
   const handleDeleteJob = (jobId) => {
@@ -393,4 +530,4 @@ const studentSelectionDropdown = userType === 'admin' && (
   );
 }
 
-export default StudentKanbanBoard;
+export default KanbanBoard;

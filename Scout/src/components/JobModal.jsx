@@ -7,6 +7,16 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         const updatedDetails = { ...jobDetails, [key]: value };
         onChange(updatedDetails); // Pass the updated object to the parent's onChange handler
       };
+
+      // Custom function to display competencies
+const displayCompetencies = (competencies) => {
+    return competencies && competencies.skills ? competencies.skills.join(', ') : '';
+  };
+
+  // Custom function to parse competencies
+const parseCompetencies = (competenciesString) => {
+    return { skills: competenciesString.split(',').map(skill => skill.trim()) };
+  };
       
   if (!isOpen) return null;
 
@@ -100,10 +110,10 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         <div className="divider text-white">Competencies</div>
 
         <input 
-            type="text" 
-            value={JSON.stringify(jobDetails.competencies) || ''}  
-            onChange={(e) => handleInputChange('competencies', e.target.value)} 
-            className="input input-bordered w-full" 
+        type="text" 
+        value={displayCompetencies(jobDetails.competencies)}  
+        onChange={(e) => handleInputChange('competencies', parseCompetencies(e.target.value))} 
+        className="input input-bordered w-full" 
         />
 
         <div className="divider text-white">Job Description</div>
@@ -118,7 +128,7 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
 
         <textarea 
             className="textarea textarea-bordered w-full" 
-            value={jobDetails.note_content || ''}  
+            value={jobDetails.note_content ? JSON.parse(jobDetails.note_content).noteContent : ''}  
             onChange={(e) => handleInputChange('note_content', e.target.value)}
         ></textarea>
 
