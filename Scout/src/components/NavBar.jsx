@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import Notifications from "./Notifications"
+
 function NavBar({ changeJobPosting }) {
     const [notification, setNotification] = useState(true)
 
