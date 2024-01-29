@@ -28,16 +28,16 @@ function App() {
 
 	return (
 		<div className="font-galvanize">
-			{!verified ? (
+			{/* {!verified ? ( */}
 				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
-			) : (
+			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} />
 					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
 					<RegisterUser />
 					<Footer />
 				</>
-			)}
+			{/* )} */}
 		</div>
 	);
 }
