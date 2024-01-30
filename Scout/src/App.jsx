@@ -9,6 +9,7 @@ import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import AdminKanbanBoard from "./components/AdminKanbanBoard";
 
+
 function App() {
 	const [count, setCount] = useState(0);
 	const [jobPosting, setJobPosting] = useState(false);
@@ -35,12 +36,12 @@ function App() {
 	return (
 		<div className="font-galvanize">
 			{/* {!verified ? ( */}
-				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
+				{/* <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> */}
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} />
 					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
-					<RegisterUser />
+					{/* <RegisterUser /> */}
 					<Footer />
 				</>
 			{/* )} */}
