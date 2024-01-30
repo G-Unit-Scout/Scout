@@ -5,6 +5,6 @@ const router = express.Router();
 
 import deleteControllers from '../controllers/deleteControllers.js'
 
-router.delete('/deletejob/:id', deleteControllers.deleteJob )
+router.delete('/job/:id', deleteControllers.deleteJob )
 
 export default router
