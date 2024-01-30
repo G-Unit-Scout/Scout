@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS "job_status" (
     "note_id" BIGINT NULL,
     "interview_status" VARCHAR(50) NULL,
     "tags" JSON NULL,
-    FOREIGN KEY ("user_id") REFERENCES "users"("user_id"),
+    FOREIGN KEY ("user_id") REFERENCES "users"("user_id") ON DELETE CASCADE,
     FOREIGN KEY ("job_id") REFERENCES "partner_jobs"("job_id") ON DELETE CASCADE,
-    FOREIGN KEY ("cohort_id") REFERENCES "cohorts"("cohort_id")
+    FOREIGN KEY ("cohort_id") REFERENCES "cohorts"("cohort_id") ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "user_notes" (
@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS "user_notes" (
 );
 
 ALTER TABLE "job_status"
-ADD CONSTRAINT "job_status_note_id_foreign"
-FOREIGN KEY ("note_id") REFERENCES "user_notes"("note_id");
+ADD CONSTRAINT "job_status_note_id_fkey"
+FOREIGN KEY ("note_id") REFERENCES "user_notes"("note_id") ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS "announcements" (
     "id" SERIAL PRIMARY KEY,
