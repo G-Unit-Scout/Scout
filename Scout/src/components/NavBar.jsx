@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 
 import Notifications from "./Notifications"
+import Announcements from "./Announcements";
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout }) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements }) {
     const [acknowledge, setAcknowledge] = useState(false)
     const [userName, setUserName] = useState('')
 
@@ -17,6 +18,23 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         getUserName();
 
     }, []);
+
+    useEffect( () => {
+
+        const getAnnouncements = async () => {
+
+            const res = await fetch(`https://scouttestserver.onrender.com/api/announcements`);
+            const data =  await res.json();
+            console.log(data)
+      
+            addAnnouncements(data);
+            if (data[0] !== undefined) {
+                setAcknowledge(true)
+            }
+            
+        }
+        getAnnouncements();
+    }, [])
 
     useEffect( () => {
 
@@ -72,7 +90,9 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
                 <div class="drawer-side z-40">
                     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
                     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+                        {announcements[0] === undefined? " ": <Announcements announcements={announcements}/>}
                         {notifications[0] === undefined? " ": <Notifications userId ={userId} notifications={notifications}/>}
+
                         
                     </ul>
                 </div>

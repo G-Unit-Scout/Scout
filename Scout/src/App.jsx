@@ -16,6 +16,7 @@ function App() {
 	const [verified, setVerified] = useState(false);
 	const [userId, setUserId] = useState(3);
   const [notifications, setNotifications] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
 
 	const changeJobPosting = (boolean) => {
 		setJobPosting(boolean);
@@ -37,6 +38,10 @@ function App() {
     setNotifications(data);
   }
 
+  const addAnnouncements = (data) => {
+    setAnnouncements(data);
+  }
+
   	return (
 		<div className="font-galvanize">
 			{/* {!verified ? ( */}
@@ -47,7 +52,9 @@ function App() {
           handleLogout={handleLogout}
           userId={userId}
           notifications={notifications}
-          addNotifications={addNotifications}/>
+          addNotifications={addNotifications}
+          announcements={announcements}
+          addAnnouncements={addAnnouncements}/>
 					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
 					<RegisterUser />
 					<Footer />
