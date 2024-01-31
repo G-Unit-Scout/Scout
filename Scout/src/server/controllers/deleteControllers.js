@@ -91,6 +91,20 @@ const deleteControllers = {
       console.error(`Error deleting notification ${error}`)
       res.status(500).send(`Error, could not delete notification`)
     }
+  },
+
+  dbClean: async (req, res) => {
+    const announcementsCleanQuery = `DELETE FROM announcements WHERE CURRENT_TIMESTAMP - created_at > INTERVAL '3 days';`;
+    const notificationsCleanQuery = `DELETE FROM notifications WHERE CURRENT_TIMESTAMP - created_at > INTERVAL '2 weeks';`;
+
+    try {
+      const announceResults = await db.query(announcementsCleanQuery);
+      const notifResults = await db.query(notificationsCleanQuery);
+      res.status(200).send(`Successfully ran cleanup script`)
+    } catch(error) {
+      console.error(`Error running cleanup script ${error}`)
+      res.status(500).send(`Error, could not run cleanup script`)
+    }
   }
 }
 
