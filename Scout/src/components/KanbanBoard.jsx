@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-//import jsonData from '../TestData/TestUserKanbanData.json';
+import jsonData from '../TestData/TestUserKanbanData.json';
 import studentjsonData from '../TestData/TestUserKanbanData_v2.json';
 import cohortjsonData from '../TestData/TestCohortKanban.json';
 import KanbanColumn from './KanbanColumn';
@@ -45,7 +45,9 @@ const KanbanBoard = ({userType, user_id, usersCohortId}) => {
   const [allCohorts, setAllCohorts] = useState([]); // State to hold all cohorts (for admin)
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
+  const [needRefresh, setNeedRefresh] = useState(false);
 
+  console.log("editJobDetails:", editJobDetails)
 
 
   //===========================Helper Functions===========================//
@@ -82,8 +84,9 @@ useEffect(() => {
     };
 
     fetchStudentData();
+    setNeedRefresh(false);
   }
-}, [userType]);
+}, [userType, needRefresh]);
 
 // Setting initial state for admin view and fetching cohorts
 useEffect(() => {
@@ -323,6 +326,7 @@ const handleUpdateJobDetails = async (jobId) => {
 
       const newJob = await response.json();
       console.log(newJob)
+      setNeedRefresh(true)
       // Update state with the new job data returned from the API
       setJobDetails(prev => ({
         ...prev,
@@ -338,8 +342,56 @@ const handleUpdateJobDetails = async (jobId) => {
       // Handle error (e.g., show error message to user)
     }
   } else {
-    // Logic for updating an existing job
-    // (You might also want to make an API call here to update the job in the database)
+    try {
+        // Construct the body for the API request
+        const body = {
+            statusID: jobData.status_id,
+            jobID: jobId,
+            noteID: jobData.note_id,
+            noteContent : jobData.note_content,
+            jobStatus: {
+              cohort_id: jobData.cohort_id,
+              column_id: jobData.column_id,
+              row_num: jobData.row_num,
+              interview_status: jobData.interview_status,
+              tags: null
+            },
+            jobDetails: {
+              job_title: jobData.job_title,
+              description: jobData.description,
+              company: jobData.company,
+              location: jobData.location,
+              salary_range: jobData.salary_range,
+              is_admin: jobData.is_admin,
+              post_url: jobData.post_url,
+              job_type: jobData.job_type,
+              is_partner: jobData.is_partner,
+              competencies: jobData.competencies
+            }
+        };
+
+        console.log("body:", body)
+        // Make an API call to create a new job
+        const response = await fetch(`https://scouttestserver.onrender.com/api/updatestatus`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create the job');
+        }
+
+        const updatedJob = await response.json();
+        console.log(updatedJob)
+        setNeedRefresh(true)
+
+      } catch (error) {
+        console.error('Error creating new job:', error);
+        // Handle error (e.g., show error message to user)
+      }
   }
 
   closeModal();
@@ -349,23 +401,47 @@ const handleUpdateJobDetails = async (jobId) => {
 
 
   const handleDeleteJob = (jobId) => {
-    if (jobId && jobId !== 'new') {
-      // Remove from jobDetails
-      setJobDetails(prev => {
-        const newJobDetails = { ...prev };
-        delete newJobDetails[jobId];
-        return newJobDetails;
-      });
+    // if (jobId && jobId !== 'new') {
+    //   // Remove from jobDetails
+    //   setJobDetails(prev => {
+    //     const newJobDetails = { ...prev };
+    //     delete newJobDetails[jobId];
+    //     return newJobDetails;
+    //   });
   
-      // Remove from columns
-      setColumns(prev => {
-        const newColumns = { ...prev };
-        Object.keys(newColumns).forEach(columnId => {
-          newColumns[columnId] = newColumns[columnId].filter(job => job.job_id !== jobId);
-        });
-        return newColumns;
+    //   // Remove from columns
+    //   setColumns(prev => {
+    //     const newColumns = { ...prev };
+    //     Object.keys(newColumns).forEach(columnId => {
+    //       newColumns[columnId] = newColumns[columnId].filter(job => job.job_id !== jobId);
+    //     });
+    //     return newColumns;
+    //   });
+    // }
+    try {
+      fetch(`https://scouttestserver.onrender.com/api/job/${jobId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      // fetch(`https://scouttestserver.onrender.com/api/jobstatus/${editJobDetails.jobStatus}`, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+      // fetch(`https://scouttestserver.onrender.com/api/usernotes/${editJobDetails.noteID}`, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      // });
+      setNeedRefresh(true);
+    } catch (error) {
+      console.error('Error deleting job:', error);
     }
+
     closeModal();
   };
 

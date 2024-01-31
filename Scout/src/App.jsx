@@ -37,7 +37,7 @@ function App() {
         <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
         
     </div>
-     {jobPosting ? <JobPostingsPage userType={userType}/> :
+     {jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
      <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>
      
      }
