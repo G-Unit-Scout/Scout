@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import JobsComponent from './JobPostingPageJobCards';
 import JobPostingModal from './JobPostingModal';
 
-function JobPostingsPage({userType, user_id, usersCohortId}) {
+function JobPostingsPage({userType, userId, usersCohortId}) {
 
 
     const [jobBoardJobs, setJobBoardJobs] = useState({});
@@ -132,13 +132,13 @@ function JobPostingsPage({userType, user_id, usersCohortId}) {
             bodyData = newJobObj;
         } else if (userType === 'admin') {
             // Set the API endpoint and HTTP method for updating an existing job
-            apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${user_id}`; // Adjust with your actual endpoint
+            apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${userId}`; // Adjust with your actual endpoint
             method = 'PUT';
             bodyData = updatedJobObj;
             //console.log("UpdatedJobObj:", updatedJobObj)
         } else {
             // Set the API endpoint and HTTP method for updating an existing job
-            apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${user_id}`; // Adjust with your actual endpoint
+            apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${userId}`; // Adjust with your actual endpoint
             method = 'PUT';
             bodyData = updatedJobObj;
             //console.log("UpdatedJobObj:", updatedJobObj)
