@@ -128,7 +128,7 @@ useEffect(() => {
     setCohortjsonData([]);
     setSelectedStudent(undefined);
   }
-}, [userType, selectedCohort]);
+}, [userType, selectedCohort, needRefresh]);
 
 
 
@@ -152,32 +152,10 @@ useEffect(() => {
       fetchStudentsData();
     }
   }
-}, [userType, selectedCohort]);
+}, [userType, selectedCohort, needRefresh]);
 
 
-// Setting initial state for admin view and fetching cohorts
-// useEffect(() => {
-//   if (userType === 'admin') {
-//     setJsonData([]); // Initialize with empty array
-//     // Fetch cohorts (implement fetchCohorts function to fetch from API)
-//     const cohorts = fetchCohorts(cohortjsonData);/* API response data */
-//     setAllCohorts(cohorts);
-//   }
-// }, [userType]);
 
-// // Fetching data for selected cohort and students for admin view
-// useEffect(() => {
-//   if (userType === 'admin' && selectedCohort) {
-//     // Fetch data for the selected cohort
-//     const data = fetchDataForCohort(selectedCohort); // Adjust this function to fetch from API
-//     const students = fetchStudents(data); // Adjust this function to fetch from API
-//     setAllStudents(students);
-//     setJsonData(data);
-//   } else if (userType === 'admin') {
-//     setJsonData([]); // Reset when no cohort is selected
-//     setAllStudents([]);
-//   }
-// }, [userType, selectedCohort]);
 
 // Fetching data for selected student within a cohort for admin view
 useEffect(() => {
@@ -191,7 +169,7 @@ useEffect(() => {
     // setJsonData(data);
     setJsonData(cohortjsonData);
   }
-}, [userType, selectedStudent]);
+}, [userType, selectedStudent, needRefresh]);
 
 // Update jobDetails and columns when jsonData changes
 useEffect(() => {
