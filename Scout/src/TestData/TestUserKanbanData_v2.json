@@ -4,10 +4,10 @@
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 1,
-        "column_id": "1",
+        "column_id": "5",
         "row_num": "1",
-        "note_id": null,
-        "interview_status": "Interview Scheduled",
+        "note_id": 1,
+        "interview_status": "No Response",
         "tags": {
             "technical_round": "pending",
             "hr_round": "pending"
@@ -15,7 +15,7 @@
         "job_title": "Software Developer",
         "description": "Exciting role in software development",
         "company": "Tech Company",
-        "location": "LocationA",
+        "location": "Remote",
         "salary_range": "Competitive",
         "is_admin": false,
         "post_url": "joburl1",
@@ -24,16 +24,21 @@
         "competencies": {
             "skill1": true,
             "skill2": false
-        }
+        },
+        "job_status_id": "1",
+        "note_content": "I was fired before I was even hired",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 2,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 2,
-        "column_id": "2",
+        "column_id": "4",
         "row_num": "2",
-        "note_id": null,
+        "note_id": 2,
         "interview_status": "Offer Extended",
         "tags": {
             "negotiation": "in-progress"
@@ -41,7 +46,7 @@
         "job_title": "Marketing Specialist",
         "description": "Join our marketing team",
         "company": "Marketing Agency",
-        "location": "LocationB",
+        "location": "Hybrid: New York, NY",
         "salary_range": "Negotiable",
         "is_admin": true,
         "post_url": "joburl2",
@@ -50,22 +55,27 @@
         "competencies": {
             "skill3": true,
             "skill4": true
-        }
+        },
+        "job_status_id": "2",
+        "note_content": "Bro didnt even shake my hand in the interview",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 3,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 3,
-        "column_id": "3",
+        "column_id": "1",
         "row_num": "3",
-        "note_id": null,
-        "interview_status": "Application Received",
+        "note_id": 3,
+        "interview_status": "",
         "tags": null,
         "job_title": "Data Scientist",
         "description": "Explore data science opportunities",
         "company": "Data Analytics Co.",
-        "location": "LocationC",
+        "location": "Austin, TX",
         "salary_range": "Highly Competitive",
         "is_admin": false,
         "post_url": "joburl3",
@@ -74,16 +84,21 @@
         "competencies": {
             "skill5": true,
             "skill6": true
-        }
+        },
+        "job_status_id": "3",
+        "note_content": "I feel like I killed it on this one",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 4,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 4,
-        "column_id": "4",
+        "column_id": "3",
         "row_num": "4",
-        "note_id": null,
+        "note_id": 4,
         "interview_status": "Interview Completed",
         "tags": {
             "feedback": "positive"
@@ -91,7 +106,7 @@
         "job_title": "UX/UI Designer",
         "description": "Create stunning user experiences",
         "company": "Design Studio",
-        "location": "LocationD",
+        "location": "Remote",
         "salary_range": "Salary DOE",
         "is_admin": true,
         "post_url": "joburl4",
@@ -100,22 +115,27 @@
         "competencies": {
             "skill7": true,
             "skill8": false
-        }
+        },
+        "job_status_id": "4",
+        "note_content": "When I showed up for the interview the assistant kept mouthing the word \"run\" to me, idk.",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 5,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 5,
-        "column_id": "5",
+        "column_id": "2",
         "row_num": "5",
-        "note_id": null,
+        "note_id": 5,
         "interview_status": "Application Submitted",
         "tags": null,
         "job_title": "Sales Representative",
         "description": "Join our dynamic sales team",
         "company": "Sales Solutions Ltd.",
-        "location": "LocationE",
+        "location": "Remote",
         "salary_range": "Commission-based",
         "is_admin": false,
         "post_url": "joburl5",
@@ -124,16 +144,21 @@
         "competencies": {
             "skill9": true,
             "skill10": false
-        }
+        },
+        "job_status_id": "5",
+        "note_content": "They told me my name had to be Adam to be a part of Adams Coders",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 6,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 6,
-        "column_id": "1",
+        "column_id": "4",
         "row_num": "6",
-        "note_id": null,
+        "note_id": 6,
         "interview_status": "Offer Declined",
         "tags": {
             "reason": "salary not competitive"
@@ -141,7 +166,7 @@
         "job_title": "Project Manager",
         "description": "Lead exciting projects",
         "company": "Project Management Co.",
-        "location": "LocationF",
+        "location": "Remote",
         "salary_range": "Competitive",
         "is_admin": false,
         "post_url": "joburl6",
@@ -150,16 +175,21 @@
         "competencies": {
             "skill11": true,
             "skill12": true
-        }
+        },
+        "job_status_id": "6",
+        "note_content": "I accidentally introduced myself with Hi, welcome to chilis!",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     },
     {
         "status_id": 7,
         "user_id": "2",
         "cohort_id": "2",
         "job_id": 7,
-        "column_id": "1",
+        "column_id": "3",
         "row_num": "7",
-        "note_id": null,
+        "note_id": 7,
         "interview_status": "Interview Scheduled",
         "tags": {
             "technical_round": "pending",
@@ -168,7 +198,7 @@
         "job_title": "Content Writer",
         "description": "Create compelling content",
         "company": "Content Creations Inc.",
-        "location": "LocationG",
+        "location": "Remote",
         "salary_range": "Negotiable",
         "is_admin": true,
         "post_url": "joburl7",
@@ -177,82 +207,11 @@
         "competencies": {
             "skill13": true,
             "skill14": false
-        }
-    },
-    {
-        "status_id": 8,
-        "user_id": "2",
-        "cohort_id": "2",
-        "job_id": 8,
-        "column_id": "1",
-        "row_num": "8",
-        "note_id": null,
-        "interview_status": "Offer Accepted",
-        "tags": {
-            "start_date": "2024-02-01"
         },
-        "job_title": "Customer Support Specialist",
-        "description": "Provide excellent customer service",
-        "company": "Support Solutions",
-        "location": "LocationH",
-        "salary_range": "Salary DOE",
-        "is_admin": false,
-        "post_url": "joburl8",
-        "job_type": "Full-time",
-        "is_partner": true,
-        "competencies": {
-            "skill15": true,
-            "skill16": true
-        }
-    },
-    {
-        "status_id": 9,
-        "user_id": "2",
-        "cohort_id": "2",
-        "job_id": 9,
-        "column_id": "1",
-        "row_num": "9",
-        "note_id": null,
-        "interview_status": "Application Received",
-        "tags": null,
-        "job_title": "Financial Analyst",
-        "description": "Analyze financial data",
-        "company": "Finance Corp.",
-        "location": "LocationI",
-        "salary_range": "Competitive",
-        "is_admin": false,
-        "post_url": "joburl9",
-        "job_type": "Full-time",
-        "is_partner": true,
-        "competencies": {
-            "skill17": true,
-            "skill18": false
-        }
-    },
-    {
-        "status_id": 10,
-        "user_id": "2",
-        "cohort_id": "2",
-        "job_id": 10,
-        "column_id": "1",
-        "row_num": "10",
-        "note_id": null,
-        "interview_status": "Interview Completed",
-        "tags": {
-            "feedback": "neutral"
-        },
-        "job_title": "Human Resources Manager",
-        "description": "Manage HR functions",
-        "company": "HR Services Ltd.",
-        "location": "LocationJ",
-        "salary_range": "Negotiable",
-        "is_admin": true,
-        "post_url": "joburl10",
-        "job_type": "Full-time",
-        "is_partner": false,
-        "competencies": {
-            "skill19": true,
-            "skill20": true
-        }
+        "job_status_id": "7",
+        "note_content": "I really think this is the one",
+        "created_at": "2024-01-25T01:05:43.811Z",
+        "updated_at": "2024-01-25T01:05:43.811Z",
+        "user_name": "Carl"
     }
 ]
