@@ -25,7 +25,13 @@ function App() {
 	const fetchUser = async (id) => {
     setUserId(id);
     console.log(userId);
-	};
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setVerified(false);
+    setUserId(0);
+  }
 
   const addNotifications = (data) => {
     setNotifications(data);
