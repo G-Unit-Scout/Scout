@@ -58,7 +58,8 @@ const createUpdateControllers = {
       note_id,
       interview_status,
       tags,
-      job_id,user_id
+      job_id,
+      user_id
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING status_id;`;
 
@@ -188,6 +189,28 @@ const createUpdateControllers = {
         console.error(`Error creating annoucnement ${error}`)
         res.status(500).send(`Error, could not create announcement`)
       }
+  },
+
+  updateJob: async (req, res) => {
+    const { jobID, jobDetails } = req.body
+    let jobQuery = `UPDATE partner_jobs SET`;
+    const jobParams = [];
+
+    Object.keys(jobDetails).forEach((key, index) => {
+      jobQuery += ` ${key} = $${index + 1},`
+      jobParams.push(jobDetails[key])
+    });
+    jobQuery = jobQuery.slice(0, -1);
+    jobQuery += ` WHERE job_id = $${jobParams.length + 1} RETURNING *`;
+    jobParams.push(jobID);
+
+    try {
+      const results = await db.query(jobQuery, jobParams)
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error updating job ${error}`)
+      res.status(500).send(`Error, could not update job`)
+    }
   }
 }
 

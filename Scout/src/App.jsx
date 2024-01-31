@@ -1,21 +1,24 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import "./App.css";
-import StudentKanbanBoard from "./components/StudentKanbanBoard";
-import AdminLogin from "./components/AdminLogin";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import JobPostingsPage from "./components/JobPostingsPage";
-import RegisterUser from "./components/RegisterUser";
-import AdminKanbanBoard from "./components/AdminKanbanBoard";
+import { useState } from 'react'
+import { useEffect } from 'react'
+import './App.css'
+import AdminLogin from './components/AdminLogin'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+import JobPostingsPage from './components/JobPostingsPage'
+import RegisterUser from './components/RegisterUser'
+import KanbanBoard from './components/KanbanBoard'
+
 
 
 function App() {
+
 	const [count, setCount] = useState(0);
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
 	const [verified, setVerified] = useState(false);
+  const [userType, setUserType] = useState('student');
 	const [userId, setUserId] = useState(0);
+  const [usersCohortId, setUsersCohortId] = useState(1);
 //state below it for dark mode/light mode functionality
 	const [toggleMode, setToggleMode] = useState(false);
 	const [theme, setTheme] = useState('dark');
@@ -47,6 +50,11 @@ function App() {
     setUserId(0);
   }
 
+  const toggleOption = () => {
+    setUserType(prevType => prevType === 'student' ? 'admin' : 'student');
+  };
+
+
 	return (
 		<div className="font-galvanize" data-theme={theme}>
 			{/* {!verified ? ( */}
@@ -54,9 +62,10 @@ function App() {
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>
-					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
-					{/* <RegisterUser /> */}
-					{/* <Footer /> */}
+					{jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
+          <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>}
+					<RegisterUser />
+					<Footer />
 				</>
 			{/* )} */}
 		</div>
