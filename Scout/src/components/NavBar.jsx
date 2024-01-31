@@ -2,26 +2,24 @@ import { useState, useEffect } from "react"
 
 import Notifications from "./Notifications"
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications }) {
-    const [acknowledge, setAcknowledge] = useState(true)
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout }) {
+    const [acknowledge, setAcknowledge] = useState(false)
     const [userName, setUserName] = useState('')
 
     useEffect (() => {
 
         const getUserName = async () => {
-            console.log("hit")
           const res = await fetch(`https://scouttestserver.onrender.com/api/user/${userId}`);
           const data =  await res.json();
     
           setUserName(data);
         }
-        
-        if (userId) {
-            getUserName();
-        }
-    }, [userId]);
+        getUserName();
+
+    }, []);
 
     useEffect( () => {
+
         const getNotifications = async () => {
 
             const res = await fetch(`https://scouttestserver.onrender.com/api/notifications/${userId}`);
@@ -29,12 +27,13 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications }) {
             console.log(data)
       
             addNotifications(data);
-          }
-          if(userId) {
-            getNotifications();
-          }
-
-    }, [userId])
+            if (data[0] !== undefined) {
+                setAcknowledge(true)
+            }
+            
+        }
+        getNotifications();
+    }, [])
 
     const handleClick = (e) => {
         setAcknowledge(false);

@@ -44,6 +44,7 @@ function App() {
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} 
+          handleLogout={handleLogout}
           userId={userId}
           notifications={notifications}
           addNotifications={addNotifications}/>
