@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import AdminKanbanBoard from "./components/AdminKanbanBoard";
-import Settings from "./components/Settings";
+
 
 function App() {
 	const [count, setCount] = useState(0);

@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Settings = ({toggleMode, setToggleMode, theme, setTheme, handleToggle}) => {
-//   const [toggleMode, setToggleMode] = useState(false);
-//   const [theme, setTheme] = useState('dark');
 
-
-
-//   const handleToggle = () => {
-//     // Toggle the toggleMode state
-//     setToggleMode(!toggleMode);
-//   };
 
   return (
     <>
