@@ -1,12 +1,43 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import Notifications from "./Notifications"
 
-function NavBar({ changeJobPosting }) {
-    const [notification, setNotification] = useState(true)
+function NavBar({ changeJobPosting, userId, notifications, addNotifications }) {
+    const [acknowledge, setAcknowledge] = useState(true)
+    const [userName, setUserName] = useState('')
+
+    useEffect (() => {
+
+        const getUserName = async () => {
+            console.log("hit")
+          const res = await fetch(`https://scouttestserver.onrender.com/api/user/${userId}`);
+          const data =  await res.json();
+    
+          setUserName(data);
+        }
+        
+        if (userId) {
+            getUserName();
+        }
+    }, [userId]);
+
+    useEffect( () => {
+        const getNotifications = async () => {
+
+            const res = await fetch(`https://scouttestserver.onrender.com/api/notifications/${userId}`);
+            const data =  await res.json();
+            console.log(data)
+      
+            addNotifications(data);
+          }
+          if(userId) {
+            getNotifications();
+          }
+
+    }, [userId])
 
     const handleClick = (e) => {
-        setNotification(false);
+        setAcknowledge(false);
     }
 
     const openJobPosting = (e) => {
@@ -35,22 +66,22 @@ function NavBar({ changeJobPosting }) {
                 <label for="my-drawer" onClick={handleClick} className="btn btn-ghost btn-circle drawer-button">
                     <div className="indicator">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                        <span className={`badge badge-xs badge-primary indicator-item ${notification ? `` : `invisible`}`}></span>
+                        <span className={`badge badge-xs badge-primary indicator-item ${acknowledge ? `` : `invisible`}`}></span>
                     </div>
                 </label>
                 </div>
                 <div class="drawer-side z-40">
                     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
                     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-                        <li className="flex flex-row justify-between items-center"><a className="hover:bg-slate-100">Notification 1</a><input type="checkbox" className="checkbox"/></li>
-                        <li className="flex flex-row justify-between items-center"><a className="hover:bg-slate-100">Notification 2</a><input type="checkbox" className="checkbox"/></li>
+                        {notifications[0] === undefined? " ": <Notifications userId ={userId} notifications={notifications}/>}
+                        
                     </ul>
                 </div>
             </div>
             <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                user 42
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+                <div className="w-30">
+                {userName !== '' ? userName[0].user_name : " "}
                 </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

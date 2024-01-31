@@ -14,7 +14,8 @@ function App() {
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
 	const [verified, setVerified] = useState(false);
-	const [userId, setUserId] = useState(0);
+	const [userId, setUserId] = useState(3);
+  const [notifications, setNotifications] = useState([]);
 
 	const changeJobPosting = (boolean) => {
 		setJobPosting(boolean);
@@ -26,13 +27,20 @@ function App() {
     console.log(userId);
 	};
 
-	return (
+  const addNotifications = (data) => {
+    setNotifications(data);
+  }
+
+  	return (
 		<div className="font-galvanize">
 			{/* {!verified ? ( */}
 				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
 			{/* ) : ( */}
 				<>
-					<NavBar changeJobPosting={changeJobPosting} />
+					<NavBar changeJobPosting={changeJobPosting} 
+          userId={userId}
+          notifications={notifications}
+          addNotifications={addNotifications}/>
 					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
 					<RegisterUser />
 					<Footer />

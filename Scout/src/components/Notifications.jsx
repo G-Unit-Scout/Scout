@@ -1,11 +1,15 @@
+import { useState, useEffect } from "react";
+import Notification from "./Notification";
 
-const Notifications = () => {
+const Notifications = ({ userId, notifications}) => {
 
-    return (
+
+    return notifications.map( (notification) => {
         <>
-            
+        <Notification notification={notification} 
+        userId={userId}/>
         </>
-    )
+    })
 }
 
 export default Notifications;
