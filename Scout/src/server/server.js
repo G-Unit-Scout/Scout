@@ -25,7 +25,7 @@ app.use('/api', createUpdateRoutes);
 app.use('/api', deleteRoutes);
 
 cron.schedule(' 0 0 * * *', () => {
-  fetch(`http://localhost:3000/api/dbcleanup`, {
+  fetch(`https://scouttestserver.onrender.com/api/dbcleanup`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
