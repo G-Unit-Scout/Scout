@@ -1,8 +1,9 @@
 import db from '../../database/db.js';
 
-const testControllers = {
+const fetchControllers = {
+
   fetchPartnerJobs: async (req, res) => {
-    const partnerJobQuery = `SELECT * FROM partner_jobs;`
+    const partnerJobQuery = `SELECT * FROM partner_jobs WHERE is_admin = true;`
     try {
       const results = await db.query(partnerJobQuery)
       res.status(200).send(results.rows)
@@ -100,7 +101,21 @@ const testControllers = {
       console.error(`Error fetching cohorts ${error}`)
       res.status(500).send(`Error, could not fetch cohorts`)
     }
+  },
+
+  fetchUserName: async (req, res) => {
+    const userID = req.params.id
+    const userQuery = `SELECT user_name FROM users WHERE user_id = $1`
+
+    try {
+      const results = await db.query(userQuery,[userID])
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error fetching user name ${error}`)
+      res.status(500).send(`Error, could not fetch user name`)
+    }
   }
+
 };
 
-export default testControllers
+export default fetchControllers
