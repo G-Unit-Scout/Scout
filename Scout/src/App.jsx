@@ -15,7 +15,7 @@ function App() {
   // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
   const [verified, setVerified] = useState(false)
   const [userType, setUserType] = useState('student');
-  const [user_id, setUser_id] = useState(5);
+  const [user_id, setUser_id] = useState(6);
   const [usersCohortId, setUsersCohortId] = useState(1);
 
 
@@ -43,10 +43,17 @@ function App() {
 	return (
 		<div className="font-galvanize">
 			{/* {!verified ? ( */}
-				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
+				{/* <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> */}
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} />
+          <div className='flex justify-center'>
+              <button className="btn btn-primary" onClick={toggleOption}>
+                  Toggle userType
+              </button>
+              <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
+              
+          </div>
 					{jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
           <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>}
 					<RegisterUser />
