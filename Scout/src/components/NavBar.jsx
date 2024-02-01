@@ -5,10 +5,12 @@ import Announcements from "./Announcements";
 import Settings from "./Settings"
 import ChangePassword from "./ChangePassword";
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, changeCohortPage}) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, changePassword, handleChangePassword, changeCohortPage}) {
+
+
     const [acknowledge, setAcknowledge] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
-    const [changePassword, setChangePassword] = useState(false)
+    
 
     useEffect( () => {
 
@@ -43,9 +45,6 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         }
         getNotifications();
     }, [])
-<<<<<<< HEAD
-
-=======
 
 const handleChangePassword = () => {
     setChangePassword(true)
@@ -127,7 +126,7 @@ const handleChangePassword = () => {
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li><a onClick={handleSettings}>Settings{showSettings && <Settings toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>}</a></li>
-                <li><a onClick={handleChangePassword}>Change Password{changePassword && <ChangePassword userId={userId}/>}</a></li>
+                <li><a onClick={handleChangePassword}>Change Password</a></li>
                         <li><a href="#" onClick={handleLogout}>Logout</a></li>
             </ul>
             </div>
