@@ -105,7 +105,7 @@ const fetchControllers = {
 
   fetchUserName: async (req, res) => {
     const userID = req.params.id
-    const userQuery = `SELECT user_name FROM users WHERE user_id = $1`
+    const userQuery = `SELECT user_name, role FROM users WHERE user_id = $1`
 
     try {
       const results = await db.query(userQuery,[userID])
@@ -114,7 +114,7 @@ const fetchControllers = {
       console.error(`Error fetching user name ${error}`)
       res.status(500).send(`Error, could not fetch user name`)
     }
-  }
+  },
 
 };
 
