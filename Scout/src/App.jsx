@@ -34,8 +34,9 @@ function App() {
       const data =  await res.json();
 
       setUserName(data[0].user_name);
+      console.log(data)
 
-      if (data[0].role === 1) {
+      if (data[0].role == 1) {
         setUserType("admin")
       } else {
         setUserType("student")
