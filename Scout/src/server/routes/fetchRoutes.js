@@ -12,6 +12,7 @@ router.get('/notifications/:id', fetchControllers.fetchNotifications);
 router.get('/studentkanban/:id', fetchControllers.fetchStudentKanban);
 router.get('/cohortkanban/:id', fetchControllers.fetchCohortKanban);
 router.get('/cohorts', fetchControllers.fetchCohorts);
-router.get('/user/:id', fetchControllers.fetchUserName)
+router.get('/user/:id', fetchControllers.fetchUserName);
+router.get('/users/:id', fetchControllers.fetchSingleUser);
 
 export default router;
