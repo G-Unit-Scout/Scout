@@ -420,6 +420,89 @@ const handleUpdateJobDetails = async (jobId) => {
   };
 
 
+
+
+
+
+  const handleColumnUpdate = async (cardID, cardDestination) => {
+    let newColumnID;
+
+    switch (cardDestination) {
+      case "Wishlist":
+        newColumnID = 1
+        break;
+      case "Applied":
+        newColumnID = 2
+        break;
+      case "Interview":
+        newColumnID = 3
+        break;
+      case "Offer":
+        newColumnID = 4
+        break;
+      case "No Response":
+        newColumnID = 5
+        break;
+      default:
+        break;
+    }
+
+    // console.log(jobDetails)
+
+    try {
+      // Construct the body for the API request
+      // console.log(typeof(jobDetails))
+      const body = {
+          statusID: jobDetails[cardID].status_id,
+          jobID: cardID,
+          noteID: jobDetails[cardID].note_id,
+          noteContent : jobDetails[cardID].note_content,
+          jobStatus: {
+            cohort_id: jobDetails[cardID].cohort_id,
+            column_id: newColumnID,
+            row_num: jobDetails[cardID].row_num,
+            interview_status: jobDetails[cardID].interview_status,
+            tags: jobDetails[cardID].tags
+          },
+          jobDetails: {
+            job_title: jobDetails[cardID].job_title,
+            description: jobDetails[cardID].description,
+            company: jobDetails[cardID].company,
+            location: jobDetails[cardID].location,
+            salary_range: jobDetails[cardID].salary_range,
+            is_admin: jobDetails[cardID].is_admin,
+            post_url: jobDetails[cardID].post_url,
+            job_type: jobDetails[cardID].job_type,
+            is_partner: jobDetails[cardID].is_partner,
+            competencies: jobDetails[cardID].competencies
+          }
+      };
+
+      // console.log("body:", body)
+      // Make an API call to create a new job
+      const response = await fetch(`https://scouttestserver.onrender.com/api/updatestatus`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create the job');
+      }
+
+      const updatedJob = await response.json();
+      console.log("column Updated")
+      setNeedRefresh(true)
+
+    } catch (error) {
+      console.error('Error creating new job:', error);
+      // Handle error (e.g., show error message to user)
+    }
+  }
+
+
   // Handle drag end event
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
@@ -440,8 +523,15 @@ const handleUpdateJobDetails = async (jobId) => {
       destinationJobs.splice(destination.index, 0, movedJob);
       newColumns[destination.droppableId] = destinationJobs;
 
+      
+
       return newColumns;
     });
+
+    handleColumnUpdate(draggableId, destination.droppableId)
+
+    // console.log("draggedId:", draggableId, "destination:", destination.droppableId)
+    // console.log(jobDetails)
   };
 
 
