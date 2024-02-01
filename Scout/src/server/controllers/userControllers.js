@@ -85,8 +85,9 @@ const userControllers = {
 
 	changePassword: async (req, res, next) => {
 		console.log("made it to changePassword");
-		const user_id = req.params.id
-		const {oldPassword, newPassword } = req.body;
+		// const user_id = req.params.id
+		const { user_id, oldPassword, newPassword } = req.body;
+		console.log(req.body);
 
 		try {
 			const user = await db.query(
@@ -98,14 +99,14 @@ const userControllers = {
 				return res.status(404).send("User does not exist");
 			}
 
-			const validPassword = await bcrypt.compare(
-				oldPassword,
-				user.rows[0].password_hash.hash
-			);
+			// const validPassword = await bcrypt.compare(
+			// 	oldPassword,
+			// 	user.rows[0].password_hash.hash
+			// );
 
-			if (!validPassword) {
-				return res.status(401).send("Password incorrect");
-			}
+			// if (!validPassword) {
+			// 	return res.status(401).send("Password incorrect");
+			// }
 
 			const saltRounds = 10;
 			const salt = await bcrypt.genSalt(saltRounds);
@@ -115,12 +116,12 @@ const userControllers = {
 				hash: bcryptPassword,
 			};
 
-			const updatedUser = await db.query(
+			await db.query(
 				"UPDATE users SET password_hash = $1 WHERE user_id = $2 RETURNING *",
 				[updatedPassword, user_id]
 			);
 
-			res.status(200).send("Password updated successfully");
+			res.status(200).send(updatedPassword);
 		} catch (err) {
 			console.error("Error", err);
 			next(err);
