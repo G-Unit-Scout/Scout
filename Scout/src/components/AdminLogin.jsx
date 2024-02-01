@@ -77,7 +77,7 @@ const AdminLogin = ({ setVerified, fetchUser }) => {
 										setPassword(e.target.value)
 									}
 									className="placeholder-gray-500 border border-gray-300 p-2 rounded-xl mt-[3px] bg-[rgba(22,26,40,255)]"
-									type="text"
+									type="password"
 									placeholder="Enter password"
 								/>
 							</div>
