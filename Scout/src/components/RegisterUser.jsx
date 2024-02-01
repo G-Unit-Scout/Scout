@@ -30,6 +30,14 @@ useEffect(() => {
     getCohorts();
 }, [])
 
+const handleCohortChange = (e) => {
+    if(e.target.value === 'Admin') {
+        setCohort(null)
+    } else {
+        setCohort(e.target.value)
+    }
+}
+
 const handleAdminRole = () => {
     console.log('admin selected')
     // setAdminRole(true)
@@ -133,8 +141,9 @@ try{
 
                 </div> */}
                 <div className='flex flex-col bg-[rgba(13,15,74,255)] h-[80px] w-[500px]'>
-                    <select value={cohort} onChange={e => setCohort(e.target.value)} className="select select-bordered w-full bg-[rgba(22,26,40,255)]">
+                    <select value={cohort} onChange={handleCohortChange} className="select select-bordered w-full bg-[rgba(22,26,40,255)]">
                         <option disabled value=''>Select Cohort</option>
+                        <option>Admin</option>
                         {cohortData.map((cohort) => (<option key={cohort.cohort_id} value={cohort.cohort_id}>{cohort.cohort_name}</option>))}
                     </select>
                 </div>
