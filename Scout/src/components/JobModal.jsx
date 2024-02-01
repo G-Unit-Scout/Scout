@@ -67,15 +67,15 @@ const parseCompetencies = (competenciesString) => {
                 type="text" 
                 value={jobDetails.job_type || ''}  
                 onChange={(e) => handleInputChange('job_type', e.target.value)} 
-                className="basis-1/2 input input-bordered mr-2" 
+                className="w-[225px] input input-bordered mr-2" 
                 required
             />
             <input 
                 type="text" 
-                value={jobDetails.salary_range || ''}  
+                value={jobDetails.salary_range || ''} 
                 onChange={(e) => handleInputChange('salary_range', e.target.value)} 
-                className="basis-1/2 input input-bordered ml-2" 
-                required
+                className="w-[225px] input input-bordered ml-2" 
+                required 
             />
             </div>
         </div>
