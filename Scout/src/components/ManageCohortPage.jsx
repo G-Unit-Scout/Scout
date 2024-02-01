@@ -45,6 +45,7 @@ const ManageCohortPage = () => {
     } catch(error) {
       console.error(`Error adding cohort ${error.stack}`)
     }
+    handleNullChange()
   }
 
   const handleDelCohort = async (e) => {
@@ -73,6 +74,7 @@ const ManageCohortPage = () => {
     } else {
       console.log('Failed to delete')
     }
+    handleNullChange()
   }
 
   const handleCreateChange = (e) => {
@@ -121,7 +123,7 @@ const ManageCohortPage = () => {
             </div>
         </div>
             <div className='mt-3'>
-            <button onClick={handleNewCohort, handleNullChange}className='h-[50px] w-[500px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
+            <button onClick={handleNewCohort}className='h-[50px] w-[500px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
                 <span className='text-white '>Create Cohort</span>
             </button>
             </div>
@@ -153,7 +155,7 @@ const ManageCohortPage = () => {
                        placeholder='Please Type DELETE'
                        />
                    <div className='mt-3'>
-                   <button onClick={handleDelCohort, handleNullChange}className='h-[50px] w-[500px] mt-[25px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
+                   <button onClick={handleDelCohort}className='h-[50px] w-[500px] mt-[25px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
                        <span className='text-white '>Delete Cohort</span>
                    </button>
                    </div>
