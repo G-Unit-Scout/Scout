@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
+import ManageCohortPage from "./components/ManageCohortPage";
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
 	const [theme, setTheme] = useState("dark");
 	const [registerPage, setRegisterPage] = useState(false);
 	const [userName, setUserName] = useState("");
+	// add cohort state
+	const [cohortPage, setCohortPage] = useState(false);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -61,6 +64,10 @@ function App() {
 
 	const changeRegisterPage = (boolean) => {
 		setRegisterPage(boolean);
+	};
+
+	const changeCohortPage = (boolean) => {
+		setCohortPage(boolean)
 	};
 
 	// you can use this for a useEffect to fetch the user data from the backend
@@ -105,6 +112,7 @@ function App() {
 						userType={userType}
 						changeRegisterPage={changeRegisterPage}
 						userName={userName}
+						changeCohortPage={changeCohortPage}
 					/>
 					{registerPage ? (
 						<RegisterUser />
@@ -114,7 +122,9 @@ function App() {
 							user_id={userId}
 							usersCohortId={usersCohortId}
 						/>
-					) : (
+					) : cohortPage ? (
+					<ManageCohortPage/>
+				  ) : (
 						<KanbanBoard
 							userType={userType}
 							user_id={userId}
@@ -137,6 +147,6 @@ export default App;
         Toggle userType
     </button>
     <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
-    
+
 </div> */
 }

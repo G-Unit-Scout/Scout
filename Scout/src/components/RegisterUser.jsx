@@ -10,9 +10,9 @@ const RegisterUser = () => {
 const [email, setEmail] = useState('');
 const [name, setName] = useState('');
 const [password, setPassword] = useState('');
-const [role, setRole] = useState('')
+const [role, setRole] = useState('');
 const [cohortData, setCohortData] = useState([]);
-const [cohort, setCohort] = useState('');
+const [cohort, setCohort] = useState(null);
 
 
 //fetch all cohort data
