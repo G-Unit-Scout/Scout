@@ -5,8 +5,14 @@ const ChangePassword = ({userId}) => {
     const[newPassword, setNewPassword] = useState('')
 
     
-    const handlePasswordChange = () => {
-
+    const handlePasswordChange = async() => {
+        try{
+            let response = await fetch(`https://scouttestserver.onrender.com/api/changePassword/${userId}`, {
+                method: 'PATCH'
+            })
+        }catch(error) {
+            console.log(error.stack)
+        }
     }
     
     return (
