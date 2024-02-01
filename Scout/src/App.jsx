@@ -16,7 +16,7 @@ function App() {
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
 	const [verified, setVerified] = useState(false);
-  const [userType, setUserType] = useState('student');
+  const [userType, setUserType] = useState('admin');
 	const [userId, setUserId] = useState(0);
   const [usersCohortId, setUsersCohortId] = useState(1);
 //state below it for dark mode/light mode functionality
@@ -62,8 +62,8 @@ function App() {
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>
-					{jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
-          <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>}
+					{jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
+          <KanbanBoard userType={userType} user_id={userId} usersCohortId={usersCohortId}/>}
 					<RegisterUser />
 					<Footer />
 				</>

@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import cohortjsonData from '../TestData/TestCohortKanban.json';
 import KanbanColumn from './KanbanColumn';
 import JobModal from './JobModal';
+import AdminModal from './AdminModal';
 
 
 
@@ -45,6 +46,7 @@ const KanbanBoard = ({userType, user_id, usersCohortId}) => {
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
   const [needRefresh, setNeedRefresh] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
 
 
 
@@ -221,6 +223,11 @@ useEffect(() => {
   const closeModal = () => {
     console.log("close modal")
     setOpenModalId(null);
+  };
+
+  const closeAdminModal = () => {
+    console.log("close modal")
+    setShowAdminModal(false);
   };
 
 
@@ -593,6 +600,19 @@ const studentSelectionDropdown = userType === 'admin' && (
   </select>
 );
 
+
+
+
+
+
+  // Button to open the modal
+  const adminActionButton = userType === 'admin' && (
+    <button className="btn mx-4" onClick={() =>setShowAdminModal(true)}>
+      Open Admin Modal
+    </button>
+  );
+  console.log(showAdminModal)
+
   const fetchDataForCohort = (selectedCohort) => {
     // Filter the jsonData to return only those jobs that belong to the specified cohort
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort);
@@ -641,7 +661,9 @@ const studentSelectionDropdown = userType === 'admin' && (
       <div className='flex flex-row justify-center'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}
+        {adminActionButton}
       </div>
+      <AdminModal isOpen={showAdminModal} onClose={closeAdminModal} />
       <div className='flex justify-center mt-4'>
         <DragDropContext onDragEnd={onDragEnd}>
           {Object.entries(columns).map(([columnId, columnData]) => (
