@@ -9,6 +9,7 @@ import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
 import ManageCohortPage from "./components/ManageCohortPage";
 
+
 function App() {
 	const [count, setCount] = useState(0);
 	const [jobPosting, setJobPosting] = useState(false);
