@@ -16,6 +16,6 @@ import userControllers from "../controllers/userControllers.js";
 router.post("/register", validInfo, userControllers.registerUser);
 router.post("/login", validInfo, userControllers.loginUser);
 router.post("/verify", authorization, userControllers.verifyUser);
-router.post("/changePassword/:id", validInfo, userControllers.changePassword);
+router.patch("/changePassword/", userControllers.changePassword);
 
 export default router;

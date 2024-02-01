@@ -8,6 +8,7 @@ import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
 
+
 function App() {
 	const [count, setCount] = useState(0);
 	const [jobPosting, setJobPosting] = useState(false);
