@@ -15,7 +15,7 @@ function App() {
   // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
   const [verified, setVerified] = useState(false)
   const [userType, setUserType] = useState('student');
-  const [user_id, setUser_id] = useState(6);
+  const [user_id, setUser_id] = useState(0);
   const [usersCohortId, setUsersCohortId] = useState(1);
 
 
@@ -46,14 +46,6 @@ function App() {
 				{/* <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> */}
 			{/* ) : ( */}
 				<>
-					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} />
-          <div className='flex justify-center'>
-              <button className="btn btn-primary" onClick={toggleOption}>
-                  Toggle userType
-              </button>
-              <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
-              
-          </div>
 					{jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
           <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>}
 					<RegisterUser />
@@ -65,3 +57,13 @@ function App() {
 }
 
 export default App;
+
+
+//Was used to move between student and admin for testing
+{/* <div className='flex justify-center'>
+    <button className="btn btn-primary" onClick={toggleOption}>
+        Toggle userType
+    </button>
+    <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
+    
+</div> */}
