@@ -45,7 +45,8 @@ const KanbanBoard = ({userType, userId, usersCohortId}) => {
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
   const [needRefresh, setNeedRefresh] = useState(false);
-  const [showAdminModal, setShowAdminModal] = useState(false)
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [message, setMessage] = useState("");
 
 
   //===========================Helper Functions===========================//
@@ -615,6 +616,29 @@ const adminActionButton = userType === 'admin' && selectedStudent !== undefined 
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort && job.user_id === selectedStudent);
   };
 
+  const createNotification = (note) => {
+    setMessage(note)
+  };
+
+  const handleNotificationCreate = async () => {
+
+    const body = {
+      header: "notification",
+      message,
+      userId
+    }
+
+    const response = await fetch(`https://scouttestserver.onrender.com/api/notifications/${selectedStudent}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  }
+  
+
   //===========================Initialize and Populate Columns===========================//
 
 
@@ -650,7 +674,7 @@ const adminActionButton = userType === 'admin' && selectedStudent !== undefined 
         {studentSelectionDropdown}
         {adminActionButton}
       </div>
-      <AdminModal isOpen={showAdminModal} onClose={closeAdminModal} />
+      <AdminModal isOpen={showAdminModal} onClose={closeAdminModal} createNotification={createNotification} handleNotificationCreate={handleNotificationCreate}/>
       <div className='flex justify-center mt-4'>
         <DragDropContext onDragEnd={onDragEnd}>
           {Object.entries(columns).map(([columnId, columnData]) => (
