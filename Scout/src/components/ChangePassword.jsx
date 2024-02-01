@@ -1,38 +1,37 @@
 import { useState } from "react";
 
-const ChangePassword = ({ userId }) => {
-	const [currentPassword, setCurrentPassword] = useState("");
-	const [newPassword, setNewPassword] = useState("");
+const ChangePassword = ({ userId, handlePasswordChange, currentPassword, setCurrentPassword, newPassword, setNewPassword, setChangePassword}) => {
+	
 
 	console.log(userId);
 
-	const handlePasswordChange = async () => {
-		try {
-			let response = await fetch(
-				`https://scouttestserver.onrender.com/api/changePassword`,
-				{
-					method: "PATCH",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						user_id: userId,
-						oldPassword: currentPassword,
-						newPassword: newPassword,
-					}),
-				}
-			);
+	// const handlePasswordChange = async () => {
+	// 	try {
+	// 		let response = await fetch(
+	// 			`https://scouttestserver.onrender.com/api/changePassword`,
+	// 			{
+	// 				method: "PATCH",
+	// 				headers: {
+	// 					"Content-Type": "application/json",
+	// 				},
+	// 				body: JSON.stringify({
+	// 					user_id: userId,
+	// 					oldPassword: currentPassword,
+	// 					newPassword: newPassword,
+	// 				}),
+	// 			}
+	// 		);
 
-			if (response.ok) {
-				let resData = await response.json();
-				console.log("password was changed", resData);
-			} else {
-				console.log("failed to change password");
-			}
-		} catch (error) {
-			console.log(error.stack);
-		}
-	};
+	// 		if (response.ok) {
+	// 			let resData = await response.json();
+	// 			console.log("password was changed", resData);
+	// 		} else {
+	// 			console.log("failed to change password");
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error.stack);
+	// 	}
+	// };
 
 	return (
 		<>
@@ -78,7 +77,10 @@ const ChangePassword = ({ userId }) => {
 
 							<div className="mt-3">
 								<button
-									onClick={handlePasswordChange}
+									onClick={() => {
+                                        handlePasswordChange();
+                                        setChangePassword(false);
+                                    }}
 									className="h-[50px] w-[500px] bg-[rgba(239,110,71,255)] rounded-xl"
 								>
 									<span className="text-white ">Submit</span>
