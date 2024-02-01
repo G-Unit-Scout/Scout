@@ -85,7 +85,7 @@ const userControllers = {
 
 	changePassword: async (req, res, next) => {
 		console.log("made it to changePassword");
-		// const user_id = req.params.id
+
 		const { user_id, oldPassword, newPassword } = req.body;
 		console.log(req.body);
 
@@ -98,15 +98,6 @@ const userControllers = {
 			if (user.rows.length < 1) {
 				return res.status(404).send("User does not exist");
 			}
-
-			// const validPassword = await bcrypt.compare(
-			// 	oldPassword,
-			// 	user.rows[0].password_hash.hash
-			// );
-
-			// if (!validPassword) {
-			// 	return res.status(401).send("Password incorrect");
-			// }
 
 			const saltRounds = 10;
 			const salt = await bcrypt.genSalt(saltRounds);
