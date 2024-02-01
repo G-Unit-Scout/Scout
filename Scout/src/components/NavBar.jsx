@@ -47,6 +47,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
     }, [])
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     const handleChangePassword = () => {
         setChangePassword(true)
     }
@@ -55,6 +56,9 @@ const handleChangePassword = () => {
     setChangePassword(true)
 }
 >>>>>>> 595b8472ac1e0f1672f40a7bb2b9f86ed90c9a6e
+=======
+
+>>>>>>> cd378a37b1467855b8706cfa464f19c464f0bc78
 
 
     const handleClick = (e) => {
