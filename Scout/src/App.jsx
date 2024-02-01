@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
-import ChangePassword from "./components/ChangePassword";
+
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -85,8 +85,7 @@ function App() {
 
 	return (
 		<div className="font-galvanize" data-theme={theme}>
-			<ChangePassword userId={userId}/>
-			{/* {!verified ? (
+			{!verified ? (
 				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
 			) : (
 				<>
@@ -124,7 +123,7 @@ function App() {
 					)}
 					<Footer />
 				</>
-			)} */}
+			)}
 		</div>
 	);
 }

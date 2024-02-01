@@ -85,8 +85,8 @@ const userControllers = {
 
 	changePassword: async (req, res, next) => {
 		console.log("made it to changePassword");
-
-		const { user_id, oldPassword, newPassword } = req.body;
+		const user_id = req.params.id
+		const {oldPassword, newPassword } = req.body;
 
 		try {
 			const user = await db.query(

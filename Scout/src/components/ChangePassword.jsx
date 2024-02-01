@@ -6,14 +6,28 @@ const ChangePassword = ({userId}) => {
 
     
     const handlePasswordChange = async() => {
+
         try{
             let response = await fetch(`https://scouttestserver.onrender.com/api/changePassword/${userId}`, {
-                method: 'PATCH'
-            })
+                method: 'PATCH',
+                body: JSON.stringify({
+                    oldPassword: currentPassword,
+                    newPassword: newPassword}),
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+            });
+            console.log(response)
+            if(response.ok) {
+                let resData = await response.json();
+                console.log('password was changed', resData);
+            }else{
+                console.log('failed to change password')
+            }
         }catch(error) {
             console.log(error.stack)
         }
-    }
+    };
     
     return (
         <>
