@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JobModal = ({ userType, isOpen, jobDetails, onChange, onSave, onClose, onDelete }) => {
+const JobModal = ({ userType, isOpen, newJob, jobDetails, onChange, onSave, onClose, onDelete }) => {
 
     console.log("JobDetails in modal", jobDetails)
 
@@ -40,11 +40,11 @@ const parseCompetencies = (competenciesString) => {
         {/* Conditional rendering based on userType */}
         {userType === 'admin' ? (
             <div className='flex justify-center space-x-4'>
-                {isOpen === 'new' ? (
+                {newJob === 'new' ? (
                     <button className='btn btn-outline btn-accent btn-sm mt-4' onClick={onSave}>Save</button>
                 ) : (
                     <>
-                        <button className='btn btn-outline btn-accent btn-sm mt-4' onClick={onSave}>Update</button>
+                        {/* <button className='btn btn-outline btn-accent btn-sm mt-4' onClick={onSave}>Update</button> */}
                         <button className='btn btn-outline btn-error btn-sm mt-4' onClick={() => onDelete(jobDetails.job_id)}>Delete</button>
                     </>
                 )}
@@ -87,14 +87,14 @@ const parseCompetencies = (competenciesString) => {
                 type="text" 
                 value={jobDetails.job_type || ''}  
                 onChange={(e) => handleInputChange('job_type', e.target.value)} 
-                className="basis-1/2 input input-bordered mr-2" 
+                className="w-[225px] input input-bordered mr-2" 
                 required
             />
             <input 
                 type="text" 
                 value={jobDetails.salary_range || ''}  
                 onChange={(e) => handleInputChange('salary_range', e.target.value)} 
-                className="basis-1/2 input input-bordered ml-2" 
+                className="w-[225px] input input-bordered ml-2" 
                 required
             />
             </div>
