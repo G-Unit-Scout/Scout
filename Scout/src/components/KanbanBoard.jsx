@@ -593,6 +593,26 @@ const studentSelectionDropdown = userType === 'admin' && (
   </select>
 );
 
+
+
+const studentMessageButton = userType === 'admin' && selectedStudent !== undefined && (
+    <button className="btn" onclick={(e) => document.getElementById('my_modal_1').showModal()}>Send a Message?</button>
+)
+
+// const studentMessageModal = userType === 'admin' && selectedStudent !== undefined && (
+//   <dialog id="my_modal_1" className="modal">
+//       <div className="modal-box">
+//         <h3 className="font-bold text-lg">Hello!</h3>
+//         <p className="py-4">Press ESC key or click the button below to close</p>
+//         <div className="modal-action">
+//           <form method="dialog">
+//             <button className="btn">Close</button>
+//           </form>
+//         </div>
+//       </div>
+//     </dialog>
+// )
+
   const fetchDataForCohort = (selectedCohort) => {
     // Filter the jsonData to return only those jobs that belong to the specified cohort
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort);
@@ -638,9 +658,11 @@ const studentSelectionDropdown = userType === 'admin' && (
 
   return (
     <div className='mb-10'>
-      <div className='flex flex-row justify-center'>
+      <div className='flex flex-row justify-center mt-5'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}
+        {studentMessageButton}
+        {/* {studentMessageModal} */}
       </div>
       <div className='flex justify-center mt-4'>
         <DragDropContext onDragEnd={onDragEnd}>
