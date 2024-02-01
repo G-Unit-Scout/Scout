@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import cohortjsonData from '../TestData/TestCohortKanban.json';
 import KanbanColumn from './KanbanColumn';
 import JobModal from './JobModal';
-
+import AdminModal from './AdminModal';
 
 
 
@@ -45,7 +45,7 @@ const KanbanBoard = ({userType, userId, usersCohortId}) => {
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
   const [needRefresh, setNeedRefresh] = useState(false);
-
+  const [showAdminModal, setShowAdminModal] = useState(false)
 
 
   //===========================Helper Functions===========================//
@@ -223,9 +223,10 @@ useEffect(() => {
     setOpenModalId(null);
   };
 
-
-
-
+  const closeAdminModal = () => {
+    console.log("close modal")
+    setShowAdminModal(false);
+  };
 
 const handleUpdateJobDetails = async (jobId) => {
   const validateJobDetails = (details) => {
@@ -593,25 +594,11 @@ const studentSelectionDropdown = userType === 'admin' && (
   </select>
 );
 
-
-
-const studentMessageButton = userType === 'admin' && selectedStudent !== undefined && (
-    <button className="btn" onclick={(e) => document.getElementById('my_modal_1').showModal()}>Send a Message?</button>
-)
-
-// const studentMessageModal = userType === 'admin' && selectedStudent !== undefined && (
-//   <dialog id="my_modal_1" className="modal">
-//       <div className="modal-box">
-//         <h3 className="font-bold text-lg">Hello!</h3>
-//         <p className="py-4">Press ESC key or click the button below to close</p>
-//         <div className="modal-action">
-//           <form method="dialog">
-//             <button className="btn">Close</button>
-//           </form>
-//         </div>
-//       </div>
-//     </dialog>
-// )
+const adminActionButton = userType === 'admin' && selectedStudent !== undefined && (
+    <button className="btn mx-4" onClick={() =>setShowAdminModal(true)}>
+      Send a Message?
+    </button>
+);
 
   const fetchDataForCohort = (selectedCohort) => {
     // Filter the jsonData to return only those jobs that belong to the specified cohort
@@ -658,22 +645,22 @@ const studentMessageButton = userType === 'admin' && selectedStudent !== undefin
 
   return (
     <div className='mb-10'>
-      <div className='flex flex-row justify-center mt-5'>
+      <div className='flex flex-row justify-center'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}
-        {studentMessageButton}
-        {/* {studentMessageModal} */}
+        {adminActionButton}
       </div>
+      <AdminModal isOpen={showAdminModal} onClose={closeAdminModal} />
       <div className='flex justify-center mt-4'>
         <DragDropContext onDragEnd={onDragEnd}>
           {Object.entries(columns).map(([columnId, columnData]) => (
             <KanbanColumn key={columnId} columnId={columnId} columnData={columnData} openEditModal={openEditModal} />
           ))}
         </DragDropContext>
-        <JobModal
-          isOpen={openModalId}
-          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails}
-          onChange={handleJobDetailsChange}
+        <JobModal 
+          isOpen={openModalId} 
+          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails} 
+          onChange={handleJobDetailsChange} 
           onSave={() => handleUpdateJobDetails(openModalId)}
           onClose={closeModal}
           onDelete={handleDeleteJob}
