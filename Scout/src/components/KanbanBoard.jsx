@@ -10,7 +10,7 @@ import JobModal from './JobModal';
 
 
 
-const KanbanBoard = ({userType, user_id, usersCohortId}) => {
+const KanbanBoard = ({userType, userId, usersCohortId}) => {
 
   const initialNewJobDetails = {
     job_id: null,
@@ -72,7 +72,7 @@ useEffect(() => {
   if (userType === 'student') {
     const fetchStudentData = async () => {
       try {
-        const response = await fetch(`https://scouttestserver.onrender.com/api/studentkanban/${user_id}`);
+        const response = await fetch(`https://scouttestserver.onrender.com/api/studentkanban/${userId}`);
         const data = await response.json();
         setJsonData(data);
         console.log("data In fetch:", data)
@@ -277,7 +277,7 @@ const handleUpdateJobDetails = async (jobId) => {
 
       console.log("body:", body)
       // Make an API call to create a new job
-      const response = await fetch(`https://scouttestserver.onrender.com/api/addjobaddstatus/${user_id}`, {
+      const response = await fetch(`https://scouttestserver.onrender.com/api/addjobaddstatus/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

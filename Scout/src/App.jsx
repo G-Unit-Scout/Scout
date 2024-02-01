@@ -62,10 +62,10 @@ function App() {
 			{/* ) : ( */}
 				<>
 					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>
-					{jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
-          <KanbanBoard userType={userType} user_id={userId} usersCohortId={usersCohortId}/>}
-					<RegisterUser />
-					<Footer />
+					{jobPosting ? <JobPostingsPage userType={userType} userId={userId} usersCohortId={usersCohortId}/> :
+          <KanbanBoard userType={userType} userId={userId} usersCohortId={usersCohortId}/>}
+					{/* <RegisterUser /> */}
+					{/* <Footer /> */}
 				</>
 			{/* )} */}
 		</div>
