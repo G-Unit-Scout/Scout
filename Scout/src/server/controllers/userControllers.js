@@ -111,13 +111,13 @@ const userControllers = {
 			const salt = await bcrypt.genSalt(saltRounds);
 			const bcryptPassword = await bcrypt.hash(newPassword, salt);
 
-			const newPassword = {
+			const updatedPassword = {
 				hash: bcryptPassword,
 			};
 
-			const updatedUserPassword = await db.query(
+			const updatedUser = await db.query(
 				"UPDATE users SET password_hash = $1 WHERE user_id = $2 RETURNING *",
-				[newPassword, user_id]
+				[updatedPassword, user_id]
 			);
 
 			res.status(200).send("Password updated successfully");
