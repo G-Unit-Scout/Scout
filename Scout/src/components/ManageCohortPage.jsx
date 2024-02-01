@@ -5,7 +5,6 @@ const ManageCohortPage = () => {
 
   const [newCohortName, setNewCohortName] = useState('');
   const [cohortOption, setCohortOption] =  useState(null);
-  const [cohortName, setCohortName] = useState('');
   const [deleteValue, setDeleteValue] = useState('');
   const [cohortData, setCohortData] = useState([]);
   const [cohort, setCohort] = useState(null);
@@ -46,18 +45,14 @@ const ManageCohortPage = () => {
       console.error(`Error adding cohort ${error.stack}`)
     }
     handleNullChange()
+    setNewCohortName('')
   }
 
   const handleDelCohort = async (e) => {
     if ( deleteValue === 'DELETE') {
       try {
-        const reqbody = {
-          cohortName : cohortName
-        };
-        const bodyData = JSON.stringify(reqbody);
-        const response = await fetch(`https://scouttestserver.onrender.com/api/cohorts` , {
+        const response = await fetch(`https://scouttestserver.onrender.com/api/cohorts/${cohort}` , {
           method: 'DELETE',
-          body: bodyData,
           headers: {
             'Content-Type' : 'application/json'
           }
@@ -75,6 +70,7 @@ const ManageCohortPage = () => {
       console.log('Failed to delete')
     }
     handleNullChange()
+    setCohort(null)
   }
 
   const handleCreateChange = (e) => {
