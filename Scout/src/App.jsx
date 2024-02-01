@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import "./App.css";
-import StudentKanbanBoard from "./components/StudentKanbanBoard";
-import AdminLogin from "./components/AdminLogin";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import JobPostingsPage from "./components/JobPostingsPage";
-import RegisterUser from "./components/RegisterUser";
-import AdminKanbanBoard from "./components/AdminKanbanBoard";
+import { useState } from 'react'
+import { useEffect } from 'react'
+import './App.css'
+import AdminLogin from './components/AdminLogin'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer'
+import JobPostingsPage from './components/JobPostingsPage'
+import RegisterUser from './components/RegisterUser'
+import KanbanBoard from './components/KanbanBoard'
+
+
 
 function App() {
+
 	const [count, setCount] = useState(0);
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
@@ -17,6 +19,22 @@ function App() {
 	const [userId, setUserId] = useState(3);
   const [notifications, setNotifications] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  const [userType, setUserType] = useState('student');
+  const [usersCohortId, setUsersCohortId] = useState(1);
+//state below it for dark mode/light mode functionality
+	const [toggleMode, setToggleMode] = useState(false);
+	const [theme, setTheme] = useState('dark');
+
+	useEffect(() => {
+		// Update the theme based on the toggleMode state
+		setTheme(toggleMode ? 'light' : 'dark');
+	  }, [toggleMode]);
+
+	const handleToggle = (e) => {
+		// Toggle the toggleMode state
+		e.preventDefault();
+		setToggleMode(!toggleMode);
+	  };
 
 	const changeJobPosting = (boolean) => {
 		setJobPosting(boolean);
@@ -42,26 +60,43 @@ function App() {
     setAnnouncements(data);
   }
 
-  	return (
-		<div className="font-galvanize">
-			{/* {!verified ? ( */}
-				<AdminLogin setVerified={setVerified} fetchUser={fetchUser} />
-			{/* ) : ( */}
-				<>
+
+	return (
+		<div className="font-galvanize" data-theme={theme}>
+			{!verified ? ( 
+				 <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> 
+			 ) : ( 
+				  <>
 					<NavBar changeJobPosting={changeJobPosting} 
-          handleLogout={handleLogout}
+          handleLogout={handleLogout} 
+          toggleMode={toggleMode} 
+          setToggleMode={setToggleMode} 
+          theme={theme} 
+          setTheme={setTheme} 
+          handleToggle={handleToggle}
           userId={userId}
           notifications={notifications}
           addNotifications={addNotifications}
           announcements={announcements}
           addAnnouncements={addAnnouncements}/>
-					{jobPosting ? <JobPostingsPage /> : <StudentKanbanBoard />}
+					{jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
+          <KanbanBoard userType={userType} user_id={userId} usersCohortId={usersCohortId}/>}
 					<RegisterUser />
 					<Footer />
 				</>
-			{/* )} */}
+			 )} 
 		</div>
 	);
 }
 
 export default App;
+
+
+//Was used to move between student and admin for testing
+{/* <div className='flex justify-center'>
+    <button className="btn btn-primary" onClick={toggleOption}>
+        Toggle userType
+    </button>
+    <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
+    
+</div> */}

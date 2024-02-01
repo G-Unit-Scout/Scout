@@ -2,10 +2,12 @@ import { useState, useEffect } from "react"
 
 import Notifications from "./Notifications"
 import Announcements from "./Announcements";
+import Settings from "./Settings"
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements }) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle }) {
     const [acknowledge, setAcknowledge] = useState(false)
     const [userName, setUserName] = useState('')
+    const [showSettings, setShowSettings] = useState(false)
 
     useEffect (() => {
 
@@ -52,6 +54,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         }
         getNotifications();
     }, [])
+    
 
     const handleClick = (e) => {
         setAcknowledge(false);
@@ -63,6 +66,11 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
 
     const openPersonalBoard = (e) => {
         changeJobPosting(false)
+    }
+
+    const handleSettings = () => {
+            setShowSettings(!showSettings)
+        
     }
 
     return(
@@ -104,7 +112,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
                 </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                <li><a>Settings</a></li>
+                <li><a onClick={handleSettings}>Settings{showSettings && <Settings toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>}</a></li>
                         <li><a href="#" onClick={handleLogout}>Logout</a></li>
             </ul>
             </div>

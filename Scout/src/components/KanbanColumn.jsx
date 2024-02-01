@@ -5,7 +5,7 @@ import KanbanCard from './KanbanCard';
 
 const KanbanColumn = ({ columnId, columnData, openEditModal }) => {
   return (
-    <div className='rounded-lg border-[1px] min-w-80'>
+    <div className='rounded-lg border-[1px] min-w-80 min-h-[750px]'>
       <div className='border-b-2 p-2'>
         <div className='flex flex-row justify-center'>
           <h2 className='flex justify-center stat-value m-2'>{columnId}:</h2>

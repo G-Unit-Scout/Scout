@@ -1,12 +1,22 @@
 import React from 'react';
 
-const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) => {
+const JobModal = ({ userType, isOpen, jobDetails, onChange, onSave, onClose, onDelete }) => {
 
     const handleInputChange = (key, value) => {
         // Create a new object with updated key-value pair
         const updatedDetails = { ...jobDetails, [key]: value };
         onChange(updatedDetails); // Pass the updated object to the parent's onChange handler
       };
+
+      // Custom function to display competencies
+const displayCompetencies = (competencies) => {
+    return competencies && competencies.skills ? competencies.skills.join(', ') : '';
+  };
+
+  // Custom function to parse competencies
+const parseCompetencies = (competenciesString) => {
+    return { skills: competenciesString.split(',').map(skill => skill.trim()) };
+  };
       
   if (!isOpen) return null;
 
@@ -57,15 +67,15 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
                 type="text" 
                 value={jobDetails.job_type || ''}  
                 onChange={(e) => handleInputChange('job_type', e.target.value)} 
-                className="basis-1/2 input input-bordered mr-2" 
+                className="w-[225px] input input-bordered mr-2" 
                 required
             />
             <input 
                 type="text" 
-                value={jobDetails.salary_range || ''}  
+                value={jobDetails.salary_range || ''} 
                 onChange={(e) => handleInputChange('salary_range', e.target.value)} 
-                className="basis-1/2 input input-bordered ml-2" 
-                required
+                className="w-[225px] input input-bordered ml-2" 
+                required 
             />
             </div>
         </div>
@@ -100,10 +110,10 @@ const JobModal = ({ isOpen, jobDetails, onChange, onSave, onClose, onDelete }) =
         <div className="divider text-white">Competencies</div>
 
         <input 
-            type="text" 
-            value={jobDetails.competencies || ''}  
-            onChange={(e) => handleInputChange('competencies', e.target.value)} 
-            className="input input-bordered w-full" 
+        type="text" 
+        value={displayCompetencies(jobDetails.competencies)}  
+        onChange={(e) => handleInputChange('competencies', parseCompetencies(e.target.value))} 
+        className="input input-bordered w-full" 
         />
 
         <div className="divider text-white">Job Description</div>
