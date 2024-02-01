@@ -61,7 +61,7 @@ const KanbanBoard = ({userType, userId, usersCohortId}) => {
       return 'Wishlist';
     }
   };
-  
+
 
 
   //===========================useEffect Hooks===========================//
@@ -216,7 +216,7 @@ useEffect(() => {
     }
     setOpenModalId(jobId);
   };
-  
+
 
   const closeModal = () => {
     console.log("close modal")
@@ -373,7 +373,7 @@ const handleUpdateJobDetails = async (jobId) => {
     //     delete newJobDetails[jobId];
     //     return newJobDetails;
     //   });
-  
+
     //   // Remove from columns
     //   setColumns(prev => {
     //     const newColumns = { ...prev };
@@ -523,7 +523,7 @@ const handleUpdateJobDetails = async (jobId) => {
       destinationJobs.splice(destination.index, 0, movedJob);
       newColumns[destination.droppableId] = destinationJobs;
 
-      
+
 
       return newColumns;
     });
@@ -567,7 +567,7 @@ const handleUpdateJobDetails = async (jobId) => {
     return Array.from(studentNames);
 };
 
-  
+
 
   // JSX for the cohort selection dropdown (render only for admin)
   const cohortSelectionDropdown = userType === 'admin' && (
@@ -640,7 +640,7 @@ const studentMessageButton = userType === 'admin' && selectedStudent !== undefin
     return columns;
   };
 
-      
+
   // Populate columns with JSON data
   const populateColumnsWithData = (jsonData, columns) => {
     jsonData.forEach(job => {
@@ -670,10 +670,10 @@ const studentMessageButton = userType === 'admin' && selectedStudent !== undefin
             <KanbanColumn key={columnId} columnId={columnId} columnData={columnData} openEditModal={openEditModal} />
           ))}
         </DragDropContext>
-        <JobModal 
-          isOpen={openModalId} 
-          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails} 
-          onChange={handleJobDetailsChange} 
+        <JobModal
+          isOpen={openModalId}
+          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails}
+          onChange={handleJobDetailsChange}
           onSave={() => handleUpdateJobDetails(openModalId)}
           onClose={closeModal}
           onDelete={handleDeleteJob}

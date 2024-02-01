@@ -211,6 +211,19 @@ const createUpdateControllers = {
       console.error(`Error updating job ${error}`)
       res.status(500).send(`Error, could not update job`)
     }
+  },
+
+  addCohort: async (req, res) => {
+    const { cohortName } = req.body;
+    const cohortQuery = `INSERT INTO cohorts (cohort_name) VALUES ($1) RETURNING *;`;
+
+    try {
+      const results = await db.query(cohortQuery, [cohortName])
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error creating cohort ${error}`)
+      res.status(500).send(`Error, could not create cohort`)
+    }
   }
 }
 
