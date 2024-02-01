@@ -13,4 +13,5 @@ router.put('/notifications/:id', createUpdateControllers.addNotification);
 router.put('/updatenotifications/:id', createUpdateControllers.updateNotification);
 router.put('/announcements/:id', createUpdateControllers.addAnnouncement);
 router.put('/updatejob', createUpdateControllers.updateJob);
+router.put('/cohorts', createUpdateControllers.addCohort);
 export default router;

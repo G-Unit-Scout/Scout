@@ -7,6 +7,9 @@ import Footer from "./components/Footer";
 import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
+import ChangePassword from "./components/ChangePassword";
+import ManageCohortPage from "./components/ManageCohortPage";
+
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -23,6 +26,41 @@ function App() {
 	const [theme, setTheme] = useState("dark");
 	const [registerPage, setRegisterPage] = useState(false);
 	const [userName, setUserName] = useState("");
+	const [cohortPage, setCohortPage] = useState(false);
+	const [changePassword, setChangePassword] = useState(false)
+	const [currentPassword, setCurrentPassword] = useState("");
+	const [newPassword, setNewPassword] = useState("");
+
+const handleChangePassword = () => {
+		setChangePassword(true)
+	}
+	const handlePasswordChange = async () => {
+		try {
+			let response = await fetch(
+				`https://scouttestserver.onrender.com/api/changePassword`,
+				{
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						user_id: userId,
+						oldPassword: currentPassword,
+						newPassword: newPassword,
+					}),
+				}
+			);
+
+			if (response.ok) {
+				let resData = await response.json();
+				console.log("password was changed", resData);
+			} else {
+				console.log("failed to change password");
+			}
+		} catch (error) {
+			console.log(error.stack);
+		}
+	};
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -60,6 +98,10 @@ function App() {
 
 	const changeRegisterPage = (boolean) => {
 		setRegisterPage(boolean);
+	};
+
+	const changeCohortPage = (boolean) => {
+		setCohortPage(boolean)
 	};
 
 	// you can use this for a useEffect to fetch the user data from the backend
@@ -104,8 +146,13 @@ function App() {
 						userType={userType}
 						changeRegisterPage={changeRegisterPage}
 						userName={userName}
+						setChangePassword={setChangePassword}
+						handleChangePassword={handleChangePassword}
+						changeCohortPage={changeCohortPage}
 					/>
-					{registerPage ? (
+					
+					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword}/> : 
+					registerPage ? (
 						<RegisterUser />
 					) : jobPosting ? (
 						<JobPostingsPage
@@ -113,7 +160,9 @@ function App() {
 							user_id={userId}
 							usersCohortId={usersCohortId}
 						/>
-					) : (
+					) : cohortPage ? (
+					<ManageCohortPage/>
+				  ) : (
 						<KanbanBoard
 							userType={userType}
 							user_id={userId}
@@ -136,6 +185,6 @@ export default App;
         Toggle userType
     </button>
     <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
-    
+
 </div> */
 }
