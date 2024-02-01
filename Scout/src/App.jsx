@@ -16,7 +16,7 @@ function App() {
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
 	const [verified, setVerified] = useState(false);
-	const [userId, setUserId] = useState(3);
+	const [userId, setUserId] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [userType, setUserType] = useState('student');
