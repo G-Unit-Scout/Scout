@@ -9,15 +9,30 @@ import RegisterUser from './components/RegisterUser'
 import KanbanBoard from './components/KanbanBoard'
 
 
-function App() {
-  const [count, setCount] = useState(0)
-  const [jobPosting, setJobPosting] = useState(false);
-  // if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
-  const [verified, setVerified] = useState(false)
-  const [userType, setUserType] = useState('student');
-  const [user_id, setUser_id] = useState(0);
-  const [usersCohortId, setUsersCohortId] = useState(1);
 
+function App() {
+
+	const [count, setCount] = useState(0);
+	const [jobPosting, setJobPosting] = useState(false);
+	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
+	const [verified, setVerified] = useState(false);
+  const [userType, setUserType] = useState('student');
+	const [userId, setUserId] = useState(0);
+  const [usersCohortId, setUsersCohortId] = useState(1);
+//state below it for dark mode/light mode functionality
+	const [toggleMode, setToggleMode] = useState(false);
+	const [theme, setTheme] = useState('dark');
+
+	useEffect(() => {
+		// Update the theme based on the toggleMode state
+		setTheme(toggleMode ? 'light' : 'dark');
+	  }, [toggleMode]);
+
+	const handleToggle = (e) => {
+		// Toggle the toggleMode state
+		e.preventDefault();
+		setToggleMode(!toggleMode);
+	  };
 
 	const changeJobPosting = (boolean) => {
 		setJobPosting(boolean);
@@ -41,11 +56,12 @@ function App() {
 
 
 	return (
-		<div className="font-galvanize">
+		<div className="font-galvanize" data-theme={theme}>
 			{/* {!verified ? ( */}
 				{/* <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> */}
 			{/* ) : ( */}
 				<>
+					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>
 					{jobPosting ? <JobPostingsPage userType={userType} user_id={user_id} usersCohortId={usersCohortId}/> :
           <KanbanBoard userType={userType} user_id={user_id} usersCohortId={usersCohortId}/>}
 					<RegisterUser />
