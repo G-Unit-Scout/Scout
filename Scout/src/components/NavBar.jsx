@@ -4,22 +4,9 @@ import Notifications from "./Notifications"
 import Announcements from "./Announcements";
 import Settings from "./Settings"
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle }) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName}) {
     const [acknowledge, setAcknowledge] = useState(false)
-    const [userName, setUserName] = useState('')
     const [showSettings, setShowSettings] = useState(false)
-
-    useEffect (() => {
-
-        const getUserName = async () => {
-          const res = await fetch(`https://scouttestserver.onrender.com/api/user/${userId}`);
-          const data =  await res.json();
-    
-          setUserName(data);
-        }
-        getUserName();
-
-    }, []);
 
     useEffect( () => {
 
@@ -61,16 +48,23 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
     }
 
     const openJobPosting = (e) => {
+        changeRegisterPage(false)
         changeJobPosting(true)
     }
 
     const openPersonalBoard = (e) => {
+        changeRegisterPage(false)
         changeJobPosting(false)
+        
     }
 
     const handleSettings = () => {
             setShowSettings(!showSettings)
         
+    }
+
+    const openRegister = (e) => {
+        changeRegisterPage(true)
     }
 
     return(
@@ -82,6 +76,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             <ul className="menu menu-horizontal text-white px-1">
             <li><a onClick={openJobPosting} className="hover:text-[#eb8c2d]">Job Board</a></li>
             <li><a onClick={openPersonalBoard} className="hover:text-[#eb8c2d]">Personal Board</a></li>
+            {userType === 'admin'? <li><a onClick={openRegister} className="hover:text-[#eb8c2d]">Register User</a></li> : " "}
             </ul>
         </div>
         <div className="navbar-end">
@@ -108,7 +103,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost">
                 <div className="w-30">
-                {userName !== '' ? userName[0].user_name : " "}
+                {userName}
                 </div>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

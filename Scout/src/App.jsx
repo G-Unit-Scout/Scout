@@ -19,11 +19,31 @@ function App() {
 	const [userId, setUserId] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
-  const [userType, setUserType] = useState('student');
+  const [userType, setUserType] = useState('admin');
   const [usersCohortId, setUsersCohortId] = useState(1);
 //state below it for dark mode/light mode functionality
 	const [toggleMode, setToggleMode] = useState(false);
 	const [theme, setTheme] = useState('dark');
+  const [registerPage, setRegisterPage] = useState(false);
+  const [userName, setUserName] = useState('')
+
+  useEffect (() => {
+
+    const getUser = async () => {
+      const res = await fetch(`https://scouttestserver.onrender.com/api/user/${userId}`);
+      const data =  await res.json();
+
+      setUserName(data[0].user_name);
+
+      if (data[0].role === 1) {
+        setUserType("admin")
+      } else {
+        setUserType("student")
+      }
+    }
+    getUser();
+
+}, [userId]);
 
 	useEffect(() => {
 		// Update the theme based on the toggleMode state
@@ -39,6 +59,10 @@ function App() {
 	const changeJobPosting = (boolean) => {
 		setJobPosting(boolean);
 	};
+
+  const changeRegisterPage = (boolean) => {
+    setRegisterPage(boolean);
+  }
 
 	// you can use this for a useEffect to fetch the user data from the backend
 	const fetchUser = async (id) => {
@@ -78,10 +102,13 @@ function App() {
           notifications={notifications}
           addNotifications={addNotifications}
           announcements={announcements}
-          addAnnouncements={addAnnouncements}/>
-					{jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
+          addAnnouncements={addAnnouncements}
+          userType={userType}
+          changeRegisterPage={changeRegisterPage}
+          userName={userName}/>
+					{registerPage ? <RegisterUser /> :
+          jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
           <KanbanBoard userType={userType} user_id={userId} usersCohortId={usersCohortId}/>}
-					<RegisterUser />
 					<Footer />
 				</>
 			 )} 
