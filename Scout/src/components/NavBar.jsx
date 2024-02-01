@@ -5,7 +5,9 @@ import Announcements from "./Announcements";
 import Settings from "./Settings"
 import ChangePassword from "./ChangePassword";
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, changePassword, handleChangePassword}) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, changePassword, handleChangePassword, changeCohortPage}) {
+
+
     const [acknowledge, setAcknowledge] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
     
@@ -17,12 +19,12 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             const res = await fetch(`https://scouttestserver.onrender.com/api/announcements`);
             const data =  await res.json();
             console.log(data)
-      
+
             addAnnouncements(data);
             if (data[0] !== undefined) {
                 setAcknowledge(true)
             }
-            
+
         }
         getAnnouncements();
     }, [])
@@ -34,16 +36,19 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             const res = await fetch(`https://scouttestserver.onrender.com/api/notifications/${userId}`);
             const data =  await res.json();
             console.log(data)
-      
+
             addNotifications(data);
             if (data[0] !== undefined) {
                 setAcknowledge(true)
             }
-            
+
         }
         getNotifications();
     }, [])
-    
+
+const handleChangePassword = () => {
+    setChangePassword(true)
+}
 
 
     const handleClick = (e) => {
@@ -52,22 +57,31 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
 
     const openJobPosting = (e) => {
         changeRegisterPage(false)
+        changeCohortPage(false)
         changeJobPosting(true)
     }
 
     const openPersonalBoard = (e) => {
         changeRegisterPage(false)
         changeJobPosting(false)
-        
+        changeCohortPage(false)
     }
 
     const handleSettings = () => {
             setShowSettings(!showSettings)
-        
+
     }
 
     const openRegister = (e) => {
+        changeCohortPage(false)
+        changeJobPosting(false)
         changeRegisterPage(true)
+    }
+
+    const openManageCohort = (e) => {
+        changeRegisterPage(false)
+        changeJobPosting(false)
+        changeCohortPage(true)
     }
 
     return(
@@ -80,6 +94,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             <li><a onClick={openJobPosting} className="hover:text-[#eb8c2d]">Job Board</a></li>
             <li><a onClick={openPersonalBoard} className="hover:text-[#eb8c2d]">Personal Board</a></li>
             {userType === 'admin'? <li><a onClick={openRegister} className="hover:text-[#eb8c2d]">Register User</a></li> : " "}
+            {userType === 'admin'? <li><a onClick={openManageCohort} className="hover:text-[#eb8c2d]">Manage Cohorts</a></li> : " "}
             </ul>
         </div>
         <div className="navbar-end">
@@ -99,7 +114,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
                         {announcements[0] === undefined? " ": <Announcements announcements={announcements}/>}
                         {notifications[0] === undefined? " ": <Notifications userId ={userId} notifications={notifications}/>}
 
-                        
+
                     </ul>
                 </div>
             </div>
@@ -116,7 +131,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
             </ul>
             </div>
         </div>
-        
+
     </div>
 
     )

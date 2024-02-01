@@ -8,6 +8,7 @@ import JobPostingsPage from "./components/JobPostingsPage";
 import RegisterUser from "./components/RegisterUser";
 import KanbanBoard from "./components/KanbanBoard";
 import ChangePassword from "./components/ChangePassword";
+import ManageCohortPage from "./components/ManageCohortPage";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 	const [theme, setTheme] = useState("dark");
 	const [registerPage, setRegisterPage] = useState(false);
 	const [userName, setUserName] = useState("");
+	const [cohortPage, setCohortPage] = useState(false);
 	const [changePassword, setChangePassword] = useState(false)
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
@@ -59,8 +61,6 @@ const handleChangePassword = () => {
 			console.log(error.stack);
 		}
 	};
-
-	
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -98,6 +98,10 @@ const handleChangePassword = () => {
 
 	const changeRegisterPage = (boolean) => {
 		setRegisterPage(boolean);
+	};
+
+	const changeCohortPage = (boolean) => {
+		setCohortPage(boolean)
 	};
 
 	// you can use this for a useEffect to fetch the user data from the backend
@@ -144,6 +148,7 @@ const handleChangePassword = () => {
 						userName={userName}
 						setChangePassword={setChangePassword}
 						handleChangePassword={handleChangePassword}
+						changeCohortPage={changeCohortPage}
 					/>
 					
 					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword}/> : 
@@ -155,7 +160,9 @@ const handleChangePassword = () => {
 							user_id={userId}
 							usersCohortId={usersCohortId}
 						/>
-					) : (
+					) : cohortPage ? (
+					<ManageCohortPage/>
+				  ) : (
 						<KanbanBoard
 							userType={userType}
 							user_id={userId}
@@ -178,6 +185,6 @@ export default App;
         Toggle userType
     </button>
     <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
-    
+
 </div> */
 }
