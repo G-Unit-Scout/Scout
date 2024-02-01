@@ -114,6 +114,19 @@ const fetchControllers = {
       console.error(`Error fetching user name ${error}`)
       res.status(500).send(`Error, could not fetch user name`)
     }
+  },
+
+  fetchSingleUser: async (req, res) => {
+    const userID = req.params.id
+    const userQuery = `SELECT * FROM users WHERE user_id = $1`
+
+    try {
+      const results = await db.query(userQuery,[userID])
+      res.status(200).send(results.rows)
+    } catch(error) {
+      console.error(`Error fetching user ${error}`)
+      res.status(500).send(`Error, could not fetch user`)
+    }
   }
 
 };
