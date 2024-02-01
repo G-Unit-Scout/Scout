@@ -16,12 +16,35 @@ function App() {
 	const [jobPosting, setJobPosting] = useState(false);
 	// if the user is verified in the backend then you can use this state for conditional rendering!!!!!!!!!!!!!!!!!!!!!
 	const [verified, setVerified] = useState(false);
-  const [userType, setUserType] = useState('student');
-	const [userId, setUserId] = useState(5);
+	const [userId, setUserId] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  const [userType, setUserType] = useState('admin');
   const [usersCohortId, setUsersCohortId] = useState(1);
 //state below it for dark mode/light mode functionality
 	const [toggleMode, setToggleMode] = useState(false);
 	const [theme, setTheme] = useState('dark');
+  const [registerPage, setRegisterPage] = useState(false);
+  const [userName, setUserName] = useState('')
+
+  useEffect (() => {
+
+    const getUser = async () => {
+      const res = await fetch(`https://scouttestserver.onrender.com/api/user/${userId}`);
+      const data =  await res.json();
+
+      setUserName(data[0].user_name);
+      console.log(data)
+
+      if (data[0].role == 1) {
+        setUserType("admin")
+      } else {
+        setUserType("student")
+      }
+    }
+    getUser();
+
+}, [userId]);
 
 	useEffect(() => {
 		// Update the theme based on the toggleMode state
@@ -38,6 +61,10 @@ function App() {
 		setJobPosting(boolean);
 	};
 
+  const changeRegisterPage = (boolean) => {
+    setRegisterPage(boolean);
+  }
+
 	// you can use this for a useEffect to fetch the user data from the backend
 	const fetchUser = async (id) => {
     setUserId(id);
@@ -50,24 +77,42 @@ function App() {
     setUserId(0);
   }
 
-  const toggleOption = () => {
-    setUserType(prevType => prevType === 'student' ? 'admin' : 'student');
-  };
+  const addNotifications = (data) => {
+    setNotifications(data);
+  }
+
+  const addAnnouncements = (data) => {
+    setAnnouncements(data);
+  }
 
 
 	return (
 		<div className="font-galvanize" data-theme={theme}>
-			{/* {!verified ? ( */}
-				{/* <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> */}
-			{/* ) : ( */}
-				<>
-					<NavBar changeJobPosting={changeJobPosting} handleLogout={handleLogout} toggleMode={toggleMode} setToggleMode={setToggleMode} theme={theme} setTheme={setTheme} handleToggle={handleToggle}/>
-					{jobPosting ? <JobPostingsPage userType={userType} userId={userId} usersCohortId={usersCohortId}/> :
-          <KanbanBoard userType={userType} userId={userId} usersCohortId={usersCohortId}/>}
-					{/* <RegisterUser /> */}
-					{/* <Footer /> */}
+			{!verified ? ( 
+				 <AdminLogin setVerified={setVerified} fetchUser={fetchUser} /> 
+			 ) : ( 
+				  <>
+					<NavBar changeJobPosting={changeJobPosting} 
+          handleLogout={handleLogout} 
+          toggleMode={toggleMode} 
+          setToggleMode={setToggleMode} 
+          theme={theme} 
+          setTheme={setTheme} 
+          handleToggle={handleToggle}
+          userId={userId}
+          notifications={notifications}
+          addNotifications={addNotifications}
+          announcements={announcements}
+          addAnnouncements={addAnnouncements}
+          userType={userType}
+          changeRegisterPage={changeRegisterPage}
+          userName={userName}/>
+					{registerPage ? <RegisterUser /> :
+          jobPosting ? <JobPostingsPage userType={userType} user_id={userId} usersCohortId={usersCohortId}/> :
+          <KanbanBoard userType={userType} user_id={userId} usersCohortId={usersCohortId}/>}
+					<Footer />
 				</>
-			{/* )} */}
+			 )} 
 		</div>
 	);
 }
