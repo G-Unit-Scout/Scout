@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import jsonData from '../TestData/TestUserKanbanData.json';
-import studentjsonData from '../TestData/TestUserKanbanData_v2.json';
-import cohortjsonData from '../TestData/TestCohortKanban.json';
+// import jsonData from '../TestData/TestUserKanbanData.json';
+// import studentjsonData from '../TestData/TestUserKanbanData_v2.json';
+// import cohortjsonData from '../TestData/TestCohortKanban.json';
 import KanbanColumn from './KanbanColumn';
 import JobModal from './JobModal';
 
@@ -11,8 +11,6 @@ import JobModal from './JobModal';
 
 
 const KanbanBoard = ({userType, user_id, usersCohortId}) => {
-
-  //console.log("userType IN StudentKanbanBoard:===", userType)
 
   const initialNewJobDetails = {
     job_id: null,
@@ -41,13 +39,13 @@ const KanbanBoard = ({userType, user_id, usersCohortId}) => {
   const [openModalId, setOpenModalId] = useState(null);
   const [newJobDetails, setNewJobDetails] = useState(null);
   const [jsonData, setJsonData] = useState([]);
+  const [cohortjsonData, setCohortjsonData] = useState([]);
   const [selectedCohort, setSelectedCohort] = useState(undefined); // New state for selected cohort
   const [allCohorts, setAllCohorts] = useState([]); // State to hold all cohorts (for admin)
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
   const [needRefresh, setNeedRefresh] = useState(false);
 
-  console.log("editJobDetails:", editJobDetails)
 
 
   //===========================Helper Functions===========================//
@@ -88,40 +86,90 @@ useEffect(() => {
   }
 }, [userType, needRefresh]);
 
-// Setting initial state for admin view and fetching cohorts
+
+
 useEffect(() => {
   if (userType === 'admin') {
-    setJsonData([]); // Initialize with empty array
-    // Fetch cohorts (implement fetchCohorts function to fetch from API)
-    const cohorts = fetchCohorts(cohortjsonData);/* API response data */
-    setAllCohorts(cohorts);
+    const fetchCohortsData = async () => {
+      try {
+        const response = await fetch('https://scouttestserver.onrender.com/api/cohorts');
+        const data = await response.json();
+        setAllCohorts(data.map(cohort => ({
+          id: cohort.cohort_id,
+          name: cohort.cohort_name
+        })));
+      } catch (error) {
+        console.error('Error fetching cohorts:', error);
+      }
+    };
+
+    fetchCohortsData();
   }
 }, [userType]);
 
-// Fetching data for selected cohort and students for admin view
+
 useEffect(() => {
   if (userType === 'admin' && selectedCohort) {
-    // Fetch data for the selected cohort
-    const data = fetchDataForCohort(selectedCohort); // Adjust this function to fetch from API
-    const students = fetchStudents(data); // Adjust this function to fetch from API
-    setAllStudents(students);
-    setJsonData(data);
+    const fetchCohortData = async () => {
+      try {
+        const response = await fetch(`https://scouttestserver.onrender.com/api/cohortkanban/${selectedCohort}`);
+        const data = await response.json();
+        setJsonData(data);
+        setCohortjsonData(data);
+      } catch (error) {
+        console.error('Error fetching cohort data:', error);
+      }
+    };
+
+    fetchCohortData();
   } else if (userType === 'admin') {
     setJsonData([]); // Reset when no cohort is selected
     setAllStudents([]);
+    setCohortjsonData([]);
+    setSelectedStudent(undefined);
   }
-}, [userType, selectedCohort]);
+}, [userType, selectedCohort, needRefresh]);
+
+
+
+useEffect(() => {
+  if (userType === 'admin') {
+    const fetchStudentsData = async () => {
+      try {
+        const response = await fetch('https://scouttestserver.onrender.com/api/users');
+        const users = await response.json();
+        const students = users.filter(user => user.cohort_id === selectedCohort);
+        setAllStudents(students.map(student => ({
+          id: student.user_id,
+          name: student.user_name
+        })));
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
+    };
+
+    if (selectedCohort) {
+      fetchStudentsData();
+    }
+  }
+}, [userType, selectedCohort, needRefresh]);
+
+
+
 
 // Fetching data for selected student within a cohort for admin view
 useEffect(() => {
   if (userType === 'admin' && selectedStudent) {
+    console.log("selectedStudent",selectedStudent)
     const data = fetchStudentDataForCohort(selectedStudent); // Adjust this function to fetch from API
     setJsonData(data);
+    console.log("AllStudents", allStudents)
   } else if (userType === 'admin') {
-    const data = fetchDataForCohort(selectedCohort);
-    setJsonData(data);
+    // const data = fetchDataForCohort(selectedCohort);
+    // setJsonData(data);
+    setJsonData(cohortjsonData);
   }
-}, [userType, selectedStudent, selectedCohort]);
+}, [userType, selectedStudent, needRefresh]);
 
 // Update jobDetails and columns when jsonData changes
 useEffect(() => {
@@ -176,89 +224,6 @@ useEffect(() => {
   };
 
 
-  // const handleUpdateJobDetails = (jobId) => {
-  //   const validateJobDetails = (details) => {
-  //     // Add your validation logic here
-  //     // Example: Check if job title is empty
-  //     if (!details.job_title.trim()) {
-  //       alert('Please fill out the job title.');
-  //       return false;
-  //     }
-  //     // Add other required field checks as needed
-  //     return true;
-  //   };
-
-  //   if (jobId === 'new') {
-  //     if (!validateJobDetails(newJobDetails)) {
-  //       return; // Stop if validation fails
-  //     }
-  //     const newJobId = `job_${new Date().getTime()}`;
-      
-  //     setJobDetails(prev => ({
-  //       ...prev,
-  //       [newJobId]: { ...newJobDetails, job_id: newJobId }
-  //     }));
-  
-  //     const newJobColumn = getColumnTitle(1); // Assuming new jobs go to the first column
-  //     setColumns(prev => ({
-  //       ...prev,
-  //       [newJobColumn]: [...(prev[newJobColumn] || []), { ...newJobDetails, job_id: newJobId }]
-  //     }));
-  //   } else {
-  //     if (!validateJobDetails(editJobDetails)) {
-  //       return; // Stop if validation fails
-  //     }
-  //     // Updating an existing job
-  //     setJobDetails(prev => ({
-  //       ...prev,
-  //       [jobId]: { ...editJobDetails }
-  //     }));
-  //   }
-  //   closeModal();
-  // };
-
-
-
-//   const handleUpdateJobDetails = (jobId) => {
-//     const validateJobDetails = (details) => {
-//         // Add your validation logic here
-//         if (!details.job_title.trim()) {
-//             alert('Please fill out the job title.');
-//             return false;
-//         }
-//         // ... other validations ...
-//         return true;
-//     };
-
-//     const updatedJobDetails = jobId === 'new' ? newJobDetails : editJobDetails;
-//     console.log("newJobDetails:", newJobDetails)
-
-//     if (!validateJobDetails(updatedJobDetails)) {
-//         return; // Stop if validation fails
-//     }
-
-//     // Updating the jobDetails state
-//     setJobDetails(prevJobDetails => ({
-//         ...prevJobDetails,
-//         [jobId]: updatedJobDetails
-//     }));
-
-//     // Updating the columns state
-//     setColumns(prevColumns => {
-//         const newColumns = { ...prevColumns };
-//         Object.keys(newColumns).forEach(columnKey => {
-//             newColumns[columnKey] = newColumns[columnKey].map(job => {
-//                 if (job.job_id === jobId) {
-//                     return updatedJobDetails;
-//                 }
-//                 return job;
-//             });
-//         });
-//         return newColumns;
-//     });
-
-//     closeModal();
-// };
 
 
 
@@ -455,6 +420,89 @@ const handleUpdateJobDetails = async (jobId) => {
   };
 
 
+
+
+
+
+  const handleColumnUpdate = async (cardID, cardDestination) => {
+    let newColumnID;
+
+    switch (cardDestination) {
+      case "Wishlist":
+        newColumnID = 1
+        break;
+      case "Applied":
+        newColumnID = 2
+        break;
+      case "Interview":
+        newColumnID = 3
+        break;
+      case "Offer":
+        newColumnID = 4
+        break;
+      case "No Response":
+        newColumnID = 5
+        break;
+      default:
+        break;
+    }
+
+    // console.log(jobDetails)
+
+    try {
+      // Construct the body for the API request
+      // console.log(typeof(jobDetails))
+      const body = {
+          statusID: jobDetails[cardID].status_id,
+          jobID: cardID,
+          noteID: jobDetails[cardID].note_id,
+          noteContent : jobDetails[cardID].note_content,
+          jobStatus: {
+            cohort_id: jobDetails[cardID].cohort_id,
+            column_id: newColumnID,
+            row_num: jobDetails[cardID].row_num,
+            interview_status: jobDetails[cardID].interview_status,
+            tags: jobDetails[cardID].tags
+          },
+          jobDetails: {
+            job_title: jobDetails[cardID].job_title,
+            description: jobDetails[cardID].description,
+            company: jobDetails[cardID].company,
+            location: jobDetails[cardID].location,
+            salary_range: jobDetails[cardID].salary_range,
+            is_admin: jobDetails[cardID].is_admin,
+            post_url: jobDetails[cardID].post_url,
+            job_type: jobDetails[cardID].job_type,
+            is_partner: jobDetails[cardID].is_partner,
+            competencies: jobDetails[cardID].competencies
+          }
+      };
+
+      // console.log("body:", body)
+      // Make an API call to create a new job
+      const response = await fetch(`https://scouttestserver.onrender.com/api/updatestatus`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create the job');
+      }
+
+      const updatedJob = await response.json();
+      console.log("column Updated")
+      setNeedRefresh(true)
+
+    } catch (error) {
+      console.error('Error creating new job:', error);
+      // Handle error (e.g., show error message to user)
+    }
+  }
+
+
   // Handle drag end event
   const onDragEnd = (result) => {
     const { source, destination, draggableId } = result;
@@ -475,8 +523,15 @@ const handleUpdateJobDetails = async (jobId) => {
       destinationJobs.splice(destination.index, 0, movedJob);
       newColumns[destination.droppableId] = destinationJobs;
 
+      
+
       return newColumns;
     });
+
+    handleColumnUpdate(draggableId, destination.droppableId)
+
+    // console.log("draggedId:", draggableId, "destination:", destination.droppableId)
+    // console.log(jobDetails)
   };
 
 
@@ -520,7 +575,7 @@ const handleUpdateJobDetails = async (jobId) => {
       <option value="">Select Cohort</option>
       {allCohorts.map(cohort => (
         //console.log(cohort)
-        <option key={cohort} value={cohort}>{cohort}</option>
+        <option key={cohort.id} value={cohort.id}>{cohort.name}</option>
       ))}
     </select>
   )
@@ -531,9 +586,9 @@ const handleUpdateJobDetails = async (jobId) => {
 const studentSelectionDropdown = userType === 'admin' && (
   <select className="select select-bordered mx-4" value={selectedStudent} onChange={(e) => setSelectedStudent(e.target.value)}>
     <option value="">Select Student</option>
-    {/* {console.log("allStudents:===", allStudents)} */}
     {allStudents.map(student => (
-      <option key={student} value={student}>{student}</option>
+      //console.log(student),
+      <option key={student.id} value={student.id}>{student.name}</option>
     ))}
   </select>
 );
@@ -546,12 +601,13 @@ const studentSelectionDropdown = userType === 'admin' && (
 
 
   const fetchStudentDataForCohort = (selectedStudent) => {
-    //console.log("selectedStudent IN fetchStudentDataForCohort:===", selectedStudent);
+    console.log("working");
+    console.log("selectedCohort:", selectedCohort);
+    console.log("cohortjsonData:", cohortjsonData);
     // Filter the jsonData to return only those jobs that belong to the specified cohort
-    return cohortjsonData.filter(job => job.cohort_id === selectedCohort && job.user_name === selectedStudent);
+    return cohortjsonData.filter(job => job.cohort_id === selectedCohort && job.user_id === selectedStudent);
   };
 
-//console.log("allStudents:===", allStudents)
   //===========================Initialize and Populate Columns===========================//
 
 

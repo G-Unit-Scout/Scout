@@ -73,3 +73,13 @@ function App() {
 }
 
 export default App;
+
+
+//Was used to move between student and admin for testing
+{/* <div className='flex justify-center'>
+    <button className="btn btn-primary" onClick={toggleOption}>
+        Toggle userType
+    </button>
+    <p>Current Data: userType: {userType} & user_id: {user_id} & cohort_id: {usersCohortId}</p>
+    
+</div> */}
