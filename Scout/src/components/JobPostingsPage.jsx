@@ -82,61 +82,86 @@ function JobPostingsPage({userType, userId, usersCohortId}) {
         let method;
         let bodyData;
 
-        let newJobObj = {
-            jobDetails: {
-                job_title: newJobBoardDetails.job_title,
-                description: newJobBoardDetails.description,
-                company: newJobBoardDetails.company,
-                location: newJobBoardDetails.location,
-                salary_range: newJobBoardDetails.salary_range,
-                is_admin: true,
-                post_url: newJobBoardDetails.post_url,
-                job_type: newJobBoardDetails.job_type,
-                is_partner: true,
-                competencies: newJobBoardDetails.competencies,
-            }
-        }
-        // console.log("newJobObj:", newJobObj)
 
-        let updatedJobObj = {
-            jobDetails: {
-              // Add necessary jobStatus fields here
-              job_title: selectedJob.job_title,
-              description: selectedJob.description,
-              company: selectedJob.company,
-              location: selectedJob.location,
-              salary_range: selectedJob.salary_range,
-              is_admin: false,
-              post_url: selectedJob.post_url,
-              job_type: selectedJob.job_type,
-              is_partner: false,
-              competencies: selectedJob.competencies
-            },
-            jobStatus: {
-              cohort_id: usersCohortId,
-              column_id: 1,
-              row_num: 1,
-              note_id: null,
-              interview_status: "",
-              tags: null
-            },
-            noteContent: {
-              noteContent : ""
-            } // or other note content logic
-          };
     
         if (modalMode === 'new') {
+            let newJobObj = {
+                jobDetails: {
+                    job_title: newJobBoardDetails.job_title,
+                    description: newJobBoardDetails.description,
+                    company: newJobBoardDetails.company,
+                    location: newJobBoardDetails.location,
+                    salary_range: newJobBoardDetails.salary_range,
+                    is_admin: true,
+                    post_url: newJobBoardDetails.post_url,
+                    job_type: newJobBoardDetails.job_type,
+                    is_partner: true,
+                    competencies: newJobBoardDetails.competencies,
+                }
+            }
             // Set the API endpoint and HTTP method for creating a new job
             apiEndpoint = 'https://scouttestserver.onrender.com/api/addjob'; // Adjust with your actual endpoint
             method = 'PUT';
             bodyData = newJobObj;
         } else if (userType === 'admin') {
+            let updatedJobObj = {
+                jobDetails: {
+                  // Add necessary jobStatus fields here
+                  job_title: selectedJob.job_title,
+                  description: selectedJob.description,
+                  company: selectedJob.company,
+                  location: selectedJob.location,
+                  salary_range: selectedJob.salary_range,
+                  is_admin: false,
+                  post_url: selectedJob.post_url,
+                  job_type: selectedJob.job_type,
+                  is_partner: false,
+                  competencies: selectedJob.competencies
+                },
+                jobStatus: {
+                  cohort_id: usersCohortId,
+                  column_id: 1,
+                  row_num: 1,
+                  note_id: null,
+                  interview_status: "",
+                  tags: null
+                },
+                noteContent: {
+                  noteContent : ""
+                } // or other note content logic
+              };
             // Set the API endpoint and HTTP method for updating an existing job
             apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${userId}`; // Adjust with your actual endpoint
             method = 'PUT';
             bodyData = updatedJobObj;
             //console.log("UpdatedJobObj:", updatedJobObj)
         } else {
+            let updatedJobObj = {
+                jobDetails: {
+                  // Add necessary jobStatus fields here
+                  job_title: selectedJob.job_title,
+                  description: selectedJob.description,
+                  company: selectedJob.company,
+                  location: selectedJob.location,
+                  salary_range: selectedJob.salary_range,
+                  is_admin: false,
+                  post_url: selectedJob.post_url,
+                  job_type: selectedJob.job_type,
+                  is_partner: false,
+                  competencies: selectedJob.competencies
+                },
+                jobStatus: {
+                  cohort_id: usersCohortId,
+                  column_id: 1,
+                  row_num: 1,
+                  note_id: null,
+                  interview_status: "",
+                  tags: null
+                },
+                noteContent: {
+                  noteContent : ""
+                } // or other note content logic
+              };
             // Set the API endpoint and HTTP method for updating an existing job
             apiEndpoint = `https://scouttestserver.onrender.com/api/addjobaddstatus/${userId}`; // Adjust with your actual endpoint
             method = 'PUT';
@@ -239,6 +264,7 @@ function JobPostingsPage({userType, userId, usersCohortId}) {
         <JobPostingModal 
             userType={userType}
             isOpen={isModalOpen} 
+            newJob={modalMode}
             jobDetails={modalMode === 'new' ? newJobBoardDetails : selectedJob || editJobBoardDetails} 
             onChange={handleJobDetailsChange} 
             onSave={handleSaveNewJob}
