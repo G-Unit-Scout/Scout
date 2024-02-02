@@ -151,13 +151,13 @@ const handleChangePassword = () => {
 						changeCohortPage={changeCohortPage}
 					/>
 					
-					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword}/> : 
+					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword} theme={theme}/> : 
 					registerPage ? (
 						<RegisterUser />
 					) : jobPosting ? (
 						<JobPostingsPage
 							userType={userType}
-							user_id={userId}
+							userId={userId}
 							usersCohortId={usersCohortId}
 						/>
 					) : cohortPage ? (
@@ -165,11 +165,13 @@ const handleChangePassword = () => {
 				  ) : (
 						<KanbanBoard
 							userType={userType}
-							user_id={userId}
+							userId={userId}
 							usersCohortId={usersCohortId}
 						/>
 					)}
-					<Footer />
+					<div className="relative bottom-0 w-full">
+						<Footer />
+					</div>
 				</>
 			)}
 		</div>

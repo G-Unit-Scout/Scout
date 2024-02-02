@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ChangePassword = ({ userId, handlePasswordChange, currentPassword, setCurrentPassword, newPassword, setNewPassword, setChangePassword}) => {
+const ChangePassword = ({ userId, handlePasswordChange, currentPassword, setCurrentPassword, newPassword, setNewPassword, setChangePassword, theme}) => {
 	
 
 	console.log(userId);
@@ -35,7 +35,7 @@ const ChangePassword = ({ userId, handlePasswordChange, currentPassword, setCurr
 
 	return (
 		<>
-			<div className="flex flex-col justify-center items-center h-screen w-absolute bg-white">
+			<div className="flex flex-col justify-center items-center h-screen w-absolute" data-theme={theme}>
 				<div className="flex flex-col items-center h-[530px] w-[600px] absolute bg-[rgba(13,15,74,255)] rounded-xl">
 					<div className="flex flex-col justify-center items-center bg-[rgba(239,110,71,255)] h-[120px] w-[600px] rounded-t-xl">
 						<span className="text-[40px] font-bold text-white">
