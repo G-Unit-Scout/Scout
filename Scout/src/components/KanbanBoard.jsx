@@ -5,7 +5,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import cohortjsonData from '../TestData/TestCohortKanban.json';
 import KanbanColumn from './KanbanColumn';
 import JobModal from './JobModal';
-
+import AdminModal from './AdminModal';
 
 
 
@@ -45,7 +45,8 @@ const KanbanBoard = ({userType, userId, usersCohortId}) => {
   const [allStudents, setAllStudents] = useState([]); // State to hold all cohorts (for admin)
   const [selectedStudent, setSelectedStudent] = useState(undefined); // New state for selected cohort
   const [needRefresh, setNeedRefresh] = useState(false);
-
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [message, setMessage] = useState("");
 
 
   //===========================Helper Functions===========================//
@@ -223,9 +224,10 @@ useEffect(() => {
     setOpenModalId(null);
   };
 
-
-
-
+  const closeAdminModal = () => {
+    console.log("close modal")
+    setShowAdminModal(false);
+  };
 
 const handleUpdateJobDetails = async (jobId) => {
   const validateJobDetails = (details) => {
@@ -593,6 +595,12 @@ const studentSelectionDropdown = userType === 'admin' && (
   </select>
 );
 
+const adminActionButton = userType === 'admin' && selectedStudent !== undefined && (
+    <button className="btn mx-4" onClick={() =>setShowAdminModal(true)}>
+      Send a Message?
+    </button>
+);
+
   const fetchDataForCohort = (selectedCohort) => {
     // Filter the jsonData to return only those jobs that belong to the specified cohort
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort);
@@ -607,6 +615,29 @@ const studentSelectionDropdown = userType === 'admin' && (
     // Filter the jsonData to return only those jobs that belong to the specified cohort
     return cohortjsonData.filter(job => job.cohort_id === selectedCohort && job.user_id === selectedStudent);
   };
+
+  const createNotification = (note) => {
+    setMessage(note)
+  };
+
+  const handleNotificationCreate = async () => {
+
+    const body = {
+      header: "notification",
+      message,
+      userId
+    }
+
+    const response = await fetch(`https://scouttestserver.onrender.com/api/notifications/${selectedStudent}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  }
+  
 
   //===========================Initialize and Populate Columns===========================//
 
@@ -641,17 +672,19 @@ const studentSelectionDropdown = userType === 'admin' && (
       <div className='flex flex-row justify-center'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}
+        {adminActionButton}
       </div>
+      <AdminModal isOpen={showAdminModal} onClose={closeAdminModal} createNotification={createNotification} handleNotificationCreate={handleNotificationCreate}/>
       <div className='flex justify-center mt-4'>
         <DragDropContext onDragEnd={onDragEnd}>
           {Object.entries(columns).map(([columnId, columnData]) => (
             <KanbanColumn key={columnId} columnId={columnId} columnData={columnData} openEditModal={openEditModal} />
           ))}
         </DragDropContext>
-        <JobModal
-          isOpen={openModalId}
-          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails}
-          onChange={handleJobDetailsChange}
+        <JobModal 
+          isOpen={openModalId} 
+          jobDetails={openModalId === 'new' ? newJobDetails : editJobDetails} 
+          onChange={handleJobDetailsChange} 
           onSave={() => handleUpdateJobDetails(openModalId)}
           onClose={closeModal}
           onDelete={handleDeleteJob}
