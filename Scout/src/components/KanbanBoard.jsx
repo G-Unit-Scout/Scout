@@ -668,7 +668,7 @@ const adminActionButton = userType === 'admin' && selectedStudent !== undefined 
 
 
   return (
-    <div className='mb-20'>
+    <div className='h-screen'>
       <div className='flex flex-row justify-center'>
         {cohortSelectionDropdown}
         {studentSelectionDropdown}
