@@ -5,7 +5,7 @@ import Announcements from "./Announcements";
 import Settings from "./Settings"
 import ChangePassword from "./ChangePassword";
 
-function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, changePassword, handleChangePassword, changeCohortPage}) {
+function NavBar({ changeJobPosting, userId, notifications, addNotifications, handleLogout, announcements, addAnnouncements, toggleMode, setToggleMode, theme, setTheme, handleToggle, userType, changeRegisterPage, userName, setChangePassword, handleChangePassword, changeCohortPage}) {
 
 
     const [acknowledge, setAcknowledge] = useState(false)
@@ -57,12 +57,14 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         changeRegisterPage(false)
         changeCohortPage(false)
         changeJobPosting(true)
+        setChangePassword(false)
     }
 
     const openPersonalBoard = (e) => {
         changeRegisterPage(false)
         changeJobPosting(false)
         changeCohortPage(false)
+        setChangePassword(false)
     }
 
     const handleSettings = () => {
@@ -74,12 +76,14 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         changeCohortPage(false)
         changeJobPosting(false)
         changeRegisterPage(true)
+        setChangePassword(false)
     }
 
     const openManageCohort = (e) => {
         changeRegisterPage(false)
         changeJobPosting(false)
         changeCohortPage(true)
+        setChangePassword(false)
     }
 
     return(
