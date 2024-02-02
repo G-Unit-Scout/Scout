@@ -169,7 +169,7 @@ const handleChangePassword = () => {
 							usersCohortId={usersCohortId}
 						/>
 					)}
-					<div className="absolute bottom-0 w-full">
+					<div className="relative bottom-0 w-full">
 						<Footer />
 					</div>
 				</>
