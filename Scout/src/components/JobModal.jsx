@@ -89,7 +89,7 @@ const parseCompetencies = (competenciesString) => {
             className="input input-bordered w-full" 
         />
 
-        <div className="divider"><a className="link link-primary font-bold">Job URL</a></div>
+        <div className="divider"><a href={jobDetails.post_url} className="link link-primary font-bold" target='_blank' rel="noopener noreferrer">Job URL</a></div>
 
         <input 
             type="text" 
