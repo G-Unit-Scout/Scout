@@ -157,7 +157,7 @@ const handleChangePassword = () => {
 					) : jobPosting ? (
 						<JobPostingsPage
 							userType={userType}
-							user_id={userId}
+							userId={userId}
 							usersCohortId={usersCohortId}
 						/>
 					) : cohortPage ? (
@@ -165,7 +165,7 @@ const handleChangePassword = () => {
 				  ) : (
 						<KanbanBoard
 							userType={userType}
-							user_id={userId}
+							userId={userId}
 							usersCohortId={usersCohortId}
 						/>
 					)}

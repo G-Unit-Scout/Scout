@@ -89,7 +89,7 @@ const ManageCohortPage = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center h-screen w-absolute'>
+      <div className='flex flex-col justify-center items-center h-screen w-absolute text-white'>
 
         { cohortOption === null &&
         <div className='flex flex-col justify-center items-center h-[455px] w-[600px] bg-[rgba(13,15,74,255)] rounded-xl'>
