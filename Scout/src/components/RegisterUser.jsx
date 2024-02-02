@@ -92,7 +92,7 @@ try{
 
     return (
         <>
-        <div className='flex flex-col justify-center items-center h-screen w-absolute'>
+        <div className='flex flex-col justify-center items-center h-screen w-absolute text-white'>
 
             <div className='flex flex-col justify-start items-center h-[680px] w-[600px] bg-[rgba(13,15,74,255)] rounded-xl'>
                 <div className='flex flex-col justify-center items-center bg-[rgba(239,110,71,255)] h-[120px] w-[600px] rounded-t-xl'>

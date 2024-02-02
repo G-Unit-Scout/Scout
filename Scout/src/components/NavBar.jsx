@@ -10,7 +10,7 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
 
     const [acknowledge, setAcknowledge] = useState(false)
     const [showSettings, setShowSettings] = useState(false)
-    
+
 
     useEffect( () => {
 
@@ -45,9 +45,6 @@ function NavBar({ changeJobPosting, userId, notifications, addNotifications, han
         }
         getNotifications();
     }, [])
-
-
-
 
     const handleClick = (e) => {
         setAcknowledge(false);

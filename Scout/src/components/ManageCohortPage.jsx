@@ -5,7 +5,6 @@ const ManageCohortPage = () => {
 
   const [newCohortName, setNewCohortName] = useState('');
   const [cohortOption, setCohortOption] =  useState(null);
-  const [cohortName, setCohortName] = useState('');
   const [deleteValue, setDeleteValue] = useState('');
   const [cohortData, setCohortData] = useState([]);
   const [cohort, setCohort] = useState(null);
@@ -45,18 +44,15 @@ const ManageCohortPage = () => {
     } catch(error) {
       console.error(`Error adding cohort ${error.stack}`)
     }
+    handleNullChange()
+    setNewCohortName('')
   }
 
   const handleDelCohort = async (e) => {
     if ( deleteValue === 'DELETE') {
       try {
-        const reqbody = {
-          cohortName : cohortName
-        };
-        const bodyData = JSON.stringify(reqbody);
-        const response = await fetch(`https://scouttestserver.onrender.com/api/cohorts` , {
+        const response = await fetch(`https://scouttestserver.onrender.com/api/cohorts/${cohort}` , {
           method: 'DELETE',
-          body: bodyData,
           headers: {
             'Content-Type' : 'application/json'
           }
@@ -73,6 +69,8 @@ const ManageCohortPage = () => {
     } else {
       console.log('Failed to delete')
     }
+    handleNullChange()
+    setCohort(null)
   }
 
   const handleCreateChange = (e) => {
@@ -89,7 +87,7 @@ const ManageCohortPage = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center h-screen w-absolute'>
+      <div className='flex flex-col justify-center items-center h-screen w-absolute text-white'>
 
         { cohortOption === null &&
         <div className='flex flex-col justify-center items-center h-[455px] w-[600px] bg-[rgba(13,15,74,255)] rounded-xl'>
@@ -121,7 +119,7 @@ const ManageCohortPage = () => {
             </div>
         </div>
             <div className='mt-3'>
-            <button onClick={handleNewCohort, handleNullChange}className='h-[50px] w-[500px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
+            <button onClick={handleNewCohort}className='h-[50px] w-[500px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
                 <span className='text-white '>Create Cohort</span>
             </button>
             </div>
@@ -153,7 +151,7 @@ const ManageCohortPage = () => {
                        placeholder='Please Type DELETE'
                        />
                    <div className='mt-3'>
-                   <button onClick={handleDelCohort, handleNullChange}className='h-[50px] w-[500px] mt-[25px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
+                   <button onClick={handleDelCohort}className='h-[50px] w-[500px] mt-[25px] mb-[25px] bg-[rgba(239,110,71,255)] rounded-xl'>
                        <span className='text-white '>Delete Cohort</span>
                    </button>
                    </div>
