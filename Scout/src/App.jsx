@@ -151,7 +151,7 @@ const handleChangePassword = () => {
 						changeCohortPage={changeCohortPage}
 					/>
 					
-					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword}/> : 
+					{changePassword ? <ChangePassword userId={userId} handlePasswordChange={handlePasswordChange} currentPassword={currentPassword} newPassword={newPassword} setCurrentPassword={setCurrentPassword} setNewPassword={setNewPassword} setChangePassword={setChangePassword} theme={theme}/> : 
 					registerPage ? (
 						<RegisterUser />
 					) : jobPosting ? (
